@@ -44,3 +44,16 @@ python -m gphotos_cleanup match \
 python -m gphotos_cleanup report --matches matches.json \
   --csv deletion-review.csv --manifest deletion-candidates.json
 ```
+
+
+When Chrome on the phone is visibly signed in, the cookie-free CDP collector can
+scroll the live session and write redacted cloud records:
+
+```sh
+python -m gphotos_cleanup.chrome_collect_cli \
+  --serial 10.84.166.154:43021 \
+  --output photos.json
+```
+
+This uses Chrome DevTools through ADB forwarding; it does not export cookies.
+The phone must be unlocked and Google Photos must be signed in.
