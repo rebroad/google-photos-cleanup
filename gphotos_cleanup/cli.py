@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from .adb import Adb
+from .fingerprint import fingerprint_adb
 from .photos import match, normalize
 
 
@@ -23,6 +24,7 @@ def main(argv: list[str] | None = None) -> int:
     inventory.add_argument("--serial")
     inventory.add_argument("--root", action="append", default=["/sdcard/DCIM", "/sdcard/Pictures", "/sdcard/Movies"])
     inventory.add_argument("--hash", action="store_true")
+    inventory.add_argument("--fingerprint", action="store_true", help="compute perceptual image fingerprints over ADB")
     inventory.add_argument("--output", required=True)
     normalize_cmd = sub.add_parser("normalize", help="normalize adapter JSON")
     normalize_cmd.add_argument("--input", required=True)
@@ -39,7 +41,15 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "auth-probe":
             print(json.dumps(Adb(args.serial).probe(), indent=2, sort_keys=True))
         elif args.command == "inventory":
-            _write(args.output, {"serial": args.serial, "roots": args.root, "files": Adb(args.serial).inventory(args.root, args.hash)})
+            files = Adb(args.serial).inventory(args.root, args.hash)
+            if args.fingerprint:
+                for item in files:
+                    if item.get("extension") in {".jpg", ".jpeg", ".png", ".heic", ".webp", ".gif"}:
+                        try:
+                            item["phash"] = fingerprint_adb(args.serial, str(item["path"]))
+                        except (OSError, RuntimeError):
+                            item["phash_error"] = True
+            _write(args.output, {"serial": args.serial, "roots": args.root, "files": files})
         elif args.command == "normalize":
             source = json.loads(Path(args.input).read_text(encoding="utf-8"))
             _write(args.output, normalize(source["media_items"] if isinstance(source, dict) and "media_items" in source else source))

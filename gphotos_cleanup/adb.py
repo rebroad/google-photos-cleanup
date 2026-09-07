@@ -40,6 +40,8 @@ class Adb:
         paths = [line.strip() for line in self.shell(command).splitlines() if line.strip()]
         records: list[dict[str, object]] = []
         for path in paths:
+            if "/.thumbnails/" in path:
+                continue
             quoted = shlex.quote(path)
             stat = self.shell(f"stat -c '%s\t%Y\t%w\t%n' {quoted}", check=False).strip()
             parts = stat.split("\t", 3)

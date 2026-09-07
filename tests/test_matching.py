@@ -17,3 +17,16 @@ def test_normalize_discards_sensitive_unknown_fields():
     assert "baseUrl" not in result[0]
     assert "token" not in result[0]
     assert result[0]["basename"] == "a.jpg"
+
+
+
+def test_perceptual_hash_matches_resized_or_recompressed_copy():
+    local_hash = "0" * 256
+    remote_hash = "1" * 8 + "0" * 248
+    result = match(
+        [{"path": "/sdcard/DCIM/a.jpg", "filename": "a.jpg", "phash": local_hash}],
+        [{"id": "g1", "filename": "different-name.jpg", "phash": remote_hash}],
+    )
+    assert result[0]["confidence"] == "review"
+    assert result[0]["evidence"] == ["perceptual_hash"]
+    assert result[0]["remote_ids"] == ["g1"]

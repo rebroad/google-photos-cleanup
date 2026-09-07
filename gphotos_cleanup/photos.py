@@ -3,6 +3,8 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import PurePosixPath
 
+from .fingerprint import hamming
+
 
 def normalize(items: list[dict[str, object]]) -> list[dict[str, object]]:
     """Normalize adapter output without retaining access tokens or URLs to bytes.
@@ -13,7 +15,7 @@ def normalize(items: list[dict[str, object]]) -> list[dict[str, object]]:
     result = []
     for item in items:
         filename = str(item.get("filename", ""))
-        result.append({key: item[key] for key in ("id", "filename", "size", "mime_type", "creation_time", "sha256", "product_url") if key in item and item[key] is not None} | {"basename": PurePosixPath(filename).name})
+        result.append({key: item[key] for key in ("id", "filename", "size", "mime_type", "creation_time", "sha256", "product_url", "content_url", "phash", "width", "height") if key in item and item[key] is not None} | {"basename": PurePosixPath(filename).name})
     return result
 
 
@@ -54,5 +56,16 @@ def match(local: list[dict[str, object]], remote: list[dict[str, object]], toler
                     evidence.append("creation_time")
             if {"size", "creation_time"}.issubset(evidence):
                 confidence = "medium"
+        if not candidates and file.get("phash"):
+            local_phash = str(file["phash"])
+            perceptual = [
+                candidate for candidate in remote
+                if candidate.get("phash")
+                and hamming(local_phash, str(candidate["phash"])) <= 24
+            ]
+            if perceptual:
+                candidates = perceptual
+                evidence.append("perceptual_hash")
+                confidence = "review"
         output.append({"path": file.get("path"), "filename": file.get("filename"), "confidence": confidence if candidates else "none", "evidence": sorted(set(evidence)), "remote_ids": [item.get("id") for item in candidates], "remote_urls": [item.get("product_url") for item in candidates]})
     return output
