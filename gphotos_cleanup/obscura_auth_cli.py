@@ -55,7 +55,7 @@ def authenticate(binary: str, storage_dir: str, port: int) -> None:
             email = input("Google account email: ").strip()
             if not email:
                 raise CdpError("An email address is required")
-            _fill_and_click(ws, session, "input[type=email]", email, "#identifierNext")
+            _fill_and_click(ws, session, "input[type=email], input#identifierId, input[name=identifier]", email, "#identifierNext")
             time.sleep(2)
             password = getpass.getpass("Google account password (not saved): ")
             _fill_and_click(ws, session, "input[type=password]", password, "#passwordNext")
