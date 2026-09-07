@@ -27,6 +27,9 @@ def main(argv: list[str] | None = None) -> int:
     inventory.add_argument("--hash", action="store_true")
     inventory.add_argument("--fingerprint", action="store_true", help="compute perceptual image fingerprints over ADB")
     inventory.add_argument("--output", required=True)
+    list_cloud = sub.add_parser("list-cloud", help="write a reviewable CSV of collected Google Photos items")
+    list_cloud.add_argument("--input", required=True)
+    list_cloud.add_argument("--output", required=True)
     normalize_cmd = sub.add_parser("normalize", help="normalize adapter JSON")
     normalize_cmd.add_argument("--input", required=True)
     normalize_cmd.add_argument("--output", required=True)
@@ -66,6 +69,18 @@ def main(argv: list[str] | None = None) -> int:
                         except (OSError, RuntimeError, ValueError):
                             item["phash_error"] = True
             _write(args.output, {"serial": serial, "roots": args.root, "files": files})
+        elif args.command == "list-cloud":
+            source = json.loads(Path(args.input).read_text(encoding="utf-8"))
+            items = source.get("media_items", source) if isinstance(source, dict) else source
+            if not isinstance(items, list):
+                raise ValueError("cloud input must contain a media_items list")
+            fields = ["id", "filename", "mime_type", "width", "height", "phash", "source"]
+            with Path(args.output).open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=fields)
+                writer.writeheader()
+                for item in items:
+                    if isinstance(item, dict):
+                        writer.writerow({field: item.get(field, "") for field in fields})
         elif args.command == "normalize":
             source = json.loads(Path(args.input).read_text(encoding="utf-8"))
             _write(args.output, normalize(source["media_items"] if isinstance(source, dict) and "media_items" in source else source))

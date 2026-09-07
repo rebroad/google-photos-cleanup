@@ -15,6 +15,7 @@ credentials and cookies are never collected automatically.
 ```sh
 python -m gphotos_cleanup auth-probe --serial SERIAL
 python -m gphotos_cleanup inventory --serial SERIAL --output inventory.json
+python -m gphotos_cleanup list-cloud --input photos-raw.json --output google-photos-list.csv
 python -m gphotos_cleanup match --inventory inventory.json --photos photos.json --output matches.json
 python -m gphotos_cleanup report --matches matches.json --csv report.csv \
   --manifest deletion-candidates.json
@@ -38,6 +39,7 @@ not tap the screen, request your password, export cookies, or modify the phone:
 python3 -m gphotos_cleanup.chrome_collect_cli \
   --output photos-raw.json
 python -m gphotos_cleanup normalize --input photos-raw.json --output photos-normalized.json
+python -m gphotos_cleanup list-cloud --input photos-raw.json --output google-photos-list.csv
 ~~~
 
 The ADB mode opens photos.google.com in Chrome automatically, then uses Chrome
