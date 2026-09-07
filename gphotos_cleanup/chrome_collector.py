@@ -5,6 +5,7 @@ import json
 import os
 import socket
 import struct
+import time
 import subprocess
 import urllib.parse
 import urllib.request
@@ -19,7 +20,7 @@ class CdpError(RuntimeError):
 
 
 class _WebSocket:
-    def __init__(self, url: str, host_header: str | None = None, timeout: float = 15.0):
+    def __init__(self, url: str, host_header: str | None = None, timeout: float = 120.0):
         parsed = urllib.parse.urlsplit(url)
         if parsed.scheme != "ws" or not parsed.hostname or not parsed.port:
             raise CdpError("Chrome returned an invalid DevTools WebSocket URL")
@@ -115,7 +116,12 @@ def _chrome_page_websocket_url(port: int) -> tuple[str, str, str]:
         ]
         if not pages:
             raise ValueError("Chrome has no Google Photos page target")
-        target = next((item for item in pages if item.get("title") == "Photos - Google Photos"), pages[0])
+        target = max(
+            pages,
+            key=lambda item: int(str(item.get("targetId", "0")))
+            if str(item.get("targetId", "0")).isdigit()
+            else -1,
+        )
         url = str(target["webSocketDebuggerUrl"])
         parsed = urllib.parse.urlsplit(url)
         if parsed.scheme != "ws" or not parsed.path:
@@ -161,12 +167,11 @@ EXTRACT_AND_SCROLL = r"""
     }
   };
   const root = document.scrollingElement || document.documentElement;
-  const candidates = [root, ...document.querySelectorAll('*')].filter((node) =>
-    node && node.scrollHeight > node.clientHeight + 200 && node.clientHeight > 0
-  );
-  const scroller = candidates.sort((a, b) =>
-    (b.scrollHeight - b.clientHeight) - (a.scrollHeight - a.clientHeight)
-  )[0] || root;
+  const text = document.body ? document.body.innerText : '';
+  if (/sign[ -]?in|choose an account/i.test(text)) {
+    return {url: location.href, title: document.title, authenticated: false, media: []};
+  }
+  const scroller = root;
   collect();
   let stagnant = 0;
   for (let index = 0; index < __MAX_SCROLLS__; index++) {
@@ -181,7 +186,6 @@ EXTRACT_AND_SCROLL = r"""
     if (next >= scroller.scrollHeight - scroller.clientHeight - 4 && stagnant >= 3) break;
   }
   const host = location.hostname;
-  const text = document.body ? document.body.innerText : '';
   return {
     url: location.href,
     title: document.title,
@@ -190,6 +194,17 @@ EXTRACT_AND_SCROLL = r"""
   };
 })()
 """
+
+
+def _wait_for_execution_context(ws: _WebSocket, attempts: int = 15) -> None:
+    for attempt in range(attempts):
+        try:
+            ws.call("Runtime.evaluate", {"expression": "location.href", "returnByValue": True})
+            return
+        except CdpError as error:
+            if "execution context" not in str(error).lower() or attempt == attempts - 1:
+                raise
+            time.sleep(1)
 
 
 def collect(serial: str, url: str = "https://photos.google.com/", max_scrolls: int = 80) -> dict[str, object]:
@@ -201,6 +216,7 @@ def collect(serial: str, url: str = "https://photos.google.com/", max_scrolls: i
             ws.call("Runtime.enable")
             if current_url.rstrip("/") != url.rstrip("/"):
                 ws.call("Page.navigate", {"url": url})
+            _wait_for_execution_context(ws)
             expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
             result = ws.call(
                 "Runtime.evaluate",
