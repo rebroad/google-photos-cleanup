@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+from datetime import datetime, timezone
 import sys
 from pathlib import Path
 
@@ -33,9 +34,10 @@ def main(argv: list[str] | None = None) -> int:
     matcher.add_argument("--inventory", required=True)
     matcher.add_argument("--photos", required=True)
     matcher.add_argument("--output", required=True)
-    report = sub.add_parser("report", help="write a review CSV")
+    report = sub.add_parser("report", help="write review CSV and optional deletion-candidate manifest")
     report.add_argument("--matches", required=True)
     report.add_argument("--csv", required=True)
+    report.add_argument("--manifest", help="write a JSON review-only deletion-candidate manifest")
     args = parser.parse_args(argv)
     try:
         if args.command == "auth-probe":
@@ -76,6 +78,26 @@ def main(argv: list[str] | None = None) -> int:
                     row["remote_ids"] = ",".join(str(value) for value in row["remote_ids"])
                     row["remote_urls"] = ",".join(str(value) for value in row["remote_urls"])
                     writer.writerow(row)
+            if args.manifest:
+                candidates = [
+                    {
+                        "path": item.get("path"),
+                        "filename": item.get("filename"),
+                        "confidence": item.get("confidence"),
+                        "evidence": item.get("evidence", []),
+                        "remote_ids": item.get("remote_ids", []),
+                        "remote_urls": item.get("remote_urls", []),
+                        "action": "review_only",
+                    }
+                    for item in matches
+                    if item.get("confidence") not in (None, "none") and item.get("remote_ids")
+                ]
+                _write(args.manifest, {
+                    "schema": "gphotos-cleanup/deletion-candidates/v1",
+                    "generated_at": datetime.now(timezone.utc).isoformat(),
+                    "deletion_performed": False,
+                    "candidates": candidates,
+                })
     except (OSError, RuntimeError, ValueError, KeyError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
