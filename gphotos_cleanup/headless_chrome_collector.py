@@ -49,7 +49,8 @@ def headless_chrome(chrome: str, profile_dir: str, port: int, url: str) -> Itera
 
 def collect(chrome: str, profile_dir: str, session_file: str, output: str,
             url: str = "https://photos.google.com/", max_scrolls: int = 20000,
-            port: int = 9222, chunk_scrolls: int = 100, fingerprint: bool = True, include_source_urls: bool = False) -> None:
+            port: int = 9222, chunk_scrolls: int = 100, fingerprint: bool = True,
+            include_source_urls: bool = False) -> None:
     session = _read_session_file(session_file)
     cookie_header = "; ".join(f"{item['name']}={item['value']}" for item in session)
     merged: dict[str, dict[str, object]] = {}
@@ -57,32 +58,57 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
     start_scroll_top = 0
     final_value: dict[str, object] = {}
     complete = False
+    checkpoint = Path(output + ".partial")
+    if checkpoint.exists():
+        saved = json.loads(checkpoint.read_text(encoding="utf-8"))
+        if isinstance(saved, dict):
+            total_scrolls = int(saved.get("scroll_count", 0))
+            start_scroll_top = int(saved.get("scroll_top", 0))
+            complete = bool(saved.get("complete", False))
+            final_value = saved
+            for item in saved.get("media", []):
+                if isinstance(item, dict) and item.get("src"):
+                    merged[str(item["src"])] = item
     while total_scrolls < max(1, max_scrolls):
         chunk = min(max(1, chunk_scrolls), max(1, max_scrolls) - total_scrolls)
         previous_start = start_scroll_top
-        with headless_chrome(chrome, profile_dir, port, url) as endpoint:
-            with urllib.request.urlopen(f"{endpoint}/json/list", timeout=5) as response:
-                targets = json.load(response)
-            pages = [
-                target for target in targets
-                if isinstance(target, dict)
-                and target.get("type") == "page"
-                and str(target.get("url", "")).startswith("https://photos.google.com")
-                and isinstance(target.get("webSocketDebuggerUrl"), str)
-            ]
-            if not pages:
-                raise CdpError("headless Chromium did not create a Google Photos page target")
-            target = pages[0]
-            ws_url = str(target["webSocketDebuggerUrl"])
-            parsed = urllib.parse.urlsplit(ws_url)
-            ws = _WebSocket(ws_url, host_header=parsed.netloc, timeout=15)
+        for attempt in range(3):
             try:
-                ws.call("Network.setCookies", {"cookies": session})
-                ws.call("Page.navigate", {"url": url})
-            finally:
-                ws.close()
-            time.sleep(5)
-            final_value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint)
+                with headless_chrome(chrome, profile_dir, port, url) as endpoint:
+                    with urllib.request.urlopen(f"{endpoint}/json/list", timeout=5) as response:
+                        targets = json.load(response)
+                    pages = [
+                        target for target in targets
+                        if isinstance(target, dict)
+                        and target.get("type") == "page"
+                        and str(target.get("url", "")).startswith("https://photos.google.com")
+                        and isinstance(target.get("webSocketDebuggerUrl"), str)
+                    ]
+                    if not pages:
+                        raise CdpError("headless Chromium did not create a Google Photos page target")
+                    target = pages[0]
+                    ws_url = str(target["webSocketDebuggerUrl"])
+                    parsed = urllib.parse.urlsplit(ws_url)
+                    ws = _WebSocket(ws_url, host_header=parsed.netloc, timeout=45)
+                    try:
+                        ws.call("Network.setCookies", {"cookies": session})
+                        ws.call("Page.navigate", {"url": url})
+                    finally:
+                        ws.close()
+                    time.sleep(5)
+                    final_value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint)
+                break
+            except (CdpError, OSError, RuntimeError, ValueError):
+                if attempt == 2:
+                    checkpoint.write_text(json.dumps({
+                        **final_value,
+                        "media": list(merged.values()),
+                        "scroll_count": total_scrolls,
+                        "scroll_top": start_scroll_top,
+                        "complete": False,
+                    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                    raise
+                time.sleep(2)
         for item in final_value.get("media", []):
             if isinstance(item, dict) and item.get("src"):
                 merged[str(item["src"])] = item
@@ -94,6 +120,13 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
             break
         if progressed <= 0 or start_scroll_top <= previous_start:
             raise CdpError("Google Photos scroll position did not advance between headless chunks")
+        checkpoint.write_text(json.dumps({
+            **final_value,
+            "media": list(merged.values()),
+            "scroll_count": total_scrolls,
+            "scroll_top": start_scroll_top,
+            "complete": False,
+        }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     final_value["media"] = list(merged.values())
     final_value["scroll_count"] = total_scrolls
     final_value["complete"] = complete
