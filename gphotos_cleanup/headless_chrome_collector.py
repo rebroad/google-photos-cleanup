@@ -74,4 +74,6 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
         time.sleep(5)
         value = _collect_endpoint(endpoint, url, max_scrolls)
         from .obscura_collector import write_cloud_records
-        write_cloud_records(value, output)
+        session = _read_session_file(session_file)
+        cookie_header = "; ".join(f"{item['name']}={item['value']}" for item in session)
+        write_cloud_records(value, output, cookie_header=cookie_header)

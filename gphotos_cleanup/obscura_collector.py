@@ -77,10 +77,13 @@ class _LimitedReader:
         return chunk
 
 
-def _media_phash(url: str, video: bool = False) -> str | None:
+def _media_phash(url: str, video: bool = False, cookie_header: str | None = None) -> str | None:
     if not _is_google_media_url(url):
         return None
-    request = urllib.request.Request(url, headers={"User-Agent": "gphotos-cleanup/0.1"})
+    headers = {"User-Agent": "gphotos-cleanup/0.1"}
+    if cookie_header:
+        headers["Cookie"] = cookie_header
+    request = urllib.request.Request(url, headers=headers)
     limit = 128 * 1024 * 1024 if video else 16 * 1024 * 1024
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
@@ -97,7 +100,7 @@ def _media_phash(url: str, video: bool = False) -> str | None:
         return None
 
 
-def write_cloud_records(value: dict[str, object], output: str) -> None:
+def write_cloud_records(value: dict[str, object], output: str, cookie_header: str | None = None) -> None:
     media = value.get("media", [])
     records = []
     fingerprint_jobs = []
@@ -119,7 +122,7 @@ def write_cloud_records(value: dict[str, object], output: str) -> None:
         fingerprint_jobs.append((len(records) - 1, src, video))
     if fingerprint_jobs:
         with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-            hashes = executor.map(lambda job: _media_phash(job[1], video=job[2]), fingerprint_jobs)
+            hashes = executor.map(lambda job: _media_phash(job[1], video=job[2], cookie_header=cookie_header), fingerprint_jobs)
             for (index, _src, _video), phash in zip(fingerprint_jobs, hashes):
                 if phash:
                     records[index]["phash"] = phash
