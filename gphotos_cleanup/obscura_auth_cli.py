@@ -63,7 +63,7 @@ def authenticate(binary: str, storage_dir: str, port: int) -> None:
             time.sleep(4)
             state = _evaluate(ws, "({url: location.href, title: document.title})", session)
             if isinstance(state, dict):
-                print(f"Obscura login page: {state.get('title', '')} ({state.get('url', '')})", file=sys.stderr)
+                print(f"Obscura login page: {state.get('title', '')}", file=sys.stderr)
             input("If Google requests a second factor, complete it through this headless session, then press Enter: ")
             ws.call("Page.navigate", {"url": "https://photos.google.com/"}, session=session)
             _wait_for_execution_context(ws, session)
