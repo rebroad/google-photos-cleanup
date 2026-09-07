@@ -65,6 +65,9 @@ def authenticate(binary: str, storage_dir: str, port: int) -> None:
                 raise CdpError("An email address is required")
             _fill_and_click(ws, session, "input[type=email], input#identifierId, input[name=identifier]", email, "#identifierNext")
             time.sleep(2)
+            login_location = _evaluate(ws, "location.href", session)
+            if isinstance(login_location, str) and "/signin/rejected" in login_location:
+                raise CdpError("Google rejected this Obscura login session after the identifier step; no password was submitted")
             password = getpass.getpass("Google account password (not saved): ")
             _fill_and_click(ws, session, "input[type=password], input[name=Passwd]", password, "#passwordNext, button[type=submit]")
             del password
