@@ -9,7 +9,7 @@ from pathlib import Path
 
 from .adb import Adb
 from .fingerprint import VIDEO_EXTENSIONS, fingerprint_adb, video_fingerprint_adb
-from .photos import match, normalize
+from .photos import duplicate_groups, match, normalize
 
 
 def _write(path: str, value: object) -> None:
@@ -37,6 +37,7 @@ def main(argv: list[str] | None = None) -> int:
     matcher.add_argument("--inventory", required=True)
     matcher.add_argument("--photos", required=True)
     matcher.add_argument("--output", required=True)
+    matcher.add_argument("--phash-threshold", type=int, default=24)
     report = sub.add_parser("report", help="write review CSV and optional deletion-candidate manifest")
     report.add_argument("--matches", required=True)
     report.add_argument("--csv", required=True)
@@ -87,9 +88,17 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "match":
             inventory = json.loads(Path(args.inventory).read_text(encoding="utf-8"))["files"]
             photos = json.loads(Path(args.photos).read_text(encoding="utf-8"))
-            _write(args.output, match(inventory, photos))
+            matches = match(inventory, photos, tolerance_seconds=172800)
+            _write(args.output, {
+                "matches": matches,
+                "device_duplicate_groups": duplicate_groups(inventory, args.phash_threshold),
+                "google_photos_duplicate_groups": duplicate_groups(photos, args.phash_threshold),
+            })
         elif args.command == "report":
-            matches = json.loads(Path(args.matches).read_text(encoding="utf-8"))
+            report_input = json.loads(Path(args.matches).read_text(encoding="utf-8"))
+            matches = report_input.get("matches", report_input) if isinstance(report_input, dict) else report_input
+            if not isinstance(matches, list):
+                raise ValueError("matches input must contain a matches list")
             with Path(args.csv).open("w", newline="", encoding="utf-8") as handle:
                 writer = csv.DictWriter(handle, fieldnames=["path", "filename", "confidence", "evidence", "remote_ids", "remote_urls"])
                 writer.writeheader()
@@ -114,10 +123,12 @@ def main(argv: list[str] | None = None) -> int:
                     if item.get("confidence") not in (None, "none") and item.get("remote_ids")
                 ]
                 _write(args.manifest, {
-                    "schema": "gphotos-cleanup/deletion-candidates/v1",
+                    "schema": "gphotos-cleanup/deletion-candidates/v2",
                     "generated_at": datetime.now(timezone.utc).isoformat(),
                     "deletion_performed": False,
                     "candidates": candidates,
+                    "device_duplicate_groups": report_input.get("device_duplicate_groups", []) if isinstance(report_input, dict) else [],
+                    "google_photos_duplicate_groups": report_input.get("google_photos_duplicate_groups", []) if isinstance(report_input, dict) else [],
                 })
     except (OSError, RuntimeError, ValueError, KeyError) as error:
         print(f"error: {error}", file=sys.stderr)

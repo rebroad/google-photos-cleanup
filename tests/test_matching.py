@@ -30,3 +30,25 @@ def test_perceptual_hash_matches_resized_or_recompressed_copy():
     assert result[0]["confidence"] == "review"
     assert result[0]["evidence"] == ["perceptual_hash"]
     assert result[0]["remote_ids"] == ["g1"]
+
+
+def test_duplicate_groups_include_resized_same_kind_only():
+    from gphotos_cleanup.photos import duplicate_groups
+
+    groups = duplicate_groups([
+        {"id": "image-1", "mime_type": "image/jpeg", "phash": "0" * 256},
+        {"id": "image-2", "mime_type": "image/jpeg", "phash": "1" * 8 + "0" * 248},
+        {"id": "video", "mime_type": "video/mp4", "phash": "0" * 256},
+    ])
+    assert len(groups) == 1
+    assert {item["id"] for item in groups[0]["items"]} == {"image-1", "image-2"}
+
+
+def test_duplicate_groups_use_exact_hash_without_perceptual_hash():
+    from gphotos_cleanup.photos import duplicate_groups
+
+    groups = duplicate_groups([
+        {"id": "a", "mime_type": "video/mp4", "sha256": "ABC"},
+        {"id": "b", "mime_type": "video/mp4", "sha256": "abc"},
+    ])
+    assert [item["id"] for item in groups[0]["items"]] == ["a", "b"]

@@ -42,6 +42,51 @@ def _timestamp(value: object) -> float | None:
         return None
 
 
+def duplicate_groups(items: list[dict[str, object]], threshold: int = 24) -> list[dict[str, object]]:
+    """Return same-kind duplicate groups using exact or perceptual evidence.
+
+    Exact SHA-256 matches cover byte-identical media. Perceptual hashes cover
+    resized/recompressed images and video contact sheets; missing fingerprints
+    are deliberately never treated as duplicates.
+    """
+    eligible = [item for item in items if _media_kind(item) and (item.get("sha256") or item.get("phash"))]
+    parent = list(range(len(eligible)))
+
+    def root(index: int) -> int:
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    def join(left: int, right: int) -> None:
+        left_root, right_root = root(left), root(right)
+        if left_root != right_root:
+            parent[right_root] = left_root
+
+    for left, first in enumerate(eligible):
+        for right in range(left + 1, len(eligible)):
+            second = eligible[right]
+            if _media_kind(first) != _media_kind(second):
+                continue
+            first_sha = str(first.get("sha256", "")).lower()
+            second_sha = str(second.get("sha256", "")).lower()
+            if first_sha and second_sha and first_sha == second_sha:
+                join(left, right)
+                continue
+            first_phash, second_phash = first.get("phash"), second.get("phash")
+            if first_phash and second_phash and hamming(str(first_phash), str(second_phash)) <= threshold:
+                join(left, right)
+
+    grouped: dict[int, list[dict[str, object]]] = {}
+    for index, item in enumerate(eligible):
+        grouped.setdefault(root(index), []).append(item)
+    result = []
+    for group_index, group in enumerate(grouped.values(), 1):
+        if len(group) > 1:
+            result.append({"group_id": f"duplicates:{group_index}", "items": group})
+    return result
+
+
 def match(local: list[dict[str, object]], remote: list[dict[str, object]], tolerance_seconds: int = 172800) -> list[dict[str, object]]:
     by_hash: dict[str, list[dict[str, object]]] = {}
     by_name: dict[str, list[dict[str, object]]] = {}
