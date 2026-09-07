@@ -150,50 +150,7 @@ def obscura_server(binary: str, storage_dir: str, port: int) -> Iterator[int]:
                 process.kill()
                 process.wait()
 
-EXTRACT_AND_SCROLL = r"""
-(async () => {
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-  const media = new Map();
-  const collect = () => {
-    for (const node of document.querySelectorAll('img,video')) {
-      const src = node.currentSrc || node.src || '';
-      if (!src) continue;
-      media.set(src, {
-        tag: node.tagName.toLowerCase(), src, alt: node.alt || '',
-        width: node.naturalWidth || node.videoWidth || 0,
-        height: node.naturalHeight || node.videoHeight || 0
-      });
-    }
-  };
-  const root = document.scrollingElement || document.documentElement;
-  const initialText = document.body ? document.body.innerText : '';
-  if (/sign[ -]?in|choose an account/i.test(initialText)) {
-    return {url: location.href, title: document.title, authenticated: false, media: []};
-  }
-  const scroller = root;
-  collect();
-  let stagnant = 0;
-  for (let index = 0; index < __MAX_SCROLLS__; index++) {
-    const before = media.size;
-    const next = Math.min(scroller.scrollTop + Math.max(600, scroller.clientHeight * 0.85),
-                          scroller.scrollHeight - scroller.clientHeight);
-    scroller.scrollTop = next;
-    window.scrollTo(0, next);
-    await delay(350);
-    collect();
-    stagnant = media.size === before ? stagnant + 1 : 0;
-    if (next >= scroller.scrollHeight - scroller.clientHeight - 4 && stagnant >= 3) break;
-  }
-  const host = location.hostname;
-  const finalText = document.body ? document.body.innerText : "";
-  return {
-    url: location.href,
-    title: document.title,
-    authenticated: host === 'photos.google.com' && !/sign[ -]?in|choose an account/i.test(finalText),
-    media: Array.from(media.values())
-  };
-})()
-"""
+from .chrome_collector import EXTRACT_AND_SCROLL
 
 def _wait_for_execution_context(ws: _WebSocket, session: str, attempts: int = 15) -> None:
     for attempt in range(attempts):
@@ -206,7 +163,22 @@ def _wait_for_execution_context(ws: _WebSocket, session: str, attempts: int = 15
             time.sleep(1)
             time.sleep(1)
 
-def collect(binary: str, storage_dir: str, url: str = "https://photos.google.com/", max_scrolls: int = 80, port: int = 9333) -> dict[str, object]:
+def _read_session_file(session_file: str) -> list[dict[str, object]]:
+    value = json.loads(open(session_file, encoding="utf-8").read())
+    cookies = value.get("cookies") if isinstance(value, dict) else None
+    if not isinstance(cookies, list) or not cookies:
+        raise CdpError("session file contains no cookies")
+    return [cookie for cookie in cookies if isinstance(cookie, dict)]
+
+
+def collect(
+    binary: str,
+    storage_dir: str,
+    url: str = "https://photos.google.com/",
+    max_scrolls: int = 20000,
+    port: int = 9333,
+    session_file: str | None = None,
+) -> dict[str, object]:
     with obscura_server(binary, storage_dir, port) as server_port:
         with urllib.request.urlopen(f"http://127.0.0.1:{server_port}/json/version", timeout=8) as response:
             browser_url = str(json.load(response)["webSocketDebuggerUrl"])
@@ -222,9 +194,16 @@ def collect(binary: str, storage_dir: str, url: str = "https://photos.google.com
                 raise CdpError("Obscura did not attach the page target")
             ws.call("Page.enable", session=session)
             ws.call("Runtime.enable", session=session)
+            if session_file:
+                ws.call(
+                    "Network.setCookies",
+                    {"cookies": _read_session_file(session_file)},
+                    session=session,
+                )
             ws.call("Page.navigate", {"url": url}, session=session)
             _wait_for_execution_context(ws, session)
-            expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
+            time.sleep(5)
+            expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000))))
             result = ws.call("Runtime.evaluate", {"expression": expression, "awaitPromise": True, "returnByValue": True}, session=session)
             value = result.get("result", {}).get("result", {}).get("value")
             if not isinstance(value, dict):
@@ -236,5 +215,16 @@ def collect(binary: str, storage_dir: str, url: str = "https://photos.google.com
             ws.close()
 
 
-def collect_to_file(binary: str, storage_dir: str, output: str, url: str = "https://photos.google.com/", max_scrolls: int = 80, port: int = 9333) -> None:
-    write_cloud_records(collect(binary, storage_dir, url, max_scrolls, port), output)
+def collect_to_file(
+    binary: str,
+    storage_dir: str,
+    output: str,
+    url: str = "https://photos.google.com/",
+    max_scrolls: int = 20000,
+    port: int = 9333,
+    session_file: str | None = None,
+) -> None:
+    write_cloud_records(
+        collect(binary, storage_dir, url, max_scrolls, port, session_file),
+        output,
+    )

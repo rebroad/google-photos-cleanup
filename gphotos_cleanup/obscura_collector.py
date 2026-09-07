@@ -118,4 +118,8 @@ def write_cloud_records(value: dict[str, object], output: str) -> None:
         if phash:
             record["phash"] = phash
         records.append(record)
-    Path(output).write_text(json.dumps({"media_items": records}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    payload: dict[str, object] = {"media_items": records}
+    for key in ("url", "title", "complete", "reached_end", "scroll_count", "scroll_height"):
+        if key in value:
+            payload[key] = value[key]
+    Path(output).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")

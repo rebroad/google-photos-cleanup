@@ -31,45 +31,45 @@ the device provides `sha256sum`.
 The JSON manifest is review-only: every candidate has `action: "review_only"`,
 and `deletion_performed` is always `false`. The tool has no delete operation.
 
-Collect from a supported signed-in Chrome session. The preferred mode uses
-Chrome already signed in on the phone through ADB port forwarding. The tool does
-not tap the screen, request your password, export cookies, or modify the phone:
+Authenticate once in the visible phone Chrome session, then collect through
+Obscura headlessly. The phone screen is not used for collection, scrolling, or
+media inspection.
+
+First export only the filtered Google authentication cookies through Chrome
+DevTools. The session file is written with mode 0600 outside this repository:
 
 ~~~sh
-python3 -m gphotos_cleanup.chrome_collect_cli \
-  --output photos-raw.json
-python -m gphotos_cleanup normalize --input photos-raw.json --output photos-normalized.json
-python -m gphotos_cleanup list-cloud --input photos-raw.json --output google-photos-list.csv
+python3 -m gphotos_cleanup.chrome_auth_cli
 ~~~
 
-The ADB mode opens photos.google.com in Chrome automatically, then uses Chrome
-DevTools to inspect the rendered media and scroll the Photos timeline. This may
-bring Chrome visibly to the foreground, but the collector performs no taps or
-screen automation. ADB forwards a temporary local port and removes it when
-collection finishes. With one connected ADB device, no serial argument is
-needed; use --serial when multiple devices are connected. Use --no-open if
-Chrome is already prepared and should not be navigated.
-
-When ADB/phone Chrome is unavailable, use any local Chrome-compatible browser
-with a dedicated profile stored outside this repository and a local DevTools
-endpoint. Authentication is performed once by the user in that browser; the
-collector only uses the already-authenticated session afterward:
+Then run the headless collector. It injects that session into Obscura, navigates
+Google Photos, discovers the real nested timeline scroller, and records whether
+the bottom was actually reached:
 
 ~~~sh
-# Example browser setup; choose a profile path outside the repository.
-chrome --remote-debugging-port=9222 \
-  --user-data-dir="$PREFIX/tmp/google-photos-chrome-profile" \
-  https://photos.google.com/
-python3 -m gphotos_cleanup.chrome_collect_cli \
-  --cdp-endpoint http://127.0.0.1:9222 --output photos-raw.json
+python3 -m gphotos_cleanup.obscura_collect_cli \
+  --obscura "$PREFIX/tmp/obscura-hpenvy-aarch64" \
+  --storage-dir "$PREFIX/tmp/obscura-photos-profile" \
+  --session-file "$PREFIX/tmp/google-photos-session.json" \
+  --output "$PREFIX/tmp/photos-raw-headless.json"
+python -m gphotos_cleanup normalize \
+  --input "$PREFIX/tmp/photos-raw-headless.json" \
+  --output "$PREFIX/tmp/photos-normalized.json"
+python -m gphotos_cleanup list-cloud \
+  --input "$PREFIX/tmp/photos-raw-headless.json" \
+  --output "$PREFIX/tmp/google-photos-list.csv"
 ~~~
 
-The endpoint mode is headless from the collector's perspective: it performs no
-screen automation. Keep profile directories, DevTools state, and reports under
-$PREFIX/tmp on Termux (or /var/tmp on Linux), never in this public repo.
-Obscura remains available as an experimental diagnostic collector, but Google
-may reject its login flow before a password field is offered, so it is not the
-primary authentication path.
+Do not treat a run as complete unless the raw JSON contains
+"complete": true. The supported Google Photos Library API is restricted to
+app-created media for new development, and the Picker API lists only media the
+user explicitly selects, so neither is a complete personal-library source.
+The headless rendered timeline is therefore used with an explicit end-of-list
+check.
+
+The older chrome_collect_cli command remains a diagnostic tool for inspecting
+the authenticated phone session; it is not the collection path because it
+scrolls visible Chrome.
 
 Then compare and produce the review-only manifest:
 

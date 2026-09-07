@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from gphotos_cleanup.chrome_collector import EXTRACT_AND_SCROLL, _WebSocket
 from gphotos_cleanup.obscura_collector import _is_google_media_url
+from gphotos_cleanup.chrome_auth_cli import _relevant_domain
 
 
 class ChunkedSocket:
@@ -43,6 +44,7 @@ def test_extractor_preserves_media_kind_and_checks_auth_after_scroll():
     assert "const text = document.body ? document.body.innerText : '';" in EXTRACT_AND_SCROLL
     assert "authenticated: host === 'photos.google.com'" in EXTRACT_AND_SCROLL
     assert "googleusercontent" not in EXTRACT_AND_SCROLL
+    assert "reached_end" in EXTRACT_AND_SCROLL
 
 
 
@@ -57,3 +59,12 @@ def test_current_google_photos_media_hosts_are_allowed_without_allowing_arbitrar
     assert _is_google_media_url("https://photos.fife.usercontent.google.com/pw/thumb")
     assert _is_google_media_url("https://lh3.googleusercontent.com/a")
     assert not _is_google_media_url("https://example.googleusercontent.com.evil.test/a")
+
+
+
+def test_session_export_domain_filter_keeps_google_auth_hosts_only():
+    assert _relevant_domain(".google.com")
+    assert _relevant_domain("accounts.google.com")
+    assert _relevant_domain("photos.fife.usercontent.google.com")
+    assert not _relevant_domain("googleadservices.com")
+    assert not _relevant_domain("example.test")

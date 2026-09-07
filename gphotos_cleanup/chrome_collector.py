@@ -274,19 +274,31 @@ EXTRACT_AND_SCROLL = r"""
     }
   };
   const root = document.scrollingElement || document.documentElement;
-  const scroller = root;
+  const scrollables = [root, ...document.querySelectorAll('*')]
+    .filter(node => node.scrollHeight > node.clientHeight + 100);
+  const scroller = scrollables.reduce(
+    (best, node) => (node.scrollHeight - node.clientHeight) >
+      (best.scrollHeight - best.clientHeight) ? node : best,
+    root
+  );
   collect();
   let stagnant = 0;
+  let reachedEnd = false;
+  let scrollCount = 0;
   for (let index = 0; index < __MAX_SCROLLS__; index++) {
     const before = media.size;
-    const next = Math.min(scroller.scrollTop + Math.max(600, scroller.clientHeight * 0.85),
-                          scroller.scrollHeight - scroller.clientHeight);
+    const maximum = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+    const step = Math.max(1800, scroller.clientHeight * 2.5);
+    const next = Math.min(scroller.scrollTop + step, maximum);
     scroller.scrollTop = next;
-    window.scrollTo(0, next);
-    await delay(350);
+    await delay(200);
     collect();
+    scrollCount = index + 1;
     stagnant = media.size === before ? stagnant + 1 : 0;
-    if (next >= scroller.scrollHeight - scroller.clientHeight - 4 && stagnant >= 3) break;
+    if (next >= maximum - 4 && stagnant >= 5) {
+      reachedEnd = true;
+      break;
+    }
   }
   const text = document.body ? document.body.innerText : '';
   const host = location.hostname;
@@ -294,7 +306,11 @@ EXTRACT_AND_SCROLL = r"""
     url: location.href,
     title: document.title,
     authenticated: host === 'photos.google.com' && !/sign[ -]?in|choose an account/i.test(text),
-    media: Array.from(media.values())
+    media: Array.from(media.values()),
+    complete: reachedEnd,
+    reached_end: reachedEnd,
+    scroll_count: scrollCount,
+    scroll_height: scroller.scrollHeight
   };
 })()
 """
@@ -314,7 +330,7 @@ def _wait_for_execution_context(ws: _WebSocket, attempts: int = 15) -> None:
 def collect(
     serial: str | None = None,
     url: str = "https://photos.google.com/",
-    max_scrolls: int = 80,
+    max_scrolls: int = 20000,
     cdp_endpoint: str | None = None,
     open_chrome: bool = True,
 ) -> dict[str, object]:
@@ -339,7 +355,7 @@ def _collect_endpoint(endpoint: str, url: str, max_scrolls: int) -> dict[str, ob
     try:
         if current_url.rstrip("/") != url.rstrip("/"):
             ws.call("Page.navigate", {"url": url})
-        expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
+        expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000))))
         result = ws.call(
             "Runtime.evaluate",
             {"expression": expression, "awaitPromise": True, "returnByValue": True},
@@ -358,7 +374,7 @@ def collect_to_file(
     output: str,
     serial: str | None = None,
     url: str = "https://photos.google.com/",
-    max_scrolls: int = 80,
+    max_scrolls: int = 20000,
     cdp_endpoint: str | None = None,
     open_chrome: bool = True,
 ) -> None:

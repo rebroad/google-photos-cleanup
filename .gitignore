@@ -13,3 +13,4 @@ matches.json
 deletion-review.csv
 deletion-candidates.json
 *.log
+google-photos-session.json

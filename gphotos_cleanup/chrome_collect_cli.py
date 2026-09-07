@@ -12,7 +12,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--cdp-endpoint", help="local Chrome DevTools HTTP endpoint, e.g. http://127.0.0.1:9222")
     parser.add_argument("--output", required=True)
     parser.add_argument("--url", default="https://photos.google.com/")
-    parser.add_argument("--max-scrolls", type=int, default=80)
+    parser.add_argument("--max-scrolls", type=int, default=20000)
     parser.add_argument("--no-open", action="store_true", help="do not open Google Photos through ADB before collecting")
     args = parser.parse_args(argv)
     try:
