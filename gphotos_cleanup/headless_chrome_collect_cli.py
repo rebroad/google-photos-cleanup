@@ -17,11 +17,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", required=True)
     parser.add_argument("--url", default="https://photos.google.com/")
     parser.add_argument("--max-scrolls", type=int, default=20000)
+    parser.add_argument("--chunk-scrolls", type=int, default=100)
     parser.add_argument("--port", type=int, default=9222)
     args = parser.parse_args(argv)
     try:
         collect(args.chrome, args.profile_dir, args.session_file, args.output,
-                args.url, args.max_scrolls, args.port)
+                args.url, args.max_scrolls, args.port, args.chunk_scrolls)
     except (CdpError, OSError, RuntimeError, ValueError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 1

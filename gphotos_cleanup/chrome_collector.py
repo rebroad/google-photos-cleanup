@@ -313,8 +313,11 @@ EXTRACT_AND_SCROLL = r"""
   }
   const hashImage = async (item) => {
     if (item.kind !== "image") return null;
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 2000);
     try {
-      const response = await fetch(item.src, {credentials: "include"});
+      const response = await fetch(item.src, {credentials: "include", signal: controller.signal});
+      clearTimeout(timer);
       if (!response.ok) return null;
       const bitmap = await createImageBitmap(await response.blob());
       const canvas = document.createElement("canvas");
