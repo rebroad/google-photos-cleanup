@@ -7,6 +7,7 @@ import socket
 import struct
 import subprocess
 import urllib.parse
+import urllib.request
 from contextlib import contextmanager
 from typing import Iterator
 
@@ -18,7 +19,7 @@ class CdpError(RuntimeError):
 
 
 class _WebSocket:
-    def __init__(self, url: str, timeout: float = 15.0):
+    def __init__(self, url: str, host_header: str | None = None, timeout: float = 15.0):
         parsed = urllib.parse.urlsplit(url)
         if parsed.scheme != "ws" or not parsed.hostname or not parsed.port:
             raise CdpError("Chrome returned an invalid DevTools WebSocket URL")
@@ -26,10 +27,9 @@ class _WebSocket:
         key = base64.b64encode(os.urandom(16)).decode("ascii")
         request = (
             f"GET {parsed.path or '/'} HTTP/1.1\r\n"
-            f"Host: {parsed.hostname}:{parsed.port}\r\n"
+            f"Host: {host_header or f'{parsed.hostname}:{parsed.port}'}\r\n"
             "Upgrade: websocket\r\nConnection: Upgrade\r\n"
-            f"Sec-WebSocket-Key: {key}\r\nSec-WebSocket-Version: 13\r\n"
-            "Origin: http://localhost\r\n\r\n"
+            f"Sec-WebSocket-Key: {key}\r\nSec-WebSocket-Version: 13\r\n\r\n"
         ).encode()
         self.sock.sendall(request)
         header = b""
@@ -102,12 +102,34 @@ class _WebSocket:
             return message
 
 
+def _chrome_page_websocket_url(port: int) -> tuple[str, str, str]:
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/json", timeout=8) as response:
+            targets = json.load(response)
+        pages = [
+            target for target in targets
+            if isinstance(target, dict)
+            and target.get("type") == "page"
+            and urllib.parse.urlsplit(str(target.get("url", ""))).netloc == "photos.google.com"
+            and isinstance(target.get("webSocketDebuggerUrl"), str)
+        ]
+        if not pages:
+            raise ValueError("Chrome has no Google Photos page target")
+        target = next((item for item in pages if item.get("title") == "Photos - Google Photos"), pages[0])
+        url = str(target["webSocketDebuggerUrl"])
+        parsed = urllib.parse.urlsplit(url)
+        if parsed.scheme != "ws" or not parsed.path:
+            raise ValueError("Chrome returned an invalid page WebSocket URL")
+        return url, parsed.netloc, str(target.get("url", ""))
+    except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as error:
+        raise CdpError(
+            "Chrome DevTools is unavailable; unlock the phone and leave Google Photos open"
+        ) from error
+
+
 @contextmanager
 def adb_chrome_forward(serial: str) -> Iterator[int]:
-    probe = socket.socket()
-    probe.bind(("127.0.0.1", 0))
-    port = int(probe.getsockname()[1])
-    probe.close()
+    port = 9222
     command = ["adb", "-s", serial, "forward", f"tcp:{port}", "localabstract:chrome_devtools_remote"]
     result = subprocess.run(command, text=True, capture_output=True, check=False)
     if result.returncode:
@@ -172,45 +194,27 @@ EXTRACT_AND_SCROLL = r"""
 
 def collect(serial: str, url: str = "https://photos.google.com/", max_scrolls: int = 80) -> dict[str, object]:
     with adb_chrome_forward(serial) as port:
+        ws_url, host_header, current_url = _chrome_page_websocket_url(port)
+        ws = _WebSocket(ws_url, host_header=host_header)
         try:
-            ws = _WebSocket(f"ws://127.0.0.1:{port}/devtools/browser")
-        except OSError as error:
-            raise CdpError(
-                "Chrome DevTools is unavailable; unlock the phone and leave Google Photos open"
-            ) from error
-        try:
-            targets = ws.call("Target.getTargets").get("result", {}).get("targetInfos", [])
-            pages = [target for target in targets if target.get("type") == "page"]
-            if not pages:
-                raise CdpError("Chrome has no debuggable page; unlock the phone and open Google Photos")
-            target = next(
-                (item for item in pages if urllib.parse.urlsplit(str(item.get("url", ""))).netloc == "photos.google.com"),
-                pages[0],
+            ws.call("Page.enable")
+            ws.call("Runtime.enable")
+            if current_url.rstrip("/") != url.rstrip("/"):
+                ws.call("Page.navigate", {"url": url})
+            expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
+            result = ws.call(
+                "Runtime.evaluate",
+                {"expression": expression, "awaitPromise": True, "returnByValue": True},
             )
-            attached = ws.call("Target.attachToTarget", {"targetId": target["targetId"], "flatten": True})
-            session = str(attached.get("result", {}).get("sessionId", ""))
-            if not session:
-                raise CdpError("Chrome did not attach a Photos page")
-            try:
-                ws.call("Page.enable", session=session)
-                ws.call("Runtime.enable", session=session)
-                ws.call("Page.navigate", {"url": url}, session=session)
-                expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
-                result = ws.call(
-                    "Runtime.evaluate",
-                    {"expression": expression, "awaitPromise": True, "returnByValue": True},
-                    session=session,
-                )
-                value = result.get("result", {}).get("result", {}).get("value")
-                if not isinstance(value, dict):
-                    raise CdpError("Chrome returned no Photos extraction result")
-                if not value.get("authenticated"):
-                    raise CdpError("Chrome is not authenticated to Google Photos; sign in visibly first")
-                return value
-            finally:
-                ws.call("Target.detachFromTarget", {"sessionId": session})
+            value = result.get("result", {}).get("result", {}).get("value")
+            if not isinstance(value, dict):
+                raise CdpError("Chrome returned no Photos extraction result")
+            if not value.get("authenticated"):
+                raise CdpError("Chrome is not authenticated to Google Photos; sign in visibly first")
+            return value
         finally:
             ws.close()
+
 
 
 def collect_to_file(serial: str, output: str, url: str = "https://photos.google.com/", max_scrolls: int = 80) -> None:
