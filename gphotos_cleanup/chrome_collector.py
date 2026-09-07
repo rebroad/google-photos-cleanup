@@ -303,7 +303,9 @@ EXTRACT_AND_SCROLL = r"""
     const step = Math.max(1800, scroller.clientHeight * 2.5);
     const next = Math.min(scroller.scrollTop + step, maximum);
     scroller.scrollTop = next;
-    await delay(75);
+    // Google Photos virtualizes the timeline and needs time to fetch/render
+    // the next batch before its tile backgrounds become observable.
+    await delay(500);
     collect();
     scrollCount = index + 1;
     stagnant = media.size === before ? stagnant + 1 : 0;
