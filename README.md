@@ -33,9 +33,7 @@ and `deletion_performed` is always `false`. The tool has no delete operation.
 Authenticate a persistent Obscura profile once. This is terminal-driven and does not use Chrome, screen automation, or cookie extraction:
 
 ```sh
-python -m gphotos_cleanup.obscura_auth_cli \
-  --obscura /path/to/obscura \
-  --storage-dir "$PREFIX/tmp/obscura-photos-profile"
+python3 -m gphotos_cleanup.obscura_auth_cli
 ```
 
 Then collect and compare with:

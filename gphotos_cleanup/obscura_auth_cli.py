@@ -3,12 +3,20 @@ from __future__ import annotations
 import argparse
 import getpass
 import json
+import os
+import shutil
 import sys
 import time
 import urllib.request
 
 from .obscura_cdp_collector import CdpError, _WebSocket, _wait_for_execution_context, obscura_server
 
+
+def _defaults() -> tuple[str, str]:
+    prefix = os.environ.get("PREFIX", "/data/data/com.termux/files/usr")
+    candidates = [os.path.join(prefix, "tmp", "obscura-hpenvy-aarch64"), shutil.which("obscura")]
+    binary = next((path for path in candidates if path and os.access(path, os.X_OK)), candidates[0])
+    return binary, os.path.join(prefix, "tmp", "obscura-photos-profile")
 
 def _evaluate(ws: _WebSocket, expression: str, session: str) -> object:
     response = ws.call("Runtime.evaluate", {"expression": expression, "returnByValue": True}, session)
@@ -77,9 +85,10 @@ def authenticate(binary: str, storage_dir: str, port: int) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    default_binary, default_storage = _defaults()
     parser = argparse.ArgumentParser(prog="python -m gphotos_cleanup.obscura_auth_cli")
-    parser.add_argument("--obscura", required=True)
-    parser.add_argument("--storage-dir", required=True)
+    parser.add_argument("--obscura", default=default_binary, help=f"Obscura binary (default: {default_binary})")
+    parser.add_argument("--storage-dir", default=default_storage, help=f"Persistent profile directory (default: {default_storage})")
     parser.add_argument("--port", type=int, default=9333)
     args = parser.parse_args(argv)
     try:
