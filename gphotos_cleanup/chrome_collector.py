@@ -258,16 +258,25 @@ EXTRACT_AND_SCROLL = r"""
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   const media = new Map();
   const collect = () => {
-    for (const node of document.querySelectorAll('img,video')) {
-      const src = node.currentSrc || node.src || '';
+    const nodes = [...document.querySelectorAll("img,video,*")];
+    for (const node of nodes) {
+      const tag = node.tagName.toLowerCase();
+      const style = getComputedStyle(node);
+      const background = style.backgroundImage || "";
+      const backgroundMatch = background.match(/url\(["\x27]?([^"\x27)]+)["\x27]?\)/);
+      const src = node.currentSrc || node.src ||
+        (backgroundMatch ? backgroundMatch[1] : "");
       if (!src) continue;
-      const label = [node.alt, node.getAttribute('aria-label'), node.title,
-        node.parentElement && node.parentElement.getAttribute('aria-label')]
-        .filter(Boolean).join(' ');
-      const kind = node.tagName.toLowerCase() === 'video' || /\bvideo\b|play/i.test(label)
-        ? 'video' : 'image';
+      const rect = node.getBoundingClientRect();
+      if (!node.currentSrc && !node.src &&
+          (rect.width < 50 || rect.height < 50)) continue;
+      const label = [node.alt, node.getAttribute("aria-label"), node.title,
+        node.parentElement && node.parentElement.getAttribute("aria-label")]
+        .filter(Boolean).join(" ");
+      const kind = tag === "video" || /\bvideo\b|play/i.test(label)
+        ? "video" : "image";
       media.set(src, {
-        tag: node.tagName.toLowerCase(), kind, src, alt: node.alt || label,
+        tag, kind, src, alt: node.alt || label,
         width: node.naturalWidth || node.videoWidth || 0,
         height: node.naturalHeight || node.videoHeight || 0
       });
