@@ -94,7 +94,7 @@ def write_cloud_records(value: dict[str, object], output: str) -> None:
         src = str(item.get("src", ""))
         if "googleusercontent.com/" not in src:
             continue
-        video = item.get("tag") == "video"
+        video = item.get("kind", item.get("tag")) == "video"
         record = {
             "id": "media:" + hashlib.sha256(src.encode("utf-8")).hexdigest(),
             "filename": str(item.get("alt", "")),

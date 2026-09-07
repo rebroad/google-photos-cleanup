@@ -1,0 +1,44 @@
+from __future__ import annotations
+
+from gphotos_cleanup.chrome_collector import EXTRACT_AND_SCROLL, _WebSocket
+
+
+class ChunkedSocket:
+    def __init__(self, data: bytes, chunk_size: int = 1):
+        self.data = data
+        self.chunk_size = chunk_size
+
+    def recv(self, size: int) -> bytes:
+        if not self.data:
+            return b""
+        count = min(size, self.chunk_size, len(self.data))
+        result, self.data = self.data[:count], self.data[count:]
+        return result
+
+    def sendall(self, data: bytes) -> None:
+        pass
+
+    def close(self) -> None:
+        pass
+
+
+def websocket_frame(payload: bytes, opcode: int = 1) -> bytes:
+    size = len(payload)
+    if size < 126:
+        return bytes([0x80 | opcode, size]) + payload
+    if size < 65536:
+        return bytes([0x80 | opcode, 126]) + len(payload).to_bytes(2, "big") + payload
+    return bytes([0x80 | opcode, 127]) + len(payload).to_bytes(8, "big") + payload
+
+
+def test_websocket_reads_fragmented_header_and_payload():
+    ws = object.__new__(_WebSocket)
+    ws.sock = ChunkedSocket(websocket_frame(b"fragmented"), chunk_size=1)
+    assert ws._receive_frame() == (1, b"fragmented")
+
+
+def test_extractor_preserves_media_kind_and_checks_auth_after_scroll():
+    assert "kind" in EXTRACT_AND_SCROLL
+    assert "const text = document.body ? document.body.innerText : '';" in EXTRACT_AND_SCROLL
+    assert "authenticated: host === 'photos.google.com'" in EXTRACT_AND_SCROLL
+    assert "googleusercontent" not in EXTRACT_AND_SCROLL

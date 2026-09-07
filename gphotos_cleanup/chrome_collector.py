@@ -59,23 +59,25 @@ class _WebSocket:
         self.sock.sendall(header + mask + masked)
 
     def _receive_frame(self) -> tuple[int, bytes]:
-        header = self.sock.recv(2)
-        if len(header) != 2:
-            raise CdpError("Chrome closed the DevTools connection")
+        def receive_exact(size: int) -> bytes:
+            data = bytearray()
+            while len(data) < size:
+                block = self.sock.recv(size - len(data))
+                if not block:
+                    raise CdpError("Chrome closed the DevTools connection")
+                data.extend(block)
+            return bytes(data)
+
+        header = receive_exact(2)
         opcode = header[0] & 0x0F
         size = header[1] & 0x7F
         masked = bool(header[1] & 0x80)
         if size == 126:
-            size = struct.unpack(">H", self.sock.recv(2))[0]
+            size = struct.unpack(">H", receive_exact(2))[0]
         elif size == 127:
-            size = struct.unpack(">Q", self.sock.recv(8))[0]
-        mask = self.sock.recv(4) if masked else b""
-        payload = bytearray()
-        while len(payload) < size:
-            block = self.sock.recv(size - len(payload))
-            if not block:
-                raise CdpError("Chrome truncated a DevTools frame")
-            payload.extend(block)
+            size = struct.unpack(">Q", receive_exact(8))[0]
+        mask = receive_exact(4) if masked else b""
+        payload = bytearray(receive_exact(size))
         if masked:
             payload = bytearray(value ^ mask[index % 4] for index, value in enumerate(payload))
         return opcode, bytes(payload)
@@ -103,43 +105,56 @@ class _WebSocket:
             return message
 
 
-def _chrome_page_websocket_url(port: int) -> tuple[str, str, str]:
-    try:
-        with urllib.request.urlopen(f"http://127.0.0.1:{port}/json", timeout=8) as response:
-            targets = json.load(response)
-        pages = [
-            target for target in targets
-            if isinstance(target, dict)
-            and target.get("type") == "page"
-            and urllib.parse.urlsplit(str(target.get("url", ""))).netloc == "photos.google.com"
-            and isinstance(target.get("webSocketDebuggerUrl"), str)
-        ]
-        if not pages:
-            raise ValueError("Chrome has no Google Photos page target")
-        target = max(
-            pages,
-            key=lambda item: int(str(item.get("targetId", "0")))
-            if str(item.get("targetId", "0")).isdigit()
-            else -1,
-        )
-        url = str(target["webSocketDebuggerUrl"])
-        parsed = urllib.parse.urlsplit(url)
-        if parsed.scheme != "ws" or not parsed.path:
-            raise ValueError("Chrome returned an invalid page WebSocket URL")
-        return url, parsed.netloc, str(target.get("url", ""))
-    except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as error:
-        raise CdpError(
-            "Chrome DevTools is unavailable; unlock the phone and leave Google Photos open"
-        ) from error
+def _chrome_page_websocket_url(endpoint: str, attempts: int = 12) -> tuple[str, str, str]:
+    endpoint = endpoint.rstrip("/")
+    last_error: Exception | None = None
+    for attempt in range(attempts):
+        try:
+            targets = None
+            for path in ("/json/list", "/json"):
+                try:
+                    with urllib.request.urlopen(f"{endpoint}{path}", timeout=8) as response:
+                        targets = json.load(response)
+                    break
+                except (OSError, json.JSONDecodeError):
+                    continue
+            if not isinstance(targets, list):
+                raise ValueError("Chrome returned no DevTools target list")
+            pages = [
+                target for target in targets
+                if isinstance(target, dict)
+                and target.get("type") == "page"
+                and urllib.parse.urlsplit(str(target.get("url", ""))).netloc == "photos.google.com"
+                and isinstance(target.get("webSocketDebuggerUrl"), str)
+            ]
+            if not pages:
+                raise ValueError("Chrome has no Google Photos page target")
+            target = pages[-1]
+            url = str(target["webSocketDebuggerUrl"])
+            parsed = urllib.parse.urlsplit(url)
+            if parsed.scheme != "ws" or not parsed.path:
+                raise ValueError("Chrome returned an invalid page WebSocket URL")
+            return url, parsed.netloc, str(target.get("url", ""))
+        except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as error:
+            last_error = error
+            if attempt + 1 < attempts:
+                time.sleep(0.5)
+    raise CdpError(
+        "Chrome DevTools is unavailable; keep an authenticated Google Photos tab open "
+        "or provide a dedicated CDP endpoint"
+    ) from last_error
 
 
 @contextmanager
 def adb_chrome_forward(serial: str) -> Iterator[int]:
-    port = 9222
-    command = ["adb", "-s", serial, "forward", f"tcp:{port}", "localabstract:chrome_devtools_remote"]
+    command = ["adb", "-s", serial, "forward", "tcp:0", "localabstract:chrome_devtools_remote"]
     result = subprocess.run(command, text=True, capture_output=True, check=False)
     if result.returncode:
         raise CdpError(result.stderr.strip() or "could not forward Chrome DevTools")
+    try:
+        port = int(result.stdout.strip())
+    except ValueError as error:
+        raise CdpError("ADB did not return the allocated Chrome DevTools port") from error
     try:
         yield port
     finally:
@@ -159,18 +174,19 @@ EXTRACT_AND_SCROLL = r"""
     for (const node of document.querySelectorAll('img,video')) {
       const src = node.currentSrc || node.src || '';
       if (!src) continue;
+      const label = [node.alt, node.getAttribute('aria-label'), node.title,
+        node.parentElement && node.parentElement.getAttribute('aria-label')]
+        .filter(Boolean).join(' ');
+      const kind = node.tagName.toLowerCase() === 'video' || /\bvideo\b|play/i.test(label)
+        ? 'video' : 'image';
       media.set(src, {
-        tag: node.tagName.toLowerCase(), src, alt: node.alt || '',
+        tag: node.tagName.toLowerCase(), kind, src, alt: node.alt || label,
         width: node.naturalWidth || node.videoWidth || 0,
         height: node.naturalHeight || node.videoHeight || 0
       });
     }
   };
   const root = document.scrollingElement || document.documentElement;
-  const text = document.body ? document.body.innerText : '';
-  if (/sign[ -]?in|choose an account/i.test(text)) {
-    return {url: location.href, title: document.title, authenticated: false, media: []};
-  }
   const scroller = root;
   collect();
   let stagnant = 0;
@@ -185,6 +201,7 @@ EXTRACT_AND_SCROLL = r"""
     stagnant = media.size === before ? stagnant + 1 : 0;
     if (next >= scroller.scrollHeight - scroller.clientHeight - 4 && stagnant >= 3) break;
   }
+  const text = document.body ? document.body.innerText : '';
   const host = location.hostname;
   return {
     url: location.href,
@@ -207,32 +224,50 @@ def _wait_for_execution_context(ws: _WebSocket, attempts: int = 15) -> None:
             time.sleep(1)
 
 
-def collect(serial: str, url: str = "https://photos.google.com/", max_scrolls: int = 80) -> dict[str, object]:
+def collect(
+    serial: str | None = None,
+    url: str = "https://photos.google.com/",
+    max_scrolls: int = 80,
+    cdp_endpoint: str | None = None,
+) -> dict[str, object]:
+    if cdp_endpoint:
+        return _collect_endpoint(cdp_endpoint, url, max_scrolls)
+    if not serial:
+        raise CdpError("provide --serial for phone Chrome or --cdp-endpoint for local Chrome")
     with adb_chrome_forward(serial) as port:
-        ws_url, host_header, current_url = _chrome_page_websocket_url(port)
-        ws = _WebSocket(ws_url, host_header=host_header)
-        try:
-            ws.call("Page.enable")
-            ws.call("Runtime.enable")
-            if current_url.rstrip("/") != url.rstrip("/"):
-                ws.call("Page.navigate", {"url": url})
-            _wait_for_execution_context(ws)
-            expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
-            result = ws.call(
-                "Runtime.evaluate",
-                {"expression": expression, "awaitPromise": True, "returnByValue": True},
-            )
-            value = result.get("result", {}).get("result", {}).get("value")
-            if not isinstance(value, dict):
-                raise CdpError("Chrome returned no Photos extraction result")
-            if not value.get("authenticated"):
-                raise CdpError("Chrome is not authenticated to Google Photos; sign in visibly first")
-            return value
-        finally:
-            ws.close()
+        return _collect_endpoint(f"http://127.0.0.1:{port}", url, max_scrolls)
 
 
+def _collect_endpoint(endpoint: str, url: str, max_scrolls: int) -> dict[str, object]:
+    ws_url, host_header, current_url = _chrome_page_websocket_url(endpoint)
+    ws = _WebSocket(ws_url, host_header=host_header)
+    try:
+        ws.call("Page.enable")
+        ws.call("Runtime.enable")
+        if current_url.rstrip("/") != url.rstrip("/"):
+            ws.call("Page.navigate", {"url": url})
+        _wait_for_execution_context(ws)
+        expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
+        result = ws.call(
+            "Runtime.evaluate",
+            {"expression": expression, "awaitPromise": True, "returnByValue": True},
+        )
+        value = result.get("result", {}).get("result", {}).get("value")
+        if not isinstance(value, dict):
+            raise CdpError("Chrome returned no Photos extraction result")
+        if not value.get("authenticated"):
+            raise CdpError("Chrome is not authenticated to Google Photos; sign in with Chrome first")
+        return value
+    finally:
+        ws.close()
 
-def collect_to_file(serial: str, output: str, url: str = "https://photos.google.com/", max_scrolls: int = 80) -> None:
-    value = collect(serial, url, max_scrolls)
+
+def collect_to_file(
+    output: str,
+    serial: str | None = None,
+    url: str = "https://photos.google.com/",
+    max_scrolls: int = 80,
+    cdp_endpoint: str | None = None,
+) -> None:
+    value = collect(serial, url, max_scrolls, cdp_endpoint)
     write_cloud_records(value, output)

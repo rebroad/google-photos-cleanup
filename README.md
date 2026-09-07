@@ -5,10 +5,10 @@ metadata obtained from Google Photos. The tool never deletes files.
 
 ## Status
 
-The ADB inventory, matching, JSON/CSV reporting, and private-session feasibility
-probe are implemented. The Google Photos private protocol is intentionally an
-isolated adapter: Android package inspection does not expose a supported backup
-status API, and no credentials are collected automatically.
+The ADB inventory, supported Chrome/CDP collection, matching, JSON/CSV
+reporting, and private-session feasibility probe are implemented. Cloud
+collection reads the rendered Google Photos session through Chrome DevTools;
+credentials and cookies are never collected automatically.
 
 ## Usage
 
@@ -30,23 +30,48 @@ the device provides `sha256sum`.
 The JSON manifest is review-only: every candidate has `action: "review_only"`,
 and `deletion_performed` is always `false`. The tool has no delete operation.
 
-Authenticate a persistent Obscura profile once. This is terminal-driven and does not use Chrome, screen automation, or cookie extraction:
+Collect from a supported signed-in Chrome session. The preferred mode uses
+Chrome already signed in on the phone through ADB port forwarding. The tool does
+not tap the screen, request your password, export cookies, or modify the phone:
 
-```sh
-python3 -m gphotos_cleanup.obscura_auth_cli
-```
+~~~sh
+python3 -m gphotos_cleanup.chrome_collect_cli \
+  --serial SERIAL --output photos-raw.json
+python -m gphotos_cleanup normalize --input photos-raw.json --output photos-normalized.json
+~~~
 
-Then collect and compare with:
+Leave an authenticated photos.google.com tab open in Chrome. The collector
+uses Chrome DevTools only to navigate that tab, inspect the rendered media, and
+scroll the Photos timeline. ADB forwards a temporary local port and removes it
+when collection finishes.
 
-```sh
-python -m gphotos_cleanup.obscura_collect_cli \
-  --obscura /path/to/obscura \
-  --storage-dir "$PREFIX/tmp/obscura-photos-profile" \
-  --output photos.json
-python -m gphotos_cleanup normalize --input photos.json --output photos-normalized.json
+When ADB/phone Chrome is unavailable, use any local Chrome-compatible browser
+with a dedicated profile stored outside this repository and a local DevTools
+endpoint. Authentication is performed once by the user in that browser; the
+collector only uses the already-authenticated session afterward:
+
+~~~sh
+# Example browser setup; choose a profile path outside the repository.
+chrome --remote-debugging-port=9222 \
+  --user-data-dir="$PREFIX/tmp/google-photos-chrome-profile" \
+  https://photos.google.com/
+python3 -m gphotos_cleanup.chrome_collect_cli \
+  --cdp-endpoint http://127.0.0.1:9222 --output photos-raw.json
+~~~
+
+The endpoint mode is headless from the collector's perspective: it performs no
+screen automation. Keep profile directories, DevTools state, and reports under
+$PREFIX/tmp on Termux (or /var/tmp on Linux), never in this public repo.
+Obscura remains available as an experimental diagnostic collector, but Google
+may reject its login flow before a password field is offered, so it is not the
+primary authentication path.
+
+Then compare and produce the review-only manifest:
+
+~~~sh
 python -m gphotos_cleanup match \
   --inventory /data/data/com.termux/files/usr/tmp/device-inventory-video.json \
   --photos photos-normalized.json --output matches.json
 python -m gphotos_cleanup report --matches matches.json \
   --csv deletion-review.csv --manifest deletion-candidates.json
-```
+~~~
