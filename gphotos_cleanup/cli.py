@@ -43,23 +43,29 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "auth-probe":
             print(json.dumps(Adb(args.serial).probe(), indent=2, sort_keys=True))
         elif args.command == "inventory":
-            files = Adb(args.serial).inventory(args.root, args.hash)
+            serial = args.serial
+            if args.fingerprint and not serial:
+                devices = [line.split()[0] for line in Adb().run("devices").splitlines() if line.endswith("\tdevice")]
+                if len(devices) != 1:
+                    raise RuntimeError("--fingerprint requires --serial when ADB does not have exactly one device")
+                serial = devices[0]
+            files = Adb(serial).inventory(args.root, args.hash)
             if args.fingerprint:
                 for item in files:
                     extension = str(item.get("extension", "")).lower()
                     if extension in {".jpg", ".jpeg", ".png", ".heic", ".webp", ".gif"}:
                         try:
-                            item["phash"] = fingerprint_adb(args.serial, str(item["path"]))
+                            item["phash"] = fingerprint_adb(serial, str(item["path"]))
                             item["fingerprint_kind"] = "image"
                         except (OSError, RuntimeError):
                             item["phash_error"] = True
                     elif extension in VIDEO_EXTENSIONS:
                         try:
-                            item["phash"] = video_fingerprint_adb(args.serial, str(item["path"]))
+                            item["phash"] = video_fingerprint_adb(serial, str(item["path"]))
                             item["fingerprint_kind"] = "video-contact-sheet"
                         except (OSError, RuntimeError, ValueError):
                             item["phash_error"] = True
-            _write(args.output, {"serial": args.serial, "roots": args.root, "files": files})
+            _write(args.output, {"serial": serial, "roots": args.root, "files": files})
         elif args.command == "normalize":
             source = json.loads(Path(args.input).read_text(encoding="utf-8"))
             _write(args.output, normalize(source["media_items"] if isinstance(source, dict) and "media_items" in source else source))
