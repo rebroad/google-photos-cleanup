@@ -258,18 +258,18 @@ EXTRACT_AND_SCROLL = r"""
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   const media = new Map();
   const collect = () => {
-    const nodes = [...document.querySelectorAll("img,video,*")];
+    const nodes = [...document.querySelectorAll("img,video,div")];
     for (const node of nodes) {
       const tag = node.tagName.toLowerCase();
+      const rect = node.getBoundingClientRect();
+      if (!node.currentSrc && !node.src &&
+          (rect.width < 50 || rect.height < 50)) continue;
       const style = getComputedStyle(node);
       const background = style.backgroundImage || "";
       const backgroundMatch = background.match(/url\(["\x27]?([^"\x27)]+)["\x27]?\)/);
       const src = node.currentSrc || node.src ||
         (backgroundMatch ? backgroundMatch[1] : "");
       if (!src) continue;
-      const rect = node.getBoundingClientRect();
-      if (!node.currentSrc && !node.src &&
-          (rect.width < 50 || rect.height < 50)) continue;
       const label = [node.alt, node.getAttribute("aria-label"), node.title,
         node.parentElement && node.parentElement.getAttribute("aria-label")]
         .filter(Boolean).join(" ");
@@ -290,6 +290,8 @@ EXTRACT_AND_SCROLL = r"""
       (best.scrollHeight - best.clientHeight) ? node : best,
     root
   );
+  scroller.scrollTop = Math.min(__START_SCROLL_TOP__, Math.max(0, scroller.scrollHeight - scroller.clientHeight));
+  await delay(500);
   collect();
   let stagnant = 0;
   let reachedEnd = false;
@@ -351,7 +353,8 @@ EXTRACT_AND_SCROLL = r"""
     complete: reachedEnd,
     reached_end: reachedEnd,
     scroll_count: scrollCount,
-    scroll_height: scroller.scrollHeight
+    scroll_height: scroller.scrollHeight,
+    scroll_top: scroller.scrollTop
   };
 })()
 """
@@ -390,13 +393,13 @@ def collect(
         return _collect_endpoint(endpoint, url, max_scrolls)
 
 
-def _collect_endpoint(endpoint: str, url: str, max_scrolls: int) -> dict[str, object]:
+def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_top: int = 0) -> dict[str, object]:
     ws_url, host_header, current_url = _chrome_page_websocket_url(endpoint)
     ws = _WebSocket(ws_url, host_header=host_header)
     try:
         if current_url.rstrip("/") != url.rstrip("/"):
             ws.call("Page.navigate", {"url": url})
-        expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000))))
+        expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000)))).replace("__START_SCROLL_TOP__", str(max(0, start_scroll_top)))
         result = ws.call(
             "Runtime.evaluate",
             {"expression": expression, "awaitPromise": True, "returnByValue": True},

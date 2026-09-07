@@ -131,7 +131,7 @@ def write_cloud_records(value: dict[str, object], output: str, cookie_header: st
                 if phash:
                     records[index]["phash"] = phash
     payload: dict[str, object] = {"media_items": records}
-    for key in ("url", "title", "complete", "reached_end", "scroll_count", "scroll_height"):
+    for key in ("url", "title", "complete", "reached_end", "scroll_count", "scroll_height", "scroll_top"):
         if key in value:
             payload[key] = value[key]
     Path(output).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
