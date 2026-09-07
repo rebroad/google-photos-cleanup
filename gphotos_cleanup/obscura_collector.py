@@ -100,7 +100,7 @@ def _media_phash(url: str, video: bool = False, cookie_header: str | None = None
         return None
 
 
-def write_cloud_records(value: dict[str, object], output: str, cookie_header: str | None = None) -> None:
+def write_cloud_records(value: dict[str, object], output: str, cookie_header: str | None = None, include_source_urls: bool = False) -> None:
     media = value.get("media", [])
     records = []
     fingerprint_jobs = []
@@ -119,6 +119,8 @@ def write_cloud_records(value: dict[str, object], output: str, cookie_header: st
             "height": item.get("height", 0),
             "source": "google-photos-dom",
         })
+        if include_source_urls:
+            records[-1]["source_url"] = src
         browser_phash = item.get("phash")
         if isinstance(browser_phash, str):
             records[-1]["phash"] = browser_phash

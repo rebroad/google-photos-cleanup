@@ -49,7 +49,7 @@ def headless_chrome(chrome: str, profile_dir: str, port: int, url: str) -> Itera
 
 def collect(chrome: str, profile_dir: str, session_file: str, output: str,
             url: str = "https://photos.google.com/", max_scrolls: int = 20000,
-            port: int = 9222, chunk_scrolls: int = 100) -> None:
+            port: int = 9222, chunk_scrolls: int = 100, fingerprint: bool = True, include_source_urls: bool = False) -> None:
     session = _read_session_file(session_file)
     cookie_header = "; ".join(f"{item['name']}={item['value']}" for item in session)
     merged: dict[str, dict[str, object]] = {}
@@ -82,7 +82,7 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
             finally:
                 ws.close()
             time.sleep(5)
-            final_value = _collect_endpoint(endpoint, url, chunk, start_scroll_top)
+            final_value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint)
         for item in final_value.get("media", []):
             if isinstance(item, dict) and item.get("src"):
                 merged[str(item["src"])] = item
@@ -99,4 +99,4 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
     final_value["complete"] = complete
     final_value["reached_end"] = complete
     from .obscura_collector import write_cloud_records
-    write_cloud_records(final_value, output, cookie_header=cookie_header)
+    write_cloud_records(final_value, output, cookie_header=cookie_header, include_source_urls=include_source_urls)

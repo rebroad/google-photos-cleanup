@@ -311,6 +311,7 @@ EXTRACT_AND_SCROLL = r"""
       break;
     }
   }
+  if (__FINGERPRINT__) {
   const hashImage = async (item) => {
     if (item.kind !== "image") return null;
       const controller = new AbortController();
@@ -345,6 +346,7 @@ EXTRACT_AND_SCROLL = r"""
   const candidates = Array.from(media.values()).filter(item => item.kind === "image" && !item.phash);
   for (let index = 0; index < candidates.length; index += 8) {
     await Promise.all(candidates.slice(index, index + 8).map(hashImage));
+  }
   }
   const text = document.body ? document.body.innerText : '';
   const host = location.hostname;
@@ -396,13 +398,13 @@ def collect(
         return _collect_endpoint(endpoint, url, max_scrolls)
 
 
-def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_top: int = 0) -> dict[str, object]:
+def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_top: int = 0, fingerprint: bool = True) -> dict[str, object]:
     ws_url, host_header, current_url = _chrome_page_websocket_url(endpoint)
     ws = _WebSocket(ws_url, host_header=host_header)
     try:
         if current_url.rstrip("/") != url.rstrip("/"):
             ws.call("Page.navigate", {"url": url})
-        expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000)))).replace("__START_SCROLL_TOP__", str(max(0, start_scroll_top)))
+        expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000)))).replace("__START_SCROLL_TOP__", str(max(0, start_scroll_top))).replace("__FINGERPRINT__", "true" if fingerprint else "false")
         result = ws.call(
             "Runtime.evaluate",
             {"expression": expression, "awaitPromise": True, "returnByValue": True},
