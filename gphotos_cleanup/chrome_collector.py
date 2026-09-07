@@ -105,7 +105,7 @@ class _WebSocket:
             return message
 
 
-def _chrome_page_websocket_url(endpoint: str, attempts: int = 8) -> tuple[str, str, str]:
+def _chrome_page_websocket_url(endpoint: str, attempts: int = 2) -> tuple[str, str, str]:
     endpoint = endpoint.rstrip("/")
     last_error: Exception | None = None
     for attempt in range(attempts):
@@ -129,12 +129,50 @@ def _chrome_page_websocket_url(endpoint: str, attempts: int = 8) -> tuple[str, s
             ]
             if not pages:
                 raise ValueError("Chrome has no Google Photos page target")
-            target = pages[-1]
-            url = str(target["webSocketDebuggerUrl"])
-            parsed = urllib.parse.urlsplit(url)
-            if parsed.scheme != "ws" or not parsed.path:
-                raise ValueError("Chrome returned an invalid page WebSocket URL")
-            return url, parsed.netloc, str(target.get("url", ""))
+            root_pages = [
+                page for page in pages
+                if str(page.get("url", "")).rstrip("/") == "https://photos.google.com"
+            ]
+            candidates = root_pages or pages
+            responsive: list[tuple[int, dict[str, object], str, str]] = []
+            for target in candidates:
+                url = str(target["webSocketDebuggerUrl"])
+                parsed = urllib.parse.urlsplit(url)
+                if parsed.scheme != "ws" or not parsed.path:
+                    continue
+                probe = None
+                try:
+                    probe = _WebSocket(url, host_header=parsed.netloc, timeout=3)
+                    result = probe.call("Runtime.evaluate", {
+                        "expression": "JSON.stringify({href: location.href, media: document.querySelectorAll('img,video').length})",
+                        "returnByValue": True,
+                    })
+                    value = result.get("result", {}).get("result", {}).get("value")
+                    details = json.loads(value) if isinstance(value, str) else {}
+                    if details.get("href") != str(target.get("url", "")):
+                        continue
+                    responsive.append((int(details.get("media", 0)), target, url, parsed.netloc))
+                except (CdpError, OSError, TimeoutError, ValueError, TypeError, json.JSONDecodeError):
+                    continue
+                finally:
+                    if probe is not None:
+                        probe.close()
+            if responsive:
+                _, target, url, host = max(responsive, key=lambda item: item[0])
+                keep_id = str(target.get("id", target.get("targetId", "")))
+                for extra in pages:
+                    extra_id = str(extra.get("id", extra.get("targetId", "")))
+                    if extra_id and extra_id != keep_id:
+                        try:
+                            with urllib.request.urlopen(
+                                f"{endpoint}/json/close/{urllib.parse.quote(extra_id, safe='')}",
+                                timeout=2,
+                            ):
+                                pass
+                        except OSError:
+                            pass
+                return url, host, str(target.get("url", ""))
+            raise ValueError("Google Photos targets are not ready for DevTools commands")
         except (OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as error:
             last_error = error
             if attempt + 1 < attempts:
@@ -284,21 +322,23 @@ def collect(
         return _collect_endpoint(cdp_endpoint, url, max_scrolls)
     if not serial:
         raise CdpError("provide --serial for phone Chrome or --cdp-endpoint for local Chrome")
-    if open_chrome:
-        adb_open_google_photos(serial, url)
     with adb_chrome_forward(serial) as port:
-        return _collect_endpoint(f"http://127.0.0.1:{port}", url, max_scrolls)
+        endpoint = f"http://127.0.0.1:{port}"
+        if open_chrome:
+            try:
+                _chrome_page_websocket_url(endpoint)
+            except CdpError:
+                adb_open_google_photos(serial, url)
+                time.sleep(3)
+        return _collect_endpoint(endpoint, url, max_scrolls)
 
 
 def _collect_endpoint(endpoint: str, url: str, max_scrolls: int) -> dict[str, object]:
     ws_url, host_header, current_url = _chrome_page_websocket_url(endpoint)
     ws = _WebSocket(ws_url, host_header=host_header)
     try:
-        ws.call("Page.enable")
-        ws.call("Runtime.enable")
         if current_url.rstrip("/") != url.rstrip("/"):
             ws.call("Page.navigate", {"url": url})
-        _wait_for_execution_context(ws)
         expression = EXTRACT_AND_SCROLL.replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 200))))
         result = ws.call(
             "Runtime.evaluate",

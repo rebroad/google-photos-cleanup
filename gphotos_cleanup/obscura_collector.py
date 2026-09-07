@@ -3,10 +3,21 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
+import urllib.parse
 import urllib.request
 
 from .fingerprint import average_hash, video_fingerprint_stream
 from pathlib import Path
+
+
+def _is_google_media_url(url: str) -> bool:
+    host = urllib.parse.urlsplit(url).hostname or ""
+    return (
+        host == "googleusercontent.com"
+        or host.endswith(".googleusercontent.com")
+        or host == "usercontent.google.com"
+        or host.endswith(".usercontent.google.com")
+    )
 
 
 EXTRACT = r"""
@@ -66,7 +77,7 @@ class _LimitedReader:
 
 
 def _media_phash(url: str, video: bool = False) -> str | None:
-    if "googleusercontent.com/" not in url:
+    if not _is_google_media_url(url):
         return None
     request = urllib.request.Request(url, headers={"User-Agent": "gphotos-cleanup/0.1"})
     limit = 128 * 1024 * 1024 if video else 16 * 1024 * 1024
@@ -92,7 +103,7 @@ def write_cloud_records(value: dict[str, object], output: str) -> None:
         if not isinstance(item, dict):
             continue
         src = str(item.get("src", ""))
-        if "googleusercontent.com/" not in src:
+        if not _is_google_media_url(src):
             continue
         video = item.get("kind", item.get("tag")) == "video"
         record = {
@@ -101,7 +112,7 @@ def write_cloud_records(value: dict[str, object], output: str) -> None:
             "mime_type": "video/*" if video else "image/*",
             "width": item.get("width", 0),
             "height": item.get("height", 0),
-            "source": "obscura-dom",
+            "source": "google-photos-dom",
         }
         phash = _media_phash(src, video=video)
         if phash:

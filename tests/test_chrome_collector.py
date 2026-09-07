@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from gphotos_cleanup.chrome_collector import EXTRACT_AND_SCROLL, _WebSocket
+from gphotos_cleanup.obscura_collector import _is_google_media_url
 
 
 class ChunkedSocket:
@@ -49,3 +50,10 @@ def test_extractor_does_not_include_cookie_or_password_apis():
     assert "Network.getAllCookies" not in EXTRACT_AND_SCROLL
     assert "document.cookie" not in EXTRACT_AND_SCROLL
     assert "password" not in EXTRACT_AND_SCROLL
+
+
+
+def test_current_google_photos_media_hosts_are_allowed_without_allowing_arbitrary_hosts():
+    assert _is_google_media_url("https://photos.fife.usercontent.google.com/pw/thumb")
+    assert _is_google_media_url("https://lh3.googleusercontent.com/a")
+    assert not _is_google_media_url("https://example.googleusercontent.com.evil.test/a")
