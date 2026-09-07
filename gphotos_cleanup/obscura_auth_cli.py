@@ -66,7 +66,7 @@ def authenticate(binary: str, storage_dir: str, port: int) -> None:
             _fill_and_click(ws, session, "input[type=email], input#identifierId, input[name=identifier]", email, "#identifierNext")
             time.sleep(2)
             password = getpass.getpass("Google account password (not saved): ")
-            _fill_and_click(ws, session, "input[type=password]", password, "#passwordNext")
+            _fill_and_click(ws, session, "input[type=password], input[name=Passwd]", password, "#passwordNext, button[type=submit]")
             del password
             time.sleep(4)
             state = _evaluate(ws, "({url: location.href, title: document.title})", session)

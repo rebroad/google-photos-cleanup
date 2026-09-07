@@ -1,2 +1,15 @@
 __pycache__/
 *.py[cod]
+
+# Local authentication state and personal media reports must never be public.
+obscura-photos-profile/
+.obscura-photos-profile/
+cookies.json
+storage-state.json
+photos-raw.json
+photos-normalized.json
+device-inventory.json
+matches.json
+deletion-review.csv
+deletion-candidates.json
+*.log
