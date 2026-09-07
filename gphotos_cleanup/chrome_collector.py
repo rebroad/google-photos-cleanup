@@ -291,7 +291,7 @@ EXTRACT_AND_SCROLL = r"""
     root
   );
   scroller.scrollTop = Math.min(__START_SCROLL_TOP__, Math.max(0, scroller.scrollHeight - scroller.clientHeight));
-  await delay(500);
+  await delay(250);
   collect();
   let stagnant = 0;
   let reachedEnd = false;
@@ -302,7 +302,7 @@ EXTRACT_AND_SCROLL = r"""
     const step = Math.max(1800, scroller.clientHeight * 2.5);
     const next = Math.min(scroller.scrollTop + step, maximum);
     scroller.scrollTop = next;
-    await delay(200);
+    await delay(75);
     collect();
     scrollCount = index + 1;
     stagnant = media.size === before ? stagnant + 1 : 0;
