@@ -45,7 +45,8 @@ def match(local: list[dict[str, object]], remote: list[dict[str, object]], toler
             evidence.append("sha256")
             confidence = "high"
         else:
-            candidates = by_name.get(str(file.get("filename", "")).casefold(), [])
+            local_name = str(file.get("filename", "")).casefold()
+            candidates = by_name.get(local_name, []) if local_name else []
             confidence = "review"
             for candidate in candidates:
                 if file.get("size") is not None and candidate.get("size") == file.get("size"):
@@ -56,7 +57,7 @@ def match(local: list[dict[str, object]], remote: list[dict[str, object]], toler
                     evidence.append("creation_time")
             if {"size", "creation_time"}.issubset(evidence):
                 confidence = "medium"
-        if not candidates and file.get("phash"):
+        if file.get("phash"):
             local_phash = str(file["phash"])
             perceptual = [
                 candidate for candidate in remote
@@ -64,8 +65,10 @@ def match(local: list[dict[str, object]], remote: list[dict[str, object]], toler
                 and hamming(local_phash, str(candidate["phash"])) <= 24
             ]
             if perceptual:
-                candidates = perceptual
+                existing_ids = {id(candidate) for candidate in candidates}
+                candidates.extend(candidate for candidate in perceptual if id(candidate) not in existing_ids)
                 evidence.append("perceptual_hash")
-                confidence = "review"
+                if confidence != "high":
+                    confidence = "review"
         output.append({"path": file.get("path"), "filename": file.get("filename"), "confidence": confidence if candidates else "none", "evidence": sorted(set(evidence)), "remote_ids": [item.get("id") for item in candidates], "remote_urls": [item.get("product_url") for item in candidates]})
     return output
