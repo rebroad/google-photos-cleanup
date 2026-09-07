@@ -127,7 +127,7 @@ def _obscura_page_websocket_url(port: int) -> tuple[str, str, str]:
 
 @contextmanager
 def obscura_server(binary: str, storage_dir: str, port: int) -> Iterator[int]:
-    command = [binary, "serve", "--host", "127.0.0.1", "--port", str(port), "--storage-dir", storage_dir, "--quiet"]
+    command = [binary, "serve", "--stealth", "--host", "127.0.0.1", "--port", str(port), "--storage-dir", storage_dir, "--quiet"]
     process = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, text=True)
     try:
         deadline = time.monotonic() + 15
