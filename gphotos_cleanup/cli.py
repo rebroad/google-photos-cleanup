@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 from .adb import Adb
-from .fingerprint import fingerprint_adb
+from .fingerprint import VIDEO_EXTENSIONS, fingerprint_adb, video_fingerprint_adb
 from .photos import match, normalize
 
 
@@ -44,10 +44,18 @@ def main(argv: list[str] | None = None) -> int:
             files = Adb(args.serial).inventory(args.root, args.hash)
             if args.fingerprint:
                 for item in files:
-                    if item.get("extension") in {".jpg", ".jpeg", ".png", ".heic", ".webp", ".gif"}:
+                    extension = str(item.get("extension", "")).lower()
+                    if extension in {".jpg", ".jpeg", ".png", ".heic", ".webp", ".gif"}:
                         try:
                             item["phash"] = fingerprint_adb(args.serial, str(item["path"]))
+                            item["fingerprint_kind"] = "image"
                         except (OSError, RuntimeError):
+                            item["phash_error"] = True
+                    elif extension in VIDEO_EXTENSIONS:
+                        try:
+                            item["phash"] = video_fingerprint_adb(args.serial, str(item["path"]))
+                            item["fingerprint_kind"] = "video-contact-sheet"
+                        except (OSError, RuntimeError, ValueError):
                             item["phash_error"] = True
             _write(args.output, {"serial": args.serial, "roots": args.root, "files": files})
         elif args.command == "normalize":
