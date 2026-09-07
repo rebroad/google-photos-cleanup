@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import urllib.request
 
-from .fingerprint import average_hash
+from .fingerprint import average_hash, video_fingerprint_stream
 from pathlib import Path
 
 
@@ -46,17 +47,41 @@ def collect(binary: str, storage_dir: str, url: str = "https://photos.google.com
         raise RuntimeError(f"could not parse obscura output: {error}") from error
 
 
-def _photo_phash(url: str) -> str | None:
+class _LimitedReader:
+    def __init__(self, stream, limit: int):
+        self.stream = stream
+        self.limit = limit
+        self.total = 0
+
+    def read(self, size: int = -1) -> bytes:
+        remaining = self.limit - self.total
+        if remaining <= 0:
+            return b""
+        requested = remaining if size is None or size < 0 else min(size, remaining + 1)
+        chunk = self.stream.read(requested)
+        self.total += len(chunk)
+        if self.total > self.limit:
+            raise ValueError("remote media exceeds fingerprint limit")
+        return chunk
+
+
+def _media_phash(url: str, video: bool = False) -> str | None:
     if "googleusercontent.com/" not in url:
         return None
     request = urllib.request.Request(url, headers={"User-Agent": "gphotos-cleanup/0.1"})
+    limit = 128 * 1024 * 1024 if video else 16 * 1024 * 1024
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
-            data = response.read(16 * 1024 * 1024 + 1)
-        if len(data) > 16 * 1024 * 1024:
+            length = response.headers.get("Content-Length")
+            if length and int(length) > limit:
+                return None
+            if video:
+                return video_fingerprint_stream(_LimitedReader(response, limit))
+            data = response.read(limit + 1)
+        if len(data) > limit:
             return None
         return average_hash(data)
-    except (OSError, ValueError):
+    except (OSError, ValueError, RuntimeError):
         return None
 
 
@@ -69,19 +94,17 @@ def write_cloud_records(value: dict[str, object], output: str) -> None:
         src = str(item.get("src", ""))
         if "googleusercontent.com/" not in src:
             continue
+        video = item.get("tag") == "video"
         record = {
-            "id": src,
+            "id": "media:" + hashlib.sha256(src.encode("utf-8")).hexdigest(),
             "filename": str(item.get("alt", "")),
-            "mime_type": "video/*" if item.get("tag") == "video" else "image/*",
+            "mime_type": "video/*" if video else "image/*",
             "width": item.get("width", 0),
             "height": item.get("height", 0),
             "source": "obscura-dom",
-            "source_url": value.get("url"),
-            "content_url": src,
         }
-        if item.get("tag") != "video":
-            phash = _photo_phash(src)
-            if phash:
-                record["phash"] = phash
+        phash = _media_phash(src, video=video)
+        if phash:
+            record["phash"] = phash
         records.append(record)
     Path(output).write_text(json.dumps({"media_items": records}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
