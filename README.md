@@ -29,11 +29,14 @@ phone's media to Termux. Hashing is opt-in and only hashes files remotely when
 the device provides `sha256sum`.
 
 The JSON manifest is review-only: every candidate has `action: "review_only"`,
-and `deletion_performed` is always `false`. The tool has no delete operation.
+and `deletion_performed` is always `false`. It also records duplicate groups
+found on the device and in Google Photos. The tool has no delete operation.
 
-Authenticate once in the visible phone Chrome session, then collect through
-Obscura headlessly. The phone screen is not used for collection, scrolling, or
-media inspection.
+Authenticate in a Chrome session that is visible only through the approved
+virtual-display workflow, then collect through Chrome DevTools. The physical
+phone screen is not used for collection, scrolling, or media inspection. The
+existing `flip7-virtual-display` helper can provide the Android virtual display
+when Chrome authentication is needed.
 
 First export only the filtered Google authentication cookies through Chrome
 DevTools. The session file is written with mode 0600 outside this repository:
@@ -42,21 +45,20 @@ DevTools. The session file is written with mode 0600 outside this repository:
 python3 -m gphotos_cleanup.chrome_auth_cli
 ~~~
 
-Then run the headless collector. It injects that session into Obscura, navigates
-Google Photos, discovers the real nested timeline scroller, and records whether
-the bottom was actually reached:
+Then run the collector against the authenticated Chrome DevTools endpoint. It
+discovers the real nested timeline scroller, waits for virtualized tiles to
+render, and records whether the bottom was actually reached:
 
 ~~~sh
-python3 -m gphotos_cleanup.obscura_collect_cli \
-  --obscura "$PREFIX/tmp/obscura-hpenvy-aarch64" \
-  --storage-dir "$PREFIX/tmp/obscura-photos-profile" \
-  --session-file "$PREFIX/tmp/google-photos-session.json" \
-  --output "$PREFIX/tmp/photos-raw-headless.json"
+python3 -m gphotos_cleanup.chrome_collect_cli \
+  --cdp-endpoint http://127.0.0.1:19223 \
+  --no-open \
+  --output "$PREFIX/tmp/photos-raw-chrome.json"
 python -m gphotos_cleanup normalize \
-  --input "$PREFIX/tmp/photos-raw-headless.json" \
+  --input "$PREFIX/tmp/photos-raw-chrome.json" \
   --output "$PREFIX/tmp/photos-normalized.json"
 python -m gphotos_cleanup list-cloud \
-  --input "$PREFIX/tmp/photos-raw-headless.json" \
+  --input "$PREFIX/tmp/photos-raw-chrome.json" \
   --output "$PREFIX/tmp/google-photos-list.csv"
 ~~~
 
@@ -67,9 +69,9 @@ user explicitly selects, so neither is a complete personal-library source.
 The headless rendered timeline is therefore used with an explicit end-of-list
 check.
 
-The older chrome_collect_cli command remains a diagnostic tool for inspecting
-the authenticated phone session; it is not the collection path because it
-scrolls visible Chrome.
+The collector also supports `--serial` for a directly connected signed-in
+Chrome, but the preferred setup is a CDP endpoint forwarded from the virtual
+display. Keep the endpoint local and keep all session/profile data outside Git.
 
 Then compare and produce the review-only manifest:
 
