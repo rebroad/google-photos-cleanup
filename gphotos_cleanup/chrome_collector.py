@@ -145,6 +145,31 @@ def _chrome_page_websocket_url(endpoint: str, attempts: int = 8) -> tuple[str, s
     ) from last_error
 
 
+def connected_adb_serial() -> str:
+    try:
+        result = subprocess.run(
+            ["adb", "devices"],
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=10,
+        )
+    except subprocess.TimeoutExpired as error:
+        raise CdpError("timed out listing ADB devices") from error
+    if result.returncode:
+        raise CdpError(result.stderr.strip() or "could not list ADB devices")
+    devices = [
+        line.split()[0]
+        for line in result.stdout.splitlines()
+        if len(line.split()) == 2 and line.split()[1] == "device"
+    ]
+    if len(devices) != 1:
+        if not devices:
+            raise CdpError("no ADB device is connected; provide --serial or use --cdp-endpoint")
+        raise CdpError("multiple ADB devices are connected; provide --serial explicitly")
+    return devices[0]
+
+
 def adb_open_google_photos(serial: str, url: str) -> None:
     try:
         result = subprocess.run(

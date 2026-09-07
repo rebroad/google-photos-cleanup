@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-from .chrome_collector import CdpError, collect_to_file
+from .chrome_collector import CdpError, collect_to_file, connected_adb_serial
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -17,7 +17,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if not args.serial and not args.cdp_endpoint:
-            parser.error("one of --serial or --cdp-endpoint is required")
+            args.serial = connected_adb_serial()
         collect_to_file(
             args.output, args.serial, args.url, args.max_scrolls,
             args.cdp_endpoint, not args.no_open,

@@ -36,7 +36,7 @@ not tap the screen, request your password, export cookies, or modify the phone:
 
 ~~~sh
 python3 -m gphotos_cleanup.chrome_collect_cli \
-  --serial SERIAL --output photos-raw.json
+  --output photos-raw.json
 python -m gphotos_cleanup normalize --input photos-raw.json --output photos-normalized.json
 ~~~
 
@@ -44,8 +44,9 @@ The ADB mode opens photos.google.com in Chrome automatically, then uses Chrome
 DevTools to inspect the rendered media and scroll the Photos timeline. This may
 bring Chrome visibly to the foreground, but the collector performs no taps or
 screen automation. ADB forwards a temporary local port and removes it when
-collection finishes. Use --no-open if Chrome is already prepared and should not
-be navigated.
+collection finishes. With one connected ADB device, no serial argument is
+needed; use --serial when multiple devices are connected. Use --no-open if
+Chrome is already prepared and should not be navigated.
 
 When ADB/phone Chrome is unavailable, use any local Chrome-compatible browser
 with a dedicated profile stored outside this repository and a local DevTools
