@@ -13,6 +13,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", required=True)
     parser.add_argument("--url", default="https://photos.google.com/")
     parser.add_argument("--max-scrolls", type=int, default=20000)
+    parser.add_argument("--chunk-scrolls", type=int, default=100, help="scrolls per resumable DevTools evaluation")
     parser.add_argument("--no-open", action="store_true", help="do not open Google Photos through ADB before collecting")
     args = parser.parse_args(argv)
     try:
@@ -20,7 +21,7 @@ def main(argv: list[str] | None = None) -> int:
             args.serial = connected_adb_serial()
         collect_to_file(
             args.output, args.serial, args.url, args.max_scrolls,
-            args.cdp_endpoint, not args.no_open,
+            args.cdp_endpoint, not args.no_open, args.chunk_scrolls,
         )
     except OSError as error:
         print("error: Chrome DevTools is unavailable; keep an authenticated Google Photos tab open", file=sys.stderr)

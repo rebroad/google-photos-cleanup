@@ -10,6 +10,7 @@ import subprocess
 import urllib.parse
 import urllib.request
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Iterator
 
 from .obscura_collector import write_cloud_records
@@ -355,10 +356,15 @@ EXTRACT_AND_SCROLL = r"""
   const host = location.hostname;
   const libraryMarker = /Search your photos and albums|Create and add photos|Photos library/i.test(text);
   const publicOverviewMarker = /Get the app|A safe home for your life's memories|Edit, organise, search and back up your photos/i.test(text);
+  // A signed-in shell can briefly contain the library labels while the real
+  // virtualized timeline is still loading (or while an account-login iframe
+  // is present). Do not let that state become a successful empty inventory.
+  const timelineReady = scroller.scrollHeight > 10000 && media.size > 0;
   return {
     url: location.href,
     title: document.title,
     authenticated: host === 'photos.google.com' && libraryMarker && !publicOverviewMarker && !/sign[ -]?in|choose an account/i.test(text),
+    timeline_ready: timelineReady,
     media: Array.from(media.values()),
     complete: reachedEnd,
     reached_end: reachedEnd,
@@ -419,6 +425,8 @@ def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_to
             raise CdpError("Chrome returned no Photos extraction result")
         if not value.get("authenticated"):
             raise CdpError("Chrome is not authenticated to Google Photos; sign in with Chrome first")
+        if not value.get("timeline_ready"):
+            raise CdpError("Google Photos timeline is not ready; wait for the library to load and retry")
         return value
     finally:
         ws.close()
@@ -431,6 +439,86 @@ def collect_to_file(
     max_scrolls: int = 20000,
     cdp_endpoint: str | None = None,
     open_chrome: bool = True,
+    chunk_scrolls: int = 100,
 ) -> None:
-    value = collect(serial, url, max_scrolls, cdp_endpoint, open_chrome)
-    write_cloud_records(value, output)
+    """Collect in bounded, resumable browser evaluations.
+
+    Google Photos can leave a long-running Runtime.evaluate request unusable
+    after a DevTools transport interruption. Persisting each chunk outside the
+    repository means a retry resumes at the last verified scroll position.
+    """
+    checkpoint = Path(output + ".partial")
+    merged: dict[str, dict[str, object]] = {}
+    total_scrolls = 0
+    start_scroll_top = 0
+    final_value: dict[str, object] = {}
+    if checkpoint.exists():
+        saved = json.loads(checkpoint.read_text(encoding="utf-8"))
+        if isinstance(saved, dict):
+            total_scrolls = int(saved.get("scroll_count", 0))
+            start_scroll_top = int(saved.get("scroll_top", 0))
+            final_value = saved
+            for item in saved.get("media", []):
+                if isinstance(item, dict) and item.get("src"):
+                    merged[str(item["src"])] = item
+
+    endpoint_context = (
+        adb_chrome_forward(serial) if not cdp_endpoint else None
+    )
+    if endpoint_context is not None:
+        with endpoint_context as port:
+            _collect_to_file_endpoint(
+                f"http://127.0.0.1:{port}", url, max_scrolls, chunk_scrolls,
+                output, checkpoint, merged, total_scrolls, start_scroll_top,
+                final_value, open_chrome, serial,
+            )
+    else:
+        _collect_to_file_endpoint(
+            str(cdp_endpoint), url, max_scrolls, chunk_scrolls, output,
+            checkpoint, merged, total_scrolls, start_scroll_top, final_value,
+            False, serial,
+        )
+
+
+def _collect_to_file_endpoint(
+    endpoint: str, url: str, max_scrolls: int, chunk_scrolls: int, output: str,
+    checkpoint: Path, merged: dict[str, dict[str, object]], total_scrolls: int,
+    start_scroll_top: int, final_value: dict[str, object], open_chrome: bool,
+    serial: str | None,
+) -> None:
+    if open_chrome and serial:
+        try:
+            _chrome_page_websocket_url(endpoint)
+        except CdpError:
+            adb_open_google_photos(serial, url)
+            time.sleep(3)
+    limit = max(1, min(max_scrolls, 20000))
+    chunk_limit = max(1, min(chunk_scrolls, 500))
+    complete = bool(final_value.get("complete", False))
+    while total_scrolls < limit and not complete:
+        previous_start = start_scroll_top
+        chunk = min(chunk_limit, limit - total_scrolls)
+        value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint=True)
+        final_value = value
+        for item in value.get("media", []):
+            if isinstance(item, dict) and item.get("src"):
+                merged[str(item["src"])] = item
+        progressed = int(value.get("scroll_count", 0))
+        total_scrolls += progressed
+        start_scroll_top = int(value.get("scroll_top", start_scroll_top))
+        complete = bool(value.get("complete"))
+        checkpoint.write_text(json.dumps({
+            **value, "media": list(merged.values()),
+            "scroll_count": total_scrolls, "scroll_top": start_scroll_top,
+            "complete": complete,
+        }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        if complete:
+            break
+        if progressed <= 0 or start_scroll_top <= previous_start:
+            raise CdpError("Google Photos scroll position did not advance between chunks")
+    final_value["media"] = list(merged.values())
+    final_value["scroll_count"] = total_scrolls
+    final_value["scroll_top"] = start_scroll_top
+    final_value["complete"] = complete
+    final_value["reached_end"] = complete
+    write_cloud_records(final_value, output)
