@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import subprocess
 import time
+import json
+import urllib.parse
 import urllib.request
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
 
-from .chrome_collector import CdpError, _WebSocket, _collect_endpoint, _chrome_page_websocket_url
+from .chrome_collector import CdpError, _WebSocket, _collect_endpoint
 from .obscura_cdp_collector import _read_session_file
 
 
@@ -49,8 +51,21 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
             url: str = "https://photos.google.com/", max_scrolls: int = 20000,
             port: int = 9222) -> None:
     with headless_chrome(chrome, profile_dir, port, url) as endpoint:
-        ws_url, host_header, _ = _chrome_page_websocket_url(endpoint)
-        ws = _WebSocket(ws_url, host_header=host_header, timeout=15)
+        with urllib.request.urlopen(f"{endpoint}/json/list", timeout=5) as response:
+            targets = json.load(response)
+        pages = [
+            target for target in targets
+            if isinstance(target, dict)
+            and target.get("type") == "page"
+            and str(target.get("url", "")).startswith("https://photos.google.com")
+            and isinstance(target.get("webSocketDebuggerUrl"), str)
+        ]
+        if not pages:
+            raise CdpError("headless Chromium did not create a Google Photos page target")
+        target = pages[0]
+        ws_url = str(target["webSocketDebuggerUrl"])
+        parsed = urllib.parse.urlsplit(ws_url)
+        ws = _WebSocket(ws_url, host_header=parsed.netloc, timeout=15)
         try:
             ws.call("Network.setCookies", {"cookies": _read_session_file(session_file)})
             ws.call("Page.navigate", {"url": url})
