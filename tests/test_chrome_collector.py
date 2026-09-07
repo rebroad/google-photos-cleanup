@@ -42,7 +42,8 @@ def test_websocket_reads_fragmented_header_and_payload():
 def test_extractor_preserves_media_kind_and_checks_auth_after_scroll():
     assert "kind" in EXTRACT_AND_SCROLL
     assert "const text = document.body ? document.body.innerText : '';" in EXTRACT_AND_SCROLL
-    assert "authenticated: host === 'photos.google.com'" in EXTRACT_AND_SCROLL
+    assert "libraryMarker" in EXTRACT_AND_SCROLL
+    assert "publicOverviewMarker" in EXTRACT_AND_SCROLL
     assert "googleusercontent" not in EXTRACT_AND_SCROLL
     assert "reached_end" in EXTRACT_AND_SCROLL
 

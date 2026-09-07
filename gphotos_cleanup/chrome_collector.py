@@ -351,10 +351,12 @@ EXTRACT_AND_SCROLL = r"""
   }
   const text = document.body ? document.body.innerText : '';
   const host = location.hostname;
+  const libraryMarker = /Search your photos and albums|Create and add photos|Photos library/i.test(text);
+  const publicOverviewMarker = /Get the app|A safe home for your life's memories|Edit, organise, search and back up your photos/i.test(text);
   return {
     url: location.href,
     title: document.title,
-    authenticated: host === 'photos.google.com' && !/sign[ -]?in|choose an account/i.test(text),
+    authenticated: host === 'photos.google.com' && libraryMarker && !publicOverviewMarker && !/sign[ -]?in|choose an account/i.test(text),
     media: Array.from(media.values()),
     complete: reachedEnd,
     reached_end: reachedEnd,
