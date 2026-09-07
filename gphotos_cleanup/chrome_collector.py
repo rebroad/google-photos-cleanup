@@ -258,7 +258,7 @@ EXTRACT_AND_SCROLL = r"""
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   const media = new Map();
   const collect = () => {
-    const nodes = [...document.querySelectorAll("img,video,div")];
+    const nodes = [...document.querySelectorAll("img,video,div.qs41qe,div[class*=\"qs41qe\"]")];
     for (const node of nodes) {
       const tag = node.tagName.toLowerCase();
       const rect = node.getBoundingClientRect();
