@@ -30,10 +30,18 @@ the device provides `sha256sum`.
 The JSON manifest is review-only: every candidate has `action: "review_only"`,
 and `deletion_performed` is always `false`. The tool has no delete operation.
 
-For an authenticated Obscura session, collect and compare with:
+Authenticate a persistent Obscura profile once. This is terminal-driven and does not use Chrome, screen automation, or cookie extraction:
 
 ```sh
-python -m gphotos_cleanup.collect_cli \
+python -m gphotos_cleanup.obscura_auth_cli \
+  --obscura /path/to/obscura \
+  --storage-dir "$PREFIX/tmp/obscura-photos-profile"
+```
+
+Then collect and compare with:
+
+```sh
+python -m gphotos_cleanup.obscura_collect_cli \
   --obscura /path/to/obscura \
   --storage-dir "$PREFIX/tmp/obscura-photos-profile" \
   --output photos.json
@@ -44,16 +52,3 @@ python -m gphotos_cleanup match \
 python -m gphotos_cleanup report --matches matches.json \
   --csv deletion-review.csv --manifest deletion-candidates.json
 ```
-
-
-When Chrome on the phone is visibly signed in, the cookie-free CDP collector can
-scroll the live session and write redacted cloud records:
-
-```sh
-python -m gphotos_cleanup.chrome_collect_cli \
-  --serial 10.84.166.154:43021 \
-  --output photos.json
-```
-
-This uses Chrome DevTools through ADB forwarding; it does not export cookies.
-The phone must be unlocked and Google Photos must be signed in.
