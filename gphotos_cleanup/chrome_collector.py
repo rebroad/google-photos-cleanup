@@ -105,7 +105,7 @@ class _WebSocket:
             return message
 
 
-def _chrome_page_websocket_url(endpoint: str, attempts: int = 12) -> tuple[str, str, str]:
+def _chrome_page_websocket_url(endpoint: str, attempts: int = 8) -> tuple[str, str, str]:
     endpoint = endpoint.rstrip("/")
     last_error: Exception | None = None
     for attempt in range(attempts):
@@ -113,7 +113,7 @@ def _chrome_page_websocket_url(endpoint: str, attempts: int = 12) -> tuple[str, 
             targets = None
             for path in ("/json/list", "/json"):
                 try:
-                    with urllib.request.urlopen(f"{endpoint}{path}", timeout=8) as response:
+                    with urllib.request.urlopen(f"{endpoint}{path}", timeout=2) as response:
                         targets = json.load(response)
                     break
                 except (OSError, json.JSONDecodeError):
@@ -145,10 +145,33 @@ def _chrome_page_websocket_url(endpoint: str, attempts: int = 12) -> tuple[str, 
     ) from last_error
 
 
+def adb_open_google_photos(serial: str, url: str) -> None:
+    try:
+        result = subprocess.run(
+            [
+                "adb", "-s", serial, "shell", "am", "start",
+                "-a", "android.intent.action.VIEW",
+                "-d", url,
+                "-p", "com.android.chrome",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=15,
+        )
+    except subprocess.TimeoutExpired as error:
+        raise CdpError("timed out opening Google Photos in Chrome through ADB") from error
+    if result.returncode:
+        raise CdpError(result.stderr.strip() or "could not open Google Photos in Chrome")
+
+
 @contextmanager
 def adb_chrome_forward(serial: str) -> Iterator[int]:
     command = ["adb", "-s", serial, "forward", "tcp:0", "localabstract:chrome_devtools_remote"]
-    result = subprocess.run(command, text=True, capture_output=True, check=False)
+    try:
+        result = subprocess.run(command, text=True, capture_output=True, check=False, timeout=15)
+    except subprocess.TimeoutExpired as error:
+        raise CdpError("timed out forwarding Chrome DevTools through ADB") from error
     if result.returncode:
         raise CdpError(result.stderr.strip() or "could not forward Chrome DevTools")
     try:
@@ -163,6 +186,7 @@ def adb_chrome_forward(serial: str) -> Iterator[int]:
             text=True,
             capture_output=True,
             check=False,
+            timeout=5,
         )
 
 
@@ -229,11 +253,14 @@ def collect(
     url: str = "https://photos.google.com/",
     max_scrolls: int = 80,
     cdp_endpoint: str | None = None,
+    open_chrome: bool = True,
 ) -> dict[str, object]:
     if cdp_endpoint:
         return _collect_endpoint(cdp_endpoint, url, max_scrolls)
     if not serial:
         raise CdpError("provide --serial for phone Chrome or --cdp-endpoint for local Chrome")
+    if open_chrome:
+        adb_open_google_photos(serial, url)
     with adb_chrome_forward(serial) as port:
         return _collect_endpoint(f"http://127.0.0.1:{port}", url, max_scrolls)
 
@@ -268,6 +295,7 @@ def collect_to_file(
     url: str = "https://photos.google.com/",
     max_scrolls: int = 80,
     cdp_endpoint: str | None = None,
+    open_chrome: bool = True,
 ) -> None:
-    value = collect(serial, url, max_scrolls, cdp_endpoint)
+    value = collect(serial, url, max_scrolls, cdp_endpoint, open_chrome)
     write_cloud_records(value, output)

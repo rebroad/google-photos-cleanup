@@ -42,3 +42,10 @@ def test_extractor_preserves_media_kind_and_checks_auth_after_scroll():
     assert "const text = document.body ? document.body.innerText : '';" in EXTRACT_AND_SCROLL
     assert "authenticated: host === 'photos.google.com'" in EXTRACT_AND_SCROLL
     assert "googleusercontent" not in EXTRACT_AND_SCROLL
+
+
+
+def test_extractor_does_not_include_cookie_or_password_apis():
+    assert "Network.getAllCookies" not in EXTRACT_AND_SCROLL
+    assert "document.cookie" not in EXTRACT_AND_SCROLL
+    assert "password" not in EXTRACT_AND_SCROLL

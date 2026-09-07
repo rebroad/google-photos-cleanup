@@ -40,10 +40,12 @@ python3 -m gphotos_cleanup.chrome_collect_cli \
 python -m gphotos_cleanup normalize --input photos-raw.json --output photos-normalized.json
 ~~~
 
-Leave an authenticated photos.google.com tab open in Chrome. The collector
-uses Chrome DevTools only to navigate that tab, inspect the rendered media, and
-scroll the Photos timeline. ADB forwards a temporary local port and removes it
-when collection finishes.
+The ADB mode opens photos.google.com in Chrome automatically, then uses Chrome
+DevTools to inspect the rendered media and scroll the Photos timeline. This may
+bring Chrome visibly to the foreground, but the collector performs no taps or
+screen automation. ADB forwards a temporary local port and removes it when
+collection finishes. Use --no-open if Chrome is already prepared and should not
+be navigated.
 
 When ADB/phone Chrome is unavailable, use any local Chrome-compatible browser
 with a dedicated profile stored outside this repository and a local DevTools
