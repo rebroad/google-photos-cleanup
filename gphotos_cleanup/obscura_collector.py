@@ -119,8 +119,12 @@ def write_cloud_records(value: dict[str, object], output: str, cookie_header: st
             "height": item.get("height", 0),
             "source": "google-photos-dom",
         })
-        fingerprint_jobs.append((len(records) - 1, src, video))
-    if fingerprint_jobs:
+        browser_phash = item.get("phash")
+        if isinstance(browser_phash, str):
+            records[-1]["phash"] = browser_phash
+        else:
+            fingerprint_jobs.append((len(records) - 1, src, video))
+    if fingerprint_jobs and cookie_header is None:
         with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
             hashes = executor.map(lambda job: _media_phash(job[1], video=job[2], cookie_header=cookie_header), fingerprint_jobs)
             for (index, _src, _video), phash in zip(fingerprint_jobs, hashes):

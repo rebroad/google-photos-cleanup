@@ -309,6 +309,38 @@ EXTRACT_AND_SCROLL = r"""
       break;
     }
   }
+  const hashImage = async (item) => {
+    if (item.kind !== "image") return null;
+    try {
+      const response = await fetch(item.src, {credentials: "include"});
+      if (!response.ok) return null;
+      const bitmap = await createImageBitmap(await response.blob());
+      const canvas = document.createElement("canvas");
+      canvas.width = 16;
+      canvas.height = 16;
+      const context = canvas.getContext("2d", {willReadFrequently: true});
+      context.drawImage(bitmap, 0, 0, 16, 16);
+      bitmap.close();
+      const pixels = context.getImageData(0, 0, 16, 16).data;
+      const values = [];
+      let total = 0;
+      for (let index = 0; index < pixels.length; index += 4) {
+        const gray = 0.299 * pixels[index] + 0.587 * pixels[index + 1] +
+          0.114 * pixels[index + 2];
+        values.push(gray);
+        total += gray;
+      }
+      const average = total / values.length;
+      item.phash = values.map(value => value >= average ? "1" : "0").join("");
+      return item.phash;
+    } catch (_) {
+      return null;
+    }
+  };
+  const candidates = Array.from(media.values()).filter(item => item.kind === "image" && !item.phash);
+  for (let index = 0; index < candidates.length; index += 8) {
+    await Promise.all(candidates.slice(index, index + 8).map(hashImage));
+  }
   const text = document.body ? document.body.innerText : '';
   const host = location.hostname;
   return {
