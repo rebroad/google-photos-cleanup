@@ -163,6 +163,9 @@ def _chrome_page_websocket_url(endpoint: str, attempts: int = 2) -> tuple[str, s
                 keep_id = str(target.get("id", target.get("targetId", "")))
                 for extra in pages:
                     extra_id = str(extra.get("id", extra.get("targetId", "")))
+                    # Keep unrelated Chrome tabs intact. Only collapse duplicate
+                    # Google Photos pages, as collection should not disrupt the
+                    # user's other browsing session.
                     if extra_id and extra_id != keep_id:
                         try:
                             with urllib.request.urlopen(
