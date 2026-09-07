@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import concurrent.futures
 import json
 import subprocess
 import urllib.parse
@@ -99,6 +100,7 @@ def _media_phash(url: str, video: bool = False) -> str | None:
 def write_cloud_records(value: dict[str, object], output: str) -> None:
     media = value.get("media", [])
     records = []
+    fingerprint_jobs = []
     for item in media if isinstance(media, list) else []:
         if not isinstance(item, dict):
             continue
@@ -106,18 +108,21 @@ def write_cloud_records(value: dict[str, object], output: str) -> None:
         if not _is_google_media_url(src):
             continue
         video = item.get("kind", item.get("tag")) == "video"
-        record = {
+        records.append({
             "id": "media:" + hashlib.sha256(src.encode("utf-8")).hexdigest(),
             "filename": str(item.get("alt", "")),
             "mime_type": "video/*" if video else "image/*",
             "width": item.get("width", 0),
             "height": item.get("height", 0),
             "source": "google-photos-dom",
-        }
-        phash = _media_phash(src, video=video)
-        if phash:
-            record["phash"] = phash
-        records.append(record)
+        })
+        fingerprint_jobs.append((len(records) - 1, src, video))
+    if fingerprint_jobs:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            hashes = executor.map(lambda job: _media_phash(job[1], video=job[2]), fingerprint_jobs)
+            for (index, _src, _video), phash in zip(fingerprint_jobs, hashes):
+                if phash:
+                    records[index]["phash"] = phash
     payload: dict[str, object] = {"media_items": records}
     for key in ("url", "title", "complete", "reached_end", "scroll_count", "scroll_height"):
         if key in value:
