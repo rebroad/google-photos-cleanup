@@ -62,7 +62,7 @@ python3 -m gphotos_cleanup.headless_chrome_collect_cli \
   --profile-dir "$PREFIX/tmp/google-photos-headless-profile" \
   --session-file "$PREFIX/tmp/google-photos-session.json" \
   --output "$PREFIX/tmp/photos-raw-headless.json" \
-  --max-scrolls 7000 --chunk-scrolls 100
+  --max-scrolls 7000 --chunk-scrolls 100 --allow-large-network
 ~~~
 
 Then run the collector against the authenticated Chrome DevTools endpoint. It
@@ -81,6 +81,11 @@ python -m gphotos_cleanup list-cloud \
   --input "$PREFIX/tmp/photos-raw-chrome.json" \
   --output "$PREFIX/tmp/google-photos-list.csv"
 ~~~
+
+Large scans are deliberately opt-in because scrolling Google Photos causes
+Chrome on the device or the headless browser to fetch thumbnails. Check whether
+the current connection is metered before adding `--allow-large-network`; without
+it, collection is capped at 200 scrolls by default.
 
 Do not treat a run as complete unless the raw JSON contains
 "complete": true. The supported Google Photos Library API is restricted to
