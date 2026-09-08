@@ -108,3 +108,16 @@ python -m gphotos_cleanup match \
 python -m gphotos_cleanup report --matches matches.json \
   --csv deletion-review.csv --manifest deletion-candidates.json
 ~~~
+
+## Transfer safety
+
+Large scans classify the active connection automatically. On Termux, a completed
+`termux-wifi-connectioninfo` result is treated as Wi-Fi; when a device serial is
+provided, Android connectivity capabilities are checked first. Cellular and
+unknown connections are treated as metered and block large scans unless both
+`--allow-large-network` and `--allow-metered-network` are supplied.
+
+Cloud fingerprints are derived from 256px Google thumbnail URLs and are capped
+at 512 KiB per image. Original images and full-resolution videos are never
+downloaded by the fingerprint path; videos use a rendered poster thumbnail when
+one is available. Metadata-only collection remains the preferred first pass.

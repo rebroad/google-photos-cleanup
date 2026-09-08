@@ -79,10 +79,11 @@ def test_session_export_domain_filter_keeps_google_auth_hosts_only():
 
 
 def test_cloud_video_fingerprint_runs_with_session_cookie(tmp_path, monkeypatch):
-    monkeypatch.setattr(obscura_collector, "_media_phash", lambda url, video=False, cookie_header=None: "1" * 256 if video and cookie_header else None)
+    monkeypatch.setattr(obscura_collector, "_media_phash", lambda url, video=False, cookie_header=None: "1" * 256 if cookie_header else None)
     output = tmp_path / "cloud.json"
     obscura_collector.write_cloud_records({"media": [{
         "kind": "video", "src": "https://lh3.googleusercontent.com/video",
+        "poster": "https://lh3.googleusercontent.com/video-thumb",
         "alt": "clip.mp4", "width": 320, "height": 180,
     }]}, str(output), cookie_header="SID=filtered")
     item = __import__("json").loads(output.read_text())["media_items"][0]

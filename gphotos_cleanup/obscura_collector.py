@@ -6,6 +6,7 @@ import json
 import subprocess
 import urllib.parse
 import urllib.request
+import re
 
 from .fingerprint import average_hash, video_fingerprint_stream
 from pathlib import Path
@@ -21,6 +22,13 @@ def _is_google_media_url(url: str) -> bool:
     )
 
 
+def _thumbnail_url(url: str) -> str:
+    if not _is_google_media_url(url):
+        return ""
+    if re.search(r"=[^/?]*$", url):
+        return re.sub(r"=[^/?]*$", "=w256-h256", url)
+    return url + "=w256-h256"
+
 EXTRACT = r"""
 JSON.stringify({
   url: location.href,
@@ -28,6 +36,7 @@ JSON.stringify({
   text: document.body ? document.body.innerText : '',
   media: Array.from(document.querySelectorAll('img,video')).map((node) => ({
     tag: node.tagName.toLowerCase(),
+    poster: node.poster || '',
     src: node.currentSrc || node.src || '',
     alt: node.alt || '',
     width: node.naturalWidth || node.videoWidth || 0,
@@ -83,8 +92,10 @@ def _media_phash(url: str, video: bool = False, cookie_header: str | None = None
     headers = {"User-Agent": "gphotos-cleanup/0.1"}
     if cookie_header:
         headers["Cookie"] = cookie_header
-    request = urllib.request.Request(url, headers=headers)
-    limit = 128 * 1024 * 1024 if video else 16 * 1024 * 1024
+    request = urllib.request.Request(_thumbnail_url(url), headers=headers)
+    if video:
+        return None
+    limit = 512 * 1024
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
             length = response.headers.get("Content-Length")
@@ -111,6 +122,7 @@ def write_cloud_records(value: dict[str, object], output: str, cookie_header: st
         if not _is_google_media_url(src):
             continue
         video = item.get("kind", item.get("tag")) == "video"
+        thumbnail = str(item.get("poster", "")) if video else src
         records.append({
             "id": "media:" + hashlib.sha256(src.encode("utf-8")).hexdigest(),
             "filename": str(item.get("alt", "")),
@@ -124,12 +136,10 @@ def write_cloud_records(value: dict[str, object], output: str, cookie_header: st
         browser_phash = item.get("phash")
         if isinstance(browser_phash, str):
             records[-1]["phash"] = browser_phash
-        elif fingerprint_missing:
-            fingerprint_jobs.append((len(records) - 1, src, video))
+        elif fingerprint_missing and thumbnail:
+            fingerprint_jobs.append((len(records) - 1, thumbnail, False))
     if fingerprint_jobs:
-        # Video fingerprints require a temporary ffmpeg input file and can be
-        # substantially larger than image thumbnails. Keep those downloads
-        # deliberately narrow to avoid multiplying peak Termux disk use.
+        # Thumbnail fingerprints are bounded and do not fetch original media.
         workers = 2 if any(job[2] for job in fingerprint_jobs) else 8
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
             hashes = executor.map(lambda job: _media_phash(job[1], video=job[2], cookie_header=cookie_header), fingerprint_jobs)

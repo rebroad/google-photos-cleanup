@@ -285,7 +285,8 @@ EXTRACT_AND_SCROLL = r"""
       media.set(src, {
         tag, kind, src, alt: node.alt || label,
         width: node.naturalWidth || node.videoWidth || 0,
-        height: node.naturalHeight || node.videoHeight || 0
+        height: node.naturalHeight || node.videoHeight || 0,
+        poster: node.poster || ''
       });
     }
   };

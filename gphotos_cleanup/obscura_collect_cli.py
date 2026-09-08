@@ -4,6 +4,7 @@ import argparse
 import sys
 
 from .obscura_cdp_collector import CdpError, collect_to_file
+from .network import require_large_network_allowed
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -16,7 +17,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-scrolls", type=int, default=200, help="maximum scroll steps (large scans require --allow-large-network)")
     parser.add_argument("--session-file", help="filtered Chrome session JSON outside the repository")
     parser.add_argument("--allow-large-network", action="store_true", help="explicitly allow scans over 500 scrolls; check the active connection first")
+    parser.add_argument("--allow-metered-network", action="store_true", help="explicitly override the cellular/unknown-network safety gate")
     args = parser.parse_args(argv)
+    if args.max_scrolls > 500 and args.allow_large_network:
+        try:
+            connection = require_large_network_allowed(None, args.allow_large_network, args.allow_metered_network)
+            print(f"network: {connection['transport']} ({connection['source']})", file=sys.stderr)
+        except ValueError as error:
+            parser.error(str(error))
     if args.max_scrolls > 500 and not args.allow_large_network:
         parser.error("scans over 500 scrolls may download substantial media; pass --allow-large-network after checking the connection")
     try:

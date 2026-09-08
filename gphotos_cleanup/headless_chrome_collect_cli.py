@@ -7,6 +7,7 @@ import sys
 
 from .chrome_collector import CdpError
 from .headless_chrome_collector import collect
+from .network import require_large_network_allowed
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -20,9 +21,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--chunk-scrolls", type=int, default=100)
     parser.add_argument("--skip-fingerprints", action="store_true")
     parser.add_argument("--allow-large-network", action="store_true", help="explicitly allow scans over 500 scrolls; check the active connection first")
+    parser.add_argument("--allow-metered-network", action="store_true", help="explicitly override the cellular/unknown-network safety gate")
     parser.add_argument("--include-source-urls", action="store_true")
     parser.add_argument("--port", type=int, default=9222)
     args = parser.parse_args(argv)
+    if args.max_scrolls > 500 and args.allow_large_network:
+        try:
+            connection = require_large_network_allowed(None, args.allow_large_network, args.allow_metered_network)
+            print(f"network: {connection['transport']} ({connection['source']})", file=sys.stderr)
+        except ValueError as error:
+            parser.error(str(error))
     if args.max_scrolls > 500 and not args.allow_large_network:
         parser.error("scans over 500 scrolls may download substantial media; pass --allow-large-network after checking the connection")
     try:
