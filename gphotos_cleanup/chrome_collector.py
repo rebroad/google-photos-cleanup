@@ -474,7 +474,7 @@ def _collect_to_file_endpoint(
         }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         os.replace(checkpoint_tmp, checkpoint)
         chunks_since_reload += 1
-        if chunks_since_reload >= 10 and not complete:
+        if chunks_since_reload >= 4 and not complete:
             _reload_endpoint(endpoint, url)
             chunks_since_reload = 0
         if complete:
