@@ -267,8 +267,10 @@ EXTRACT_AND_SCROLL = r"""
     for (const node of nodes) {
       const tag = node.tagName.toLowerCase();
       const rect = node.getBoundingClientRect();
-      if (!node.currentSrc && !node.src &&
-          (rect.width < 50 || rect.height < 50)) continue;
+      // Hidden preload images and shell icons often retain a Google URL but
+      // are not timeline tiles. Only accept media occupying a real tile-sized
+      // rectangle in the rendered viewport.
+      if (rect.width < 50 || rect.height < 50) continue;
       const style = getComputedStyle(node);
       const background = style.backgroundImage || "";
       const backgroundMatch = background.match(/url\(["\x27]?([^"\x27)]+)["\x27]?\)/);

@@ -50,6 +50,7 @@ def test_extractor_preserves_media_kind_and_checks_auth_after_scroll():
     assert "timelineReady" in EXTRACT_AND_SCROLL
     assert "timeline_ready" in EXTRACT_AND_SCROLL
     assert "networkError" in EXTRACT_AND_SCROLL
+    assert "rect.width < 50 || rect.height < 50" in EXTRACT_AND_SCROLL
     assert "googleusercontent" not in EXTRACT_AND_SCROLL
     assert "reached_end" in EXTRACT_AND_SCROLL
 
