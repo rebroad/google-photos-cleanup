@@ -364,7 +364,7 @@ def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_to
     try:
         if current_url.rstrip("/") != url.rstrip("/"):
             ws.call("Page.navigate", {"url": url})
-        expression = EXTRACT_AND_SCROLL.replace("__SCROLL_DELAY__", "1000" if fingerprint else "500").replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000)))).replace("__START_SCROLL_TOP__", str(max(0, start_scroll_top))).replace("__FINGERPRINT__", "true" if fingerprint else "false")
+        expression = EXTRACT_AND_SCROLL.replace("__SCROLL_DELAY__", "1000" if fingerprint else "250").replace("__MAX_SCROLLS__", str(max(1, min(max_scrolls, 20000)))).replace("__START_SCROLL_TOP__", str(max(0, start_scroll_top))).replace("__FINGERPRINT__", "true" if fingerprint else "false")
         result = ws.call(
             "Runtime.evaluate",
             {"expression": expression, "awaitPromise": True, "returnByValue": True},
