@@ -71,6 +71,21 @@ def fingerprint_adb(serial: str, path: str) -> str:
     return average_hash(data)
 
 
+def fingerprint_adb_thumbnail(serial: str, media_id: str, kind: str) -> str:
+    """Fingerprint a MediaStore thumbnail, never the original media file."""
+    collection = "video" if kind == "video" else "images"
+    uri = f"content://media/external/{collection}/thumbnails/{media_id}"
+    result = subprocess.run(
+        ["adb", "-s", serial, "exec-out", "content", "read", "--uri", uri],
+        capture_output=True,
+        check=True,
+        timeout=30,
+    )
+    if not result.stdout:
+        raise RuntimeError("MediaStore returned an empty thumbnail")
+    return average_hash(result.stdout)
+
+
 def video_fingerprint_adb(serial: str, path: str) -> str:
     adb = subprocess.Popen(["adb", "-s", serial, "exec-out", "cat", path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     assert adb.stdout is not None

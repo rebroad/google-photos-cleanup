@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from .adb import Adb
-from .fingerprint import VIDEO_EXTENSIONS, fingerprint_adb, video_fingerprint_adb
+from .fingerprint import VIDEO_EXTENSIONS, fingerprint_adb, fingerprint_adb_thumbnail, video_fingerprint_adb
 from .local import inventory as local_inventory
 from .photos import duplicate_groups, match, normalize
 
@@ -29,7 +29,8 @@ def main(argv: list[str] | None = None) -> int:
     inventory.add_argument("--local-root", action="append", help="local media root; repeatable (defaults to Termux shared storage)")
     inventory.add_argument("--root", action="append", default=["/sdcard/DCIM", "/sdcard/Pictures", "/sdcard/Movies"])
     inventory.add_argument("--hash", action="store_true")
-    inventory.add_argument("--fingerprint", action="store_true", help="compute perceptual image fingerprints over ADB")
+    inventory.add_argument("--fingerprint", action="store_true", help="compute perceptual fingerprints from Android thumbnails")
+    inventory.add_argument("--full-fingerprint", action="store_true", help="explicitly read original media for fingerprints")
     inventory.add_argument("--output", required=True)
     list_cloud = sub.add_parser("list-cloud", help="write a reviewable CSV of collected Google Photos items")
     list_cloud.add_argument("--input", required=True)
@@ -70,19 +71,29 @@ def main(argv: list[str] | None = None) -> int:
                 serial = devices[0]
             files = Adb(serial).inventory(args.root, args.hash)
             if args.fingerprint:
+                thumbnail_ids = None if args.full_fingerprint else Adb(serial).thumbnail_ids()
                 for item in files:
                     extension = str(item.get("extension", "")).lower()
                     if extension in {".jpg", ".jpeg", ".png", ".heic", ".webp", ".gif"}:
                         try:
-                            item["phash"] = fingerprint_adb(serial, str(item["path"]))
-                            item["fingerprint_kind"] = "image"
-                        except (OSError, RuntimeError):
+                            if thumbnail_ids is None:
+                                item["phash"] = fingerprint_adb(serial, str(item["path"]))
+                            else:
+                                media_id, kind = thumbnail_ids[str(item["path"])]
+                                item["phash"] = fingerprint_adb_thumbnail(serial, media_id, kind)
+                            item["fingerprint_kind"] = "image-thumbnail" if thumbnail_ids is not None else "image"
+                        except (OSError, RuntimeError, KeyError):
                             item["phash_error"] = True
                     elif extension in VIDEO_EXTENSIONS:
                         try:
-                            item["phash"] = video_fingerprint_adb(serial, str(item["path"]))
-                            item["fingerprint_kind"] = "video-contact-sheet"
-                        except (OSError, RuntimeError, ValueError):
+                            if thumbnail_ids is None:
+                                item["phash"] = video_fingerprint_adb(serial, str(item["path"]))
+                                item["fingerprint_kind"] = "video-contact-sheet"
+                            else:
+                                media_id, kind = thumbnail_ids[str(item["path"])]
+                                item["phash"] = fingerprint_adb_thumbnail(serial, media_id, kind)
+                                item["fingerprint_kind"] = "video-thumbnail"
+                        except (OSError, RuntimeError, ValueError, KeyError):
                             item["phash_error"] = True
             _write(args.output, {"serial": serial, "roots": args.root, "files": files})
         elif args.command == "list-cloud":

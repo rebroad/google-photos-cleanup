@@ -117,6 +117,8 @@ provided, Android connectivity capabilities are checked first. Cellular and
 unknown connections are treated as metered and block large scans unless both
 `--allow-large-network` and `--allow-metered-network` are supplied.
 
+Device `inventory --fingerprint` uses Android MediaStore thumbnail URIs when the device exposes them, so it does not read original photos or videos. Some Android builds do not expose those legacy thumbnail URIs; such items are marked `phash_error` rather than falling back to a large transfer. Use `--full-fingerprint` only when an explicit original-media transfer is acceptable.
+
 Cloud fingerprints are derived from 256px Google thumbnail URLs and are capped
 at 512 KiB per image. Original images and full-resolution videos are never
 downloaded by the fingerprint path; videos use a rendered poster thumbnail when

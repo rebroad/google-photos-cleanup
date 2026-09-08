@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shlex
 import subprocess
 from dataclasses import dataclass
@@ -58,6 +59,24 @@ class Adb:
                     record["sha256"] = digest[0]
             records.append(record)
         return records
+
+    def thumbnail_ids(self) -> dict[str, tuple[str, str]]:
+        """Return MediaStore thumbnail IDs without reading media bytes."""
+        text = self.shell(
+            "content query --uri content://media/external/file "
+            "--projection _id:_data"
+        )
+        result: dict[str, tuple[str, str]] = {}
+        for line in text.splitlines():
+            match = re.search(r"_id=(\d+), _data=(.*)$", line)
+            if not match:
+                continue
+            path = match.group(2)
+            suffix = PurePosixPath(path).suffix.lower()
+            kind = "video" if suffix in {".mp4", ".m4v", ".mov", ".3gp", ".mkv", ".avi", ".webm"} else "image"
+            result[path.replace("/storage/emulated/0/", "/sdcard/")] = (match.group(1), kind)
+        return result
+
 
     def dump_json(self, value: object) -> str:
         return json.dumps(value, indent=2, sort_keys=True) + "\n"
