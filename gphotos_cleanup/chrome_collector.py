@@ -24,6 +24,9 @@ class _WebSocket:
         if parsed.scheme != "ws" or not parsed.hostname or not parsed.port:
             raise CdpError("Chrome returned an invalid DevTools WebSocket URL")
         self.sock = socket.create_connection((parsed.hostname, parsed.port), timeout=timeout)
+        # Bound receive waits so a wedged renderer can be recovered without
+        # abandoning the atomic virtual-display checkpoint.
+        self.sock.settimeout(timeout)
         key = base64.b64encode(os.urandom(16)).decode("ascii")
         request = (
             f"GET {parsed.path or '/'} HTTP/1.1\r\n"
@@ -433,10 +436,28 @@ def _collect_to_file_endpoint(
     chunk_limit = max(1, min(chunk_scrolls, 500))
     complete = bool(final_value.get("complete", False))
     chunks_since_reload = 0
+    recoveries = 0
     while total_scrolls < limit and not complete:
         previous_start = start_scroll_top
         chunk = min(chunk_limit, limit - total_scrolls)
-        value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint=fingerprint)
+        try:
+            value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint=fingerprint)
+        except (CdpError, OSError, TimeoutError) as error:
+            recoveries += 1
+            if recoveries > 5:
+                raise CdpError(
+                    f"Chrome DevTools did not recover after {recoveries - 1} retries: {error}"
+                ) from error
+            # Re-select the Photos page after a renderer failure.  This keeps
+            # unrelated Chrome tabs intact and leaves the last atomic
+            # checkpoint available for the next attempt.
+            try:
+                _reload_endpoint(endpoint, url)
+            except (CdpError, OSError, TimeoutError):
+                pass
+            time.sleep(min(30, 2 ** recoveries))
+            continue
+        recoveries = 0
         final_value = value
         for item in value.get("media", []):
             if isinstance(item, dict) and item.get("src"):
