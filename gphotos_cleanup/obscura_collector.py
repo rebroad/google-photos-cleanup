@@ -126,8 +126,12 @@ def write_cloud_records(value: dict[str, object], output: str, cookie_header: st
             records[-1]["phash"] = browser_phash
         else:
             fingerprint_jobs.append((len(records) - 1, src, video))
-    if fingerprint_jobs and cookie_header is None:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+    if fingerprint_jobs:
+        # Video fingerprints require a temporary ffmpeg input file and can be
+        # substantially larger than image thumbnails. Keep those downloads
+        # deliberately narrow to avoid multiplying peak Termux disk use.
+        workers = 2 if any(job[2] for job in fingerprint_jobs) else 8
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
             hashes = executor.map(lambda job: _media_phash(job[1], video=job[2], cookie_header=cookie_header), fingerprint_jobs)
             for (index, _src, _video), phash in zip(fingerprint_jobs, hashes):
                 if phash:
