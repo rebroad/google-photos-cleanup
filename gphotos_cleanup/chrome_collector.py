@@ -328,7 +328,10 @@ EXTRACT_AND_SCROLL = r"""
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 2000);
     try {
-      const response = await fetch(item.src, {credentials: "include", signal: controller.signal});
+      const thumbnail = /=[^/?]*$/.test(item.src)
+        ? item.src.replace(/=[^/?]*$/, "=w256-h256")
+        : item.src + "=w256-h256";
+      const response = await fetch(thumbnail, {credentials: "include", signal: controller.signal});
       clearTimeout(timer);
       if (!response.ok) return null;
       const bitmap = await createImageBitmap(await response.blob());

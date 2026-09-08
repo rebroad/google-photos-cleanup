@@ -22,7 +22,7 @@ def headless_chrome(chrome: str, profile_dir: str, port: int, url: str) -> Itera
     process = subprocess.Popen([
         chrome, "--headless=new", "--disable-gpu", "--no-first-run",
         "--no-default-browser-check", f"--remote-debugging-port={port}",
-        f"--user-data-dir={profile}", "about:blank",
+        f"--user-data-dir={profile}", url,
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     endpoint = f"http://127.0.0.1:{port}"
     try:
