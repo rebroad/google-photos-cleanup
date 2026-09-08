@@ -344,6 +344,17 @@ def collect(
     return _collect_endpoint(validate_cdp_endpoint(cdp_endpoint), url, max_scrolls)
 
 
+
+def _reload_endpoint(endpoint: str, url: str) -> None:
+    ws_url, host_header, _current_url = _chrome_page_websocket_url(endpoint)
+    ws = _WebSocket(ws_url, host_header=host_header)
+    try:
+        ws.call("Page.reload", {"ignoreCache": True})
+    finally:
+        ws.close()
+    time.sleep(3)
+
+
 def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_top: int = 0, fingerprint: bool = True) -> dict[str, object]:
     ws_url, host_header, current_url = _chrome_page_websocket_url(endpoint)
     ws = _WebSocket(ws_url, host_header=host_header)
@@ -389,13 +400,17 @@ def collect_to_file(
     total_scrolls = 0
     start_scroll_top = 0
     final_value: dict[str, object] = {}
-    if checkpoint.exists():
-        saved = json.loads(checkpoint.read_text(encoding="utf-8"))
+    if checkpoint.exists() or Path(output).exists():
+        try:
+            saved = json.loads(checkpoint.read_text(encoding="utf-8")) if checkpoint.exists() else json.loads(Path(output).read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            saved = json.loads(Path(output).read_text(encoding="utf-8")) if Path(output).exists() else {}
         if isinstance(saved, dict):
             total_scrolls = int(saved.get("scroll_count", 0))
             start_scroll_top = int(saved.get("scroll_top", 0))
             final_value = saved
-            for item in saved.get("media", []):
+            saved_items = saved.get("media", saved.get("media_items", []))
+            for item in saved_items:
                 if isinstance(item, dict) and item.get("src"):
                     merged[str(item["src"])] = item
     _collect_to_file_endpoint(
@@ -412,6 +427,7 @@ def _collect_to_file_endpoint(
     limit = max(1, min(max_scrolls, 20000))
     chunk_limit = max(1, min(chunk_scrolls, 500))
     complete = bool(final_value.get("complete", False))
+    chunks_since_reload = 0
     while total_scrolls < limit and not complete:
         previous_start = start_scroll_top
         chunk = min(chunk_limit, limit - total_scrolls)
@@ -424,11 +440,17 @@ def _collect_to_file_endpoint(
         total_scrolls += progressed
         start_scroll_top = int(value.get("scroll_top", start_scroll_top))
         complete = bool(value.get("complete"))
-        checkpoint.write_text(json.dumps({
+        checkpoint_tmp = checkpoint.with_name(checkpoint.name + ".tmp")
+        checkpoint_tmp.write_text(json.dumps({
             **value, "media": list(merged.values()),
             "scroll_count": total_scrolls, "scroll_top": start_scroll_top,
             "complete": complete,
         }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        os.replace(checkpoint_tmp, checkpoint)
+        chunks_since_reload += 1
+        if chunks_since_reload >= 10 and not complete:
+            _reload_endpoint(endpoint, url)
+            chunks_since_reload = 0
         if complete:
             break
         if progressed <= 0 or start_scroll_top <= previous_start:

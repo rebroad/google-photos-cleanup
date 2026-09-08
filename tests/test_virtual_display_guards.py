@@ -30,3 +30,20 @@ def test_cdp_endpoint_must_be_local_http_with_port(endpoint):
 
 def test_cdp_endpoint_normalizes_trailing_slash():
     assert validate_cdp_endpoint("http://127.0.0.1:9222/") == "http://127.0.0.1:9222"
+
+
+def test_corrupt_checkpoint_falls_back_to_final_output(tmp_path, monkeypatch):
+    import json
+    import gphotos_cleanup.chrome_collector as collector
+
+    output = tmp_path / "cloud.json"
+    output.write_text(json.dumps({"media_items": [], "scroll_count": 58, "scroll_top": 1234}))
+    (tmp_path / "cloud.json.partial").write_text('{"interrupted":')
+    captured = {}
+
+    def fake_collect(*args):
+        captured["args"] = args
+
+    monkeypatch.setattr(collector, "_collect_to_file_endpoint", fake_collect)
+    collector.collect_to_file(str(output), cdp_endpoint="http://127.0.0.1:9222")
+    assert captured["args"][7:9] == (58, 1234)
