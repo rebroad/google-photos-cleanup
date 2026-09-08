@@ -350,6 +350,9 @@ def _reload_endpoint(endpoint: str, url: str) -> None:
     ws = _WebSocket(ws_url, host_header=host_header)
     try:
         ws.call("Page.reload", {"ignoreCache": True})
+    except CdpError as error:
+        if "navigated or closed" not in str(error).lower():
+            raise
     finally:
         ws.close()
     time.sleep(3)
