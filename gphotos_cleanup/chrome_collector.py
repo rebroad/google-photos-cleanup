@@ -359,6 +359,7 @@ EXTRACT_AND_SCROLL = r"""
   const host = location.hostname;
   const libraryMarker = /Search your photos and albums|Create and add photos|Photos library/i.test(text);
   const publicOverviewMarker = /Get the app|A safe home for your life's memories|Edit, organise, search and back up your photos/i.test(text);
+  const networkError = /can't connect|no internet connection|ERR_NAME_NOT_RESOLVED|ERR_INTERNET_DISCONNECTED/i.test(text);
   // A signed-in shell can briefly contain the library labels while the real
   // virtualized timeline is still loading (or while an account-login iframe
   // is present). Do not let that state become a successful empty inventory.
@@ -367,6 +368,7 @@ EXTRACT_AND_SCROLL = r"""
     url: location.href,
     title: document.title,
     authenticated: host === 'photos.google.com' && libraryMarker && !publicOverviewMarker && !/sign[ -]?in|choose an account/i.test(text),
+    network_error: networkError,
     timeline_ready: timelineReady,
     media: Array.from(media.values()),
     complete: reachedEnd,
@@ -427,6 +429,8 @@ def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_to
         if not isinstance(value, dict):
             raise CdpError("Chrome returned no Photos extraction result")
         if not value.get("authenticated"):
+            if value.get("network_error"):
+                raise CdpError("Chrome cannot resolve or reach Google Photos; fix the virtual device network before collecting")
             raise CdpError("Chrome is not authenticated to Google Photos; sign in with Chrome first")
         if not value.get("timeline_ready"):
             raise CdpError("Google Photos timeline is not ready; wait for the library to load and retry")
