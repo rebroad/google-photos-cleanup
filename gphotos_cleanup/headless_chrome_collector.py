@@ -88,7 +88,11 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
                     target = pages[0]
                     ws_url = str(target["webSocketDebuggerUrl"])
                     parsed = urllib.parse.urlsplit(ws_url)
-                    ws = _WebSocket(ws_url, host_header=parsed.netloc, timeout=45)
+                    # The extractor waits for the rendered timeline between
+                    # scrolls. Scale the CDP receive timeout with the bounded
+                    # chunk instead of timing out a valid long evaluation.
+                    evaluation_timeout = max(45, min(300, chunk * 0.75 + 30))
+                    ws = _WebSocket(ws_url, host_header=parsed.netloc, timeout=evaluation_timeout)
                     try:
                         ws.call("Network.setCookies", {"cookies": session})
                         ws.call("Page.navigate", {"url": url})
