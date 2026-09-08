@@ -389,6 +389,7 @@ def collect_to_file(
     cdp_endpoint: str | None = None,
     open_chrome: bool = True,
     chunk_scrolls: int = 100,
+    fingerprint: bool = True,
 ) -> None:
     """Collect in bounded, resumable browser evaluations."""
     if serial:
@@ -415,12 +416,13 @@ def collect_to_file(
                     merged[str(item["src"])] = item
     _collect_to_file_endpoint(
         validate_cdp_endpoint(cdp_endpoint), url, max_scrolls, chunk_scrolls,
+        fingerprint,
         output, checkpoint, merged, total_scrolls, start_scroll_top, final_value,
     )
 
 
 def _collect_to_file_endpoint(
-    endpoint: str, url: str, max_scrolls: int, chunk_scrolls: int, output: str,
+    endpoint: str, url: str, max_scrolls: int, chunk_scrolls: int, fingerprint: bool, output: str,
     checkpoint: Path, merged: dict[str, dict[str, object]], total_scrolls: int,
     start_scroll_top: int, final_value: dict[str, object],
 ) -> None:
@@ -431,7 +433,7 @@ def _collect_to_file_endpoint(
     while total_scrolls < limit and not complete:
         previous_start = start_scroll_top
         chunk = min(chunk_limit, limit - total_scrolls)
-        value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint=True)
+        value = _collect_endpoint(endpoint, url, chunk, start_scroll_top, fingerprint=fingerprint)
         final_value = value
         for item in value.get("media", []):
             if isinstance(item, dict) and item.get("src"):
@@ -460,4 +462,4 @@ def _collect_to_file_endpoint(
     final_value["scroll_top"] = start_scroll_top
     final_value["complete"] = complete
     final_value["reached_end"] = complete
-    write_cloud_records(final_value, output)
+    write_cloud_records(final_value, output, fingerprint_missing=fingerprint)

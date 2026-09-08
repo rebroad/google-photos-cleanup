@@ -14,6 +14,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--url", default="https://photos.google.com/")
     parser.add_argument("--max-scrolls", type=int, default=200, help="maximum scroll steps (large scans require --allow-large-network)")
     parser.add_argument("--chunk-scrolls", type=int, default=100, help="scrolls per resumable DevTools evaluation")
+    parser.add_argument("--metadata-only", action="store_true", help="collect metadata and thumbnail URLs without computing perceptual hashes")
     parser.add_argument("--allow-large-network", action="store_true", help="explicitly allow scans over 500 scrolls; check the active connection first")
     parser.add_argument("--allow-metered-network", action="store_true", help="explicitly override the cellular/unknown-network safety gate")
     args = parser.parse_args(argv)
@@ -31,6 +32,7 @@ def main(argv: list[str] | None = None) -> int:
         collect_to_file(
             args.output, url=args.url, max_scrolls=args.max_scrolls,
             cdp_endpoint=args.cdp_endpoint, chunk_scrolls=args.chunk_scrolls,
+            fingerprint=not args.metadata_only,
         )
     except OSError as error:
         print("error: Chrome DevTools is unavailable; keep an authenticated Google Photos tab open", file=sys.stderr)

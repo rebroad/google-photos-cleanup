@@ -46,4 +46,4 @@ def test_corrupt_checkpoint_falls_back_to_final_output(tmp_path, monkeypatch):
 
     monkeypatch.setattr(collector, "_collect_to_file_endpoint", fake_collect)
     collector.collect_to_file(str(output), cdp_endpoint="http://127.0.0.1:9222")
-    assert captured["args"][7:9] == (58, 1234)
+    assert captured["args"][8:10] == (58, 1234)
