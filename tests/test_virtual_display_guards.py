@@ -47,3 +47,20 @@ def test_corrupt_checkpoint_falls_back_to_final_output(tmp_path, monkeypatch):
     monkeypatch.setattr(collector, "_collect_to_file_endpoint", fake_collect)
     collector.collect_to_file(str(output), cdp_endpoint="http://127.0.0.1:9222")
     assert captured["args"][8:10] == (58, 1234)
+
+def test_normalize_accepts_collector_media_schema(tmp_path):
+    import json
+    from gphotos_cleanup.cli import main
+
+    source = tmp_path / "raw.json"
+    output = tmp_path / "normalized.json"
+    source.write_text(json.dumps({
+        "media": [{"src": "https://example.test/a", "kind": "image", "width": 100, "height": 100}],
+        "complete": False,
+        "reached_end": False,
+    }))
+    assert main(["normalize", "--input", str(source), "--output", str(output)]) == 0
+    result = json.loads(output.read_text())
+    assert result["complete"] is False
+    assert result["reached_end"] is False
+    assert len(result["media_items"]) == 1

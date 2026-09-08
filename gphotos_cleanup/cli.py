@@ -98,7 +98,7 @@ def main(argv: list[str] | None = None) -> int:
             _write(args.output, {"serial": serial, "roots": args.root, "files": files})
         elif args.command == "list-cloud":
             source = json.loads(Path(args.input).read_text(encoding="utf-8"))
-            items = source.get("media_items", source) if isinstance(source, dict) else source
+            items = source.get("media_items", source.get("media", [])) if isinstance(source, dict) else source
             if not isinstance(items, list):
                 raise ValueError("cloud input must contain a media_items list")
             fields = ["id", "filename", "mime_type", "width", "height", "phash", "source"]
@@ -110,13 +110,28 @@ def main(argv: list[str] | None = None) -> int:
                         writer.writerow({field: item.get(field, "") for field in fields})
         elif args.command == "normalize":
             source = json.loads(Path(args.input).read_text(encoding="utf-8"))
-            _write(args.output, normalize(source["media_items"] if isinstance(source, dict) and "media_items" in source else source))
+            items = source.get("media_items", source.get("media", [])) if isinstance(source, dict) else source
+            normalized = normalize(items)
+            if isinstance(source, dict):
+                normalized = {
+                    "media_items": normalized,
+                    "complete": bool(source.get("complete", True)),
+                    "reached_end": bool(source.get("reached_end", source.get("complete", True))),
+                }
+            _write(args.output, normalized)
         elif args.command == "match":
             inventory = json.loads(Path(args.inventory).read_text(encoding="utf-8"))["files"]
-            photos = json.loads(Path(args.photos).read_text(encoding="utf-8"))
+            photos_source = json.loads(Path(args.photos).read_text(encoding="utf-8"))
+            if isinstance(photos_source, dict) and "media_items" in photos_source:
+                photos = photos_source["media_items"]
+                cloud_scan_complete = bool(photos_source.get("complete", True))
+            else:
+                photos = photos_source
+                cloud_scan_complete = True
             matches = match(inventory, photos, tolerance_seconds=172800)
             _write(args.output, {
                 "matches": matches,
+                "cloud_scan_complete": cloud_scan_complete,
                 "device_duplicate_groups": duplicate_groups(inventory, args.phash_threshold),
                 "google_photos_duplicate_groups": duplicate_groups(photos, args.phash_threshold),
             })
@@ -154,6 +169,7 @@ def main(argv: list[str] | None = None) -> int:
                     "deletion_performed": False,
                     "candidates": candidates,
                     "device_duplicate_groups": report_input.get("device_duplicate_groups", []) if isinstance(report_input, dict) else [],
+                    "cloud_scan_complete": bool(report_input.get("cloud_scan_complete", True)) if isinstance(report_input, dict) else True,
                     "google_photos_duplicate_groups": report_input.get("google_photos_duplicate_groups", []) if isinstance(report_input, dict) else [],
                 })
     except (OSError, RuntimeError, ValueError, KeyError) as error:

@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import PurePosixPath
 
 from .fingerprint import hamming
+import hashlib
 def _media_kind(item: dict[str, object]) -> str | None:
     mime_type = str(item.get("mime_type", "")).lower()
     if mime_type.startswith("video/"):
@@ -19,17 +20,40 @@ def _compatible(local: dict[str, object], remote: dict[str, object]) -> bool:
     return local_kind is None or remote_kind is None or local_kind == remote_kind
 
 
-
 def normalize(items: list[dict[str, object]]) -> list[dict[str, object]]:
-    """Normalize adapter output without retaining access tokens or URLs to bytes.
-
-    Accepted fields: id, filename, size, mime_type, creation_time, sha256,
-    product_url. Unknown fields are discarded deliberately.
-    """
+    """Normalize adapter output without retaining access tokens or URLs to bytes."""
     result = []
     for item in items:
-        filename = str(item.get("filename", ""))
-        result.append({key: item[key] for key in ("id", "filename", "size", "mime_type", "creation_time", "sha256", "product_url", "content_url", "phash", "width", "height") if key in item and item[key] is not None} | {"basename": PurePosixPath(filename).name})
+        rendered_src = str(item.get("src", ""))
+        rendered_kind = str(item.get("kind", "")).lower()
+        filename = str(item.get("filename", "")).strip()
+        if rendered_src:
+            # Rendered Chrome records have no account filename or stable API ID.
+            # Use a deterministic local ID and retain only safe display metadata.
+            identifier = hashlib.sha256(rendered_src.encode("utf-8")).hexdigest()[:24]
+            filename = filename or f"{identifier}.{'mp4' if rendered_kind == 'video' else 'jpg'}"
+        else:
+            identifier = str(item.get("id", ""))
+        normalized = {
+            key: item[key]
+            for key in (
+                "id", "filename", "size", "mime_type", "creation_time",
+                "sha256", "product_url", "content_url", "phash",
+                "width", "height",
+            )
+            if key in item and item[key] is not None
+        }
+        if identifier and "id" not in normalized:
+            normalized["id"] = identifier
+        if filename and "filename" not in normalized:
+            normalized["filename"] = filename
+        if rendered_kind and "mime_type" not in normalized:
+            normalized["mime_type"] = "video/mp4" if rendered_kind == "video" else "image/jpeg"
+        if rendered_src and "content_url" not in normalized:
+            normalized["content_url"] = rendered_src
+        normalized["basename"] = PurePosixPath(filename).name
+        result.append(normalized)
+    return result
     return result
 
 
