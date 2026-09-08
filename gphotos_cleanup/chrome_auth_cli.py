@@ -6,6 +6,8 @@ import os
 import stat
 import sys
 import time
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -38,12 +40,31 @@ def _relevant_domain(domain: str) -> bool:
 def export_session(serial: str, output: str) -> int:
     with adb_chrome_forward(serial) as port:
         endpoint = f"http://127.0.0.1:{port}"
-        ws_url, host_header, _ = _chrome_page_websocket_url(endpoint)
-        ws = _WebSocket(ws_url, host_header=host_header, timeout=15)
-        try:
-            result = ws.call("Network.getAllCookies")
-        finally:
-            ws.close()
+        return export_session_endpoint(endpoint, output)
+
+
+def _any_page_websocket_url(endpoint: str) -> tuple[str, str]:
+    with urllib.request.urlopen(endpoint.rstrip("/") + "/json/list", timeout=5) as response:
+        targets = json.load(response)
+    for target in targets:
+        if (isinstance(target, dict) and target.get("type") == "page"
+                and isinstance(target.get("webSocketDebuggerUrl"), str)):
+            ws_url = str(target["webSocketDebuggerUrl"])
+            parsed = urllib.parse.urlsplit(ws_url)
+            if parsed.scheme == "ws" and parsed.netloc and parsed.path:
+                return ws_url, parsed.netloc
+    raise CdpError("Chrome returned no page target for cookie export")
+
+
+def export_session_endpoint(endpoint: str, output: str) -> int:
+    # Cookie export is deliberately explicit and filtered below. It does not
+    # export passwords, local storage, or arbitrary browser profile files.
+    ws_url, host_header = _any_page_websocket_url(endpoint)
+    ws = _WebSocket(ws_url, host_header=host_header, timeout=15)
+    try:
+        result = ws.call("Network.getAllCookies")
+    finally:
+        ws.close()
     cookies = [
         cookie for cookie in result.get("result", {}).get("cookies", [])
         if isinstance(cookie, dict) and _relevant_domain(str(cookie.get("domain", "")))
@@ -76,11 +97,15 @@ def export_session(serial: str, output: str) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m gphotos_cleanup.chrome_auth_cli")
     parser.add_argument("--serial", help="ADB serial; omitted when exactly one device is connected")
+    parser.add_argument("--cdp-endpoint", help="Chrome DevTools HTTP endpoint, e.g. http://127.0.0.1:19223")
     parser.add_argument("--output", default=_default_output())
     args = parser.parse_args(argv)
     try:
-        serial = args.serial or connected_adb_serial()
-        count = export_session(serial, args.output)
+        if args.cdp_endpoint:
+            count = export_session_endpoint(args.cdp_endpoint, args.output)
+        else:
+            serial = args.serial or connected_adb_serial()
+            count = export_session(serial, args.output)
         print(f"Exported {count} filtered Google cookies to {args.output}")
         print("Cookie values are local authentication state; keep this file outside Git.", file=sys.stderr)
     except (CdpError, OSError, RuntimeError, ValueError) as error:
