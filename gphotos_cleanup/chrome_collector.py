@@ -6,14 +6,12 @@ import os
 import socket
 import struct
 import time
-import subprocess
 import urllib.parse
 import urllib.request
-from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterator
 
 from .obscura_collector import write_cloud_records
+from .virtual_display import validate_cdp_endpoint
 
 
 class CdpError(RuntimeError):
@@ -187,76 +185,6 @@ def _chrome_page_websocket_url(endpoint: str, attempts: int = 2) -> tuple[str, s
     ) from last_error
 
 
-def connected_adb_serial() -> str:
-    try:
-        result = subprocess.run(
-            ["adb", "devices"],
-            text=True,
-            capture_output=True,
-            check=False,
-            timeout=10,
-        )
-    except subprocess.TimeoutExpired as error:
-        raise CdpError("timed out listing ADB devices") from error
-    if result.returncode:
-        raise CdpError(result.stderr.strip() or "could not list ADB devices")
-    devices = [
-        line.split()[0]
-        for line in result.stdout.splitlines()
-        if len(line.split()) == 2 and line.split()[1] == "device"
-    ]
-    if len(devices) != 1:
-        if not devices:
-            raise CdpError("no ADB device is connected; provide --serial or use --cdp-endpoint")
-        raise CdpError("multiple ADB devices are connected; provide --serial explicitly")
-    return devices[0]
-
-
-def adb_open_google_photos(serial: str, url: str) -> None:
-    try:
-        result = subprocess.run(
-            [
-                "adb", "-s", serial, "shell", "am", "start",
-                "-a", "android.intent.action.VIEW",
-                "-d", url,
-                "-p", "com.android.chrome",
-            ],
-            text=True,
-            capture_output=True,
-            check=False,
-            timeout=15,
-        )
-    except subprocess.TimeoutExpired as error:
-        raise CdpError("timed out opening Google Photos in Chrome through ADB") from error
-    if result.returncode:
-        raise CdpError(result.stderr.strip() or "could not open Google Photos in Chrome")
-
-
-@contextmanager
-def adb_chrome_forward(serial: str) -> Iterator[int]:
-    command = ["adb", "-s", serial, "forward", "tcp:0", "localabstract:chrome_devtools_remote"]
-    try:
-        result = subprocess.run(command, text=True, capture_output=True, check=False, timeout=15)
-    except subprocess.TimeoutExpired as error:
-        raise CdpError("timed out forwarding Chrome DevTools through ADB") from error
-    if result.returncode:
-        raise CdpError(result.stderr.strip() or "could not forward Chrome DevTools")
-    try:
-        port = int(result.stdout.strip())
-    except ValueError as error:
-        raise CdpError("ADB did not return the allocated Chrome DevTools port") from error
-    try:
-        yield port
-    finally:
-        subprocess.run(
-            ["adb", "-s", serial, "forward", "--remove", f"tcp:{port}"],
-            text=True,
-            capture_output=True,
-            check=False,
-            timeout=5,
-        )
-
-
 EXTRACT_AND_SCROLL = r"""
 (async () => {
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -401,6 +329,7 @@ def _wait_for_execution_context(ws: _WebSocket, attempts: int = 15) -> None:
             time.sleep(1)
 
 
+
 def collect(
     serial: str | None = None,
     url: str = "https://photos.google.com/",
@@ -408,19 +337,11 @@ def collect(
     cdp_endpoint: str | None = None,
     open_chrome: bool = True,
 ) -> dict[str, object]:
-    if cdp_endpoint:
-        return _collect_endpoint(cdp_endpoint, url, max_scrolls)
-    if not serial:
-        raise CdpError("provide --serial for phone Chrome or --cdp-endpoint for local Chrome")
-    with adb_chrome_forward(serial) as port:
-        endpoint = f"http://127.0.0.1:{port}"
-        if open_chrome:
-            try:
-                _chrome_page_websocket_url(endpoint)
-            except CdpError:
-                adb_open_google_photos(serial, url)
-                time.sleep(3)
-        return _collect_endpoint(endpoint, url, max_scrolls)
+    if serial:
+        raise CdpError("physical-device Chrome is disabled; use the virtual display --cdp-endpoint")
+    if not cdp_endpoint:
+        raise CdpError("cloud collection requires the virtual display --cdp-endpoint")
+    return _collect_endpoint(validate_cdp_endpoint(cdp_endpoint), url, max_scrolls)
 
 
 def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_top: int = 0, fingerprint: bool = True) -> dict[str, object]:
@@ -448,6 +369,7 @@ def _collect_endpoint(endpoint: str, url: str, max_scrolls: int, start_scroll_to
         ws.close()
 
 
+
 def collect_to_file(
     output: str,
     serial: str | None = None,
@@ -457,12 +379,11 @@ def collect_to_file(
     open_chrome: bool = True,
     chunk_scrolls: int = 100,
 ) -> None:
-    """Collect in bounded, resumable browser evaluations.
-
-    Google Photos can leave a long-running Runtime.evaluate request unusable
-    after a DevTools transport interruption. Persisting each chunk outside the
-    repository means a retry resumes at the last verified scroll position.
-    """
+    """Collect in bounded, resumable browser evaluations."""
+    if serial:
+        raise CdpError("physical-device Chrome is disabled; use the virtual display --cdp-endpoint")
+    if not cdp_endpoint:
+        raise CdpError("cloud collection requires the virtual display --cdp-endpoint")
     checkpoint = Path(output + ".partial")
     merged: dict[str, dict[str, object]] = {}
     total_scrolls = 0
@@ -477,37 +398,17 @@ def collect_to_file(
             for item in saved.get("media", []):
                 if isinstance(item, dict) and item.get("src"):
                     merged[str(item["src"])] = item
-
-    endpoint_context = (
-        adb_chrome_forward(serial) if not cdp_endpoint else None
+    _collect_to_file_endpoint(
+        validate_cdp_endpoint(cdp_endpoint), url, max_scrolls, chunk_scrolls,
+        output, checkpoint, merged, total_scrolls, start_scroll_top, final_value,
     )
-    if endpoint_context is not None:
-        with endpoint_context as port:
-            _collect_to_file_endpoint(
-                f"http://127.0.0.1:{port}", url, max_scrolls, chunk_scrolls,
-                output, checkpoint, merged, total_scrolls, start_scroll_top,
-                final_value, open_chrome, serial,
-            )
-    else:
-        _collect_to_file_endpoint(
-            str(cdp_endpoint), url, max_scrolls, chunk_scrolls, output,
-            checkpoint, merged, total_scrolls, start_scroll_top, final_value,
-            False, serial,
-        )
 
 
 def _collect_to_file_endpoint(
     endpoint: str, url: str, max_scrolls: int, chunk_scrolls: int, output: str,
     checkpoint: Path, merged: dict[str, dict[str, object]], total_scrolls: int,
-    start_scroll_top: int, final_value: dict[str, object], open_chrome: bool,
-    serial: str | None,
+    start_scroll_top: int, final_value: dict[str, object],
 ) -> None:
-    if open_chrome and serial:
-        try:
-            _chrome_page_websocket_url(endpoint)
-        except CdpError:
-            adb_open_google_photos(serial, url)
-            time.sleep(3)
     limit = max(1, min(max_scrolls, 20000))
     chunk_limit = max(1, min(chunk_scrolls, 500))
     complete = bool(final_value.get("complete", False))

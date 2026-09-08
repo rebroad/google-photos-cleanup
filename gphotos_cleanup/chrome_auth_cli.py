@@ -10,12 +10,8 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .chrome_collector import (
-    CdpError,
-    _WebSocket,
-    adb_chrome_forward,
-    connected_adb_serial,
-)
+from .chrome_collector import CdpError, _WebSocket
+from .virtual_display import validate_cdp_endpoint
 
 
 def _default_output() -> str:
@@ -35,10 +31,9 @@ def _relevant_domain(domain: str) -> bool:
     )
 
 
+
 def export_session(serial: str, output: str) -> int:
-    with adb_chrome_forward(serial) as port:
-        endpoint = f"http://127.0.0.1:{port}"
-        return export_session_endpoint(endpoint, output)
+    raise CdpError("physical-device Chrome is disabled; use the virtual display --cdp-endpoint")
 
 
 def _any_page_websocket_url(endpoint: str) -> tuple[str, str]:
@@ -55,6 +50,7 @@ def _any_page_websocket_url(endpoint: str) -> tuple[str, str]:
 
 
 def export_session_endpoint(endpoint: str, output: str) -> int:
+    endpoint = validate_cdp_endpoint(endpoint)
     # Cookie export is deliberately explicit and filtered below. It does not
     # export passwords, local storage, or arbitrary browser profile files.
     ws_url, host_header = _any_page_websocket_url(endpoint)
@@ -94,20 +90,12 @@ def export_session_endpoint(endpoint: str, output: str) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m gphotos_cleanup.chrome_auth_cli")
-    parser.add_argument("--serial", help="ADB serial; omitted when exactly one device is connected")
-    parser.add_argument("--cdp-endpoint", help="Chrome DevTools HTTP endpoint, e.g. http://127.0.0.1:19223")
+    parser.add_argument("--cdp-endpoint", required=True, help="local virtual-display Chrome DevTools HTTP endpoint, e.g. http://127.0.0.1:19223")
     parser.add_argument("--output", default=_default_output())
     args = parser.parse_args(argv)
-    if args.serial:
-        parser.error("physical-device Chrome is disabled; use the virtual display --cdp-endpoint")
-    if not args.cdp_endpoint:
-        parser.error("session export requires the virtual display --cdp-endpoint")
     try:
-        if args.cdp_endpoint:
-            count = export_session_endpoint(args.cdp_endpoint, args.output)
-        else:
-            serial = args.serial or connected_adb_serial()
-            count = export_session(serial, args.output)
+        endpoint = validate_cdp_endpoint(args.cdp_endpoint)
+        count = export_session_endpoint(endpoint, args.output)
         print(f"Exported {count} filtered Google cookies to {args.output}")
         print("Cookie values are local authentication state; keep this file outside Git.", file=sys.stderr)
     except (CdpError, OSError, RuntimeError, ValueError) as error:

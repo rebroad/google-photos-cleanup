@@ -72,7 +72,6 @@ render, and records whether the bottom was actually reached:
 ~~~sh
 python3 -m gphotos_cleanup.chrome_collect_cli \
   --cdp-endpoint http://127.0.0.1:19223 \
-  --no-open \
   --output "$PREFIX/tmp/photos-raw-chrome.json"
 python -m gphotos_cleanup normalize \
   --input "$PREFIX/tmp/photos-raw-chrome.json" \
