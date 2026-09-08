@@ -135,4 +135,4 @@ def collect(chrome: str, profile_dir: str, session_file: str, output: str,
     final_value["complete"] = complete
     final_value["reached_end"] = complete
     from .obscura_collector import write_cloud_records
-    write_cloud_records(final_value, output, cookie_header=cookie_header, include_source_urls=include_source_urls)
+    write_cloud_records(final_value, output, cookie_header=cookie_header, include_source_urls=include_source_urls, fingerprint_missing=fingerprint)

@@ -100,7 +100,7 @@ def _media_phash(url: str, video: bool = False, cookie_header: str | None = None
         return None
 
 
-def write_cloud_records(value: dict[str, object], output: str, cookie_header: str | None = None, include_source_urls: bool = False) -> None:
+def write_cloud_records(value: dict[str, object], output: str, cookie_header: str | None = None, include_source_urls: bool = False, fingerprint_missing: bool = True) -> None:
     media = value.get("media", [])
     records = []
     fingerprint_jobs = []
@@ -124,7 +124,7 @@ def write_cloud_records(value: dict[str, object], output: str, cookie_header: st
         browser_phash = item.get("phash")
         if isinstance(browser_phash, str):
             records[-1]["phash"] = browser_phash
-        else:
+        elif fingerprint_missing:
             fingerprint_jobs.append((len(records) - 1, src, video))
     if fingerprint_jobs:
         # Video fingerprints require a temporary ffmpeg input file and can be
