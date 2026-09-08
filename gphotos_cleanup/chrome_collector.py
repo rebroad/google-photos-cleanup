@@ -360,6 +360,8 @@ EXTRACT_AND_SCROLL = r"""
   const libraryMarker = /Search your photos and albums|Create and add photos|Photos library/i.test(text);
   const publicOverviewMarker = /Get the app|A safe home for your life's memories|Edit, organise, search and back up your photos/i.test(text);
   const networkError = /can't connect|no internet connection|ERR_NAME_NOT_RESOLVED|ERR_INTERNET_DISCONNECTED/i.test(text);
+  const libraryUrl = host === 'photos.google.com' &&
+    /^\/(?:u\/\d+\/)?$/.test(location.pathname);
   // A signed-in shell can briefly contain the library labels while the real
   // virtualized timeline is still loading (or while an account-login iframe
   // is present). Do not let that state become a successful empty inventory.
@@ -367,7 +369,7 @@ EXTRACT_AND_SCROLL = r"""
   return {
     url: location.href,
     title: document.title,
-    authenticated: host === 'photos.google.com' && libraryMarker && !publicOverviewMarker && !/sign[ -]?in|choose an account/i.test(text),
+    authenticated: libraryUrl && libraryMarker && !publicOverviewMarker && !/sign[ -]?in|choose an account/i.test(text),
     network_error: networkError,
     timeline_ready: timelineReady,
     media: Array.from(media.values()),

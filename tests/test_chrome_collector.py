@@ -46,6 +46,7 @@ def test_extractor_preserves_media_kind_and_checks_auth_after_scroll():
     assert "const text = document.body ? document.body.innerText : '';" in EXTRACT_AND_SCROLL
     assert "libraryMarker" in EXTRACT_AND_SCROLL
     assert "publicOverviewMarker" in EXTRACT_AND_SCROLL
+    assert "libraryUrl" in EXTRACT_AND_SCROLL
     assert "timelineReady" in EXTRACT_AND_SCROLL
     assert "timeline_ready" in EXTRACT_AND_SCROLL
     assert "networkError" in EXTRACT_AND_SCROLL
