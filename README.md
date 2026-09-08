@@ -45,6 +45,26 @@ DevTools. The session file is written with mode 0600 outside this repository:
 python3 -m gphotos_cleanup.chrome_auth_cli
 ~~~
 
+When the virtual Chrome DevTools endpoint is tunneled to Termux, export from
+that endpoint instead:
+
+~~~sh
+python3 -m gphotos_cleanup.chrome_auth_cli \
+  --cdp-endpoint http://127.0.0.1:19223
+~~~
+
+The protected session can then be used by the local headless Chromium build
+(which avoids Android Chrome’s display/network path):
+
+~~~sh
+python3 -m gphotos_cleanup.headless_chrome_collect_cli \
+  --chrome "$(command -v chromium-browser)" \
+  --profile-dir "$PREFIX/tmp/google-photos-headless-profile" \
+  --session-file "$PREFIX/tmp/google-photos-session.json" \
+  --output "$PREFIX/tmp/photos-raw-headless.json" \
+  --max-scrolls 7000 --chunk-scrolls 100
+~~~
+
 Then run the collector against the authenticated Chrome DevTools endpoint. It
 discovers the real nested timeline scroller, waits for virtualized tiles to
 render, and records whether the bottom was actually reached:

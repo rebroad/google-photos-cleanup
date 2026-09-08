@@ -5,7 +5,6 @@ import json
 import os
 import stat
 import sys
-import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -14,7 +13,6 @@ from pathlib import Path
 from .chrome_collector import (
     CdpError,
     _WebSocket,
-    _chrome_page_websocket_url,
     adb_chrome_forward,
     connected_adb_serial,
 )
