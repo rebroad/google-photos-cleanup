@@ -59,8 +59,9 @@ def _expression(items: list[dict[str, str]]) -> str:
 """
 
 
-def collect(chrome: str, profile_dir: str, session_file: str, source: str,
-            output: str, port: int = 9222, batch_size: int = 32) -> None:
+def collect(chrome: str, profile_dir: str, session_file: str | None, source: str,
+            output: str, port: int = 9222, batch_size: int = 32,
+            use_existing_profile: bool = False) -> None:
     payload = json.loads(Path(source).read_text(encoding="utf-8"))
     records = payload.get("media_items", []) if isinstance(payload, dict) else payload
     jobs = [
@@ -68,14 +69,15 @@ def collect(chrome: str, profile_dir: str, session_file: str, source: str,
         for item in records if isinstance(item, dict) and item.get("id") and item.get("source_url")
     ]
     hashes: dict[str, str] = {}
-    session = _read_session_file(session_file)
+    session = _read_session_file(session_file) if session_file and not use_existing_profile else []
     with headless_chrome(chrome, profile_dir, port, "https://photos.google.com/") as endpoint:
         target = _page_target(endpoint)
         ws_url = str(target["webSocketDebuggerUrl"])
         parsed = urllib.parse.urlsplit(ws_url)
         ws = _WebSocket(ws_url, host_header=parsed.netloc, timeout=30)
         try:
-            ws.call("Network.setCookies", {"cookies": session})
+            if session:
+                ws.call("Network.setCookies", {"cookies": session})
             ws.call("Page.navigate", {"url": "https://photos.google.com/"})
         finally:
             ws.close()
@@ -113,7 +115,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m gphotos_cleanup.cloud_fingerprint_cli")
     parser.add_argument("--chrome", required=True)
     parser.add_argument("--profile-dir", required=True)
-    parser.add_argument("--session-file", required=True)
+    parser.add_argument("--session-file", help="filtered cookies outside the repository")
+    parser.add_argument("--use-existing-profile-session", action="store_true", help="use authentication already stored in the profile")
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--port", type=int, default=9222)
@@ -126,7 +129,9 @@ def main(argv: list[str] | None = None) -> int:
         jobs = [item for item in records if isinstance(item, dict) and item.get("source_url")]
         if len(jobs) > 200 and not args.allow_large_network:
             parser.error("fingerprinting more than 200 cloud items downloads substantial data; pass --allow-large-network after checking the connection")
-        collect(args.chrome, args.profile_dir, args.session_file, args.input, args.output, args.port, args.batch_size)
+        if not args.session_file and not args.use_existing_profile_session:
+            parser.error("provide --session-file or --use-existing-profile-session")
+        collect(args.chrome, args.profile_dir, args.session_file, args.input, args.output, args.port, args.batch_size, args.use_existing_profile_session)
     except (CdpError, OSError, RuntimeError, ValueError, KeyError, json.JSONDecodeError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
