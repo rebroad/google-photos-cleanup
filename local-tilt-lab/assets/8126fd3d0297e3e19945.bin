@@ -1,0 +1,11 @@
+import { getStartOptions } from "/node_modules/@tanstack/start-client-core/dist/esm/getStartOptions.js?v=2a84352f";
+import { defaultSerovalPlugins, makeSerovalPlugin } from "/node_modules/@tanstack/router-core/dist/esm/index.js?v=2a84352f";
+//#region src/getDefaultSerovalPlugins.ts
+function getDefaultSerovalPlugins() {
+	return [...(getStartOptions()?.serializationAdapters)?.map(makeSerovalPlugin) ?? [], ...defaultSerovalPlugins];
+}
+//#endregion
+export { getDefaultSerovalPlugins };
+
+                                                    
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ2V0RGVmYXVsdFNlcm92YWxQbHVnaW5zLmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9nZXREZWZhdWx0U2Vyb3ZhbFBsdWdpbnMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgbWFrZVNlcm92YWxQbHVnaW4sXG4gIGRlZmF1bHRTZXJvdmFsUGx1Z2lucyBhcyByb3V0ZXJEZWZhdWx0U2Vyb3ZhbFBsdWdpbnMsXG59IGZyb20gJ0B0YW5zdGFjay9yb3V0ZXItY29yZSdcbmltcG9ydCB7IGdldFN0YXJ0T3B0aW9ucyB9IGZyb20gJy4vZ2V0U3RhcnRPcHRpb25zJ1xuaW1wb3J0IHR5cGUgeyBBbnlTZXJpYWxpemF0aW9uQWRhcHRlciB9IGZyb20gJ0B0YW5zdGFjay9yb3V0ZXItY29yZSdcbmltcG9ydCB0eXBlIHsgUGx1Z2luIH0gZnJvbSAnc2Vyb3ZhbCdcblxuZXhwb3J0IGZ1bmN0aW9uIGdldERlZmF1bHRTZXJvdmFsUGx1Z2lucygpOiBBcnJheTxQbHVnaW48YW55LCBhbnk+PiB7XG4gIGNvbnN0IHN0YXJ0ID0gZ2V0U3RhcnRPcHRpb25zKClcbiAgY29uc3QgYWRhcHRlcnMgPSBzdGFydD8uc2VyaWFsaXphdGlvbkFkYXB0ZXJzIGFzXG4gICAgfCBBcnJheTxBbnlTZXJpYWxpemF0aW9uQWRhcHRlcj5cbiAgICB8IHVuZGVmaW5lZFxuICByZXR1cm4gW1xuICAgIC4uLihhZGFwdGVycz8ubWFwKG1ha2VTZXJvdmFsUGx1Z2luKSA/PyBbXSksXG4gICAgLi4ucm91dGVyRGVmYXVsdFNlcm92YWxQbHVnaW5zLFxuICBdXG59XG4iXSwibWFwcGluZ3MiOiI7OztBQVFBLFNBQWdCLDJCQUFvRDtDQUtsRSxPQUFPLENBQ0wsSUFMWSxnQkFDRyxHQUFPLHdCQUlSLElBQUksaUJBQWlCLEtBQUssQ0FBQyxHQUN6QyxHQUFHLHFCQUNMO0FBQ0YiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

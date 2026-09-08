@@ -1,0 +1,15 @@
+const React$1 = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport0_react, 1);const jsx = __vite__cjsImport1_react_jsxRuntime["jsx"];"use client";
+import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport1_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/nonRouteComponentContext.tsx
+var nonRouteComponentContext = "development" !== "production" ? React$1.createContext(void 0) : void 0;
+function wrapInNonRouteComponentContext(element, component) {
+	return /* @__PURE__ */ jsx(nonRouteComponentContext.Provider, {
+		value: component,
+		children: element
+	});
+}
+//#endregion
+export { nonRouteComponentContext, wrapInNonRouteComponentContext };
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6Ijs7OztBQVNBLElBQWEsNkNBQ2MsZUFDckIsUUFBTSxjQUE2QyxNQUFTLElBQzVEO0FBRU4sU0FBZ0IsK0JBQ2QsU0FDQSxXQUNvQjtDQUVwQixPQUFPLG9CQUFDLHlCQUFRLFVBQVQ7RUFBa0IsT0FBTztZQUFZO0NBQTBCO0FBQ3hFIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyIuLi8uLi9zcmMvbm9uUm91dGVDb21wb25lbnRDb250ZXh0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIGNsaWVudCdcblxuaW1wb3J0ICogYXMgUmVhY3QgZnJvbSAncmVhY3QnXG5cbmV4cG9ydCB0eXBlIE5vblJvdXRlQ29tcG9uZW50ID1cbiAgfCAncGVuZGluZ0NvbXBvbmVudCdcbiAgfCAnZXJyb3JDb21wb25lbnQnXG4gIHwgJ25vdEZvdW5kQ29tcG9uZW50J1xuXG5leHBvcnQgY29uc3Qgbm9uUm91dGVDb21wb25lbnRDb250ZXh0ID1cbiAgcHJvY2Vzcy5lbnYuTk9ERV9FTlYgIT09ICdwcm9kdWN0aW9uJ1xuICAgID8gUmVhY3QuY3JlYXRlQ29udGV4dDxOb25Sb3V0ZUNvbXBvbmVudCB8IHVuZGVmaW5lZD4odW5kZWZpbmVkKVxuICAgIDogdW5kZWZpbmVkXG5cbmV4cG9ydCBmdW5jdGlvbiB3cmFwSW5Ob25Sb3V0ZUNvbXBvbmVudENvbnRleHQoXG4gIGVsZW1lbnQ6IFJlYWN0LlJlYWN0RWxlbWVudCxcbiAgY29tcG9uZW50OiBOb25Sb3V0ZUNvbXBvbmVudCxcbik6IFJlYWN0LlJlYWN0RWxlbWVudCB7XG4gIGNvbnN0IENvbnRleHQgPSBub25Sb3V0ZUNvbXBvbmVudENvbnRleHQhXG4gIHJldHVybiA8Q29udGV4dC5Qcm92aWRlciB2YWx1ZT17Y29tcG9uZW50fT57ZWxlbWVudH08L0NvbnRleHQuUHJvdmlkZXI+XG59XG4iXSwiZmlsZSI6Ii93b3Jrc3BhY2Uvbm9kZV9tb2R1bGVzL0B0YW5zdGFjay9yZWFjdC1yb3V0ZXIvZGlzdC9lc20vbm9uUm91dGVDb21wb25lbnRDb250ZXh0LmpzIiwieF9nb29nbGVfaWdub3JlTGlzdCI6WzBdfQ==

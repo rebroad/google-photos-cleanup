@@ -1,0 +1,18 @@
+const StrictMode = __vite__cjsImport0_react["StrictMode"]; const startTransition = __vite__cjsImport0_react["startTransition"];const hydrateRoot = __vite__cjsImport1_reactDom_client["hydrateRoot"];const _jsxDEV = __vite__cjsImport3_react_jsxDevRuntime["jsxDEV"];import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport1_reactDom_client from "/node_modules/.vite/deps/react-dom_client.js?v=2a84352f";
+import { StartClient } from "/node_modules/@tanstack/react-start/dist/esm/client.js?v=2a84352f";
+var _jsxFileName = "/workspace/node_modules/@tanstack/react-start/dist/plugin/default-entry/client.tsx";
+import __vite__cjsImport3_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f";
+startTransition(() => {
+	hydrateRoot(document, /* @__PURE__ */ _jsxDEV(StrictMode, { children: /* @__PURE__ */ _jsxDEV(StartClient, {}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 9,
+		columnNumber: 7
+	}, this) }, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 8,
+		columnNumber: 5
+	}, this));
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsU0FBUyxZQUFZLHVCQUF1QjtBQUM1QyxTQUFTLG1CQUFtQjtBQUM1QixTQUFTLG1CQUFtQjs7O0FBRTVCLHNCQUFzQjtDQUNwQixZQUNFLFVBQ0Esd0JBQUMsWUFBRCxZQUNFLHdCQUFDLGFBQUQsQ0FBYzs7OztVQUNKOzs7O1NBQ2Q7QUFDRixDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbImNsaWVudC50c3giXSwidmVyc2lvbiI6Mywic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgU3RyaWN0TW9kZSwgc3RhcnRUcmFuc2l0aW9uIH0gZnJvbSAncmVhY3QnXG5pbXBvcnQgeyBoeWRyYXRlUm9vdCB9IGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnXG5pbXBvcnQgeyBTdGFydENsaWVudCB9IGZyb20gJ0B0YW5zdGFjay9yZWFjdC1zdGFydC9jbGllbnQnXG5cbnN0YXJ0VHJhbnNpdGlvbigoKSA9PiB7XG4gIGh5ZHJhdGVSb290KFxuICAgIGRvY3VtZW50LFxuICAgIDxTdHJpY3RNb2RlPlxuICAgICAgPFN0YXJ0Q2xpZW50IC8+XG4gICAgPC9TdHJpY3RNb2RlPixcbiAgKVxufSlcbiJdLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

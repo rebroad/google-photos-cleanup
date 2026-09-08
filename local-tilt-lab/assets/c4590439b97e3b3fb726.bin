@@ -1,0 +1,15 @@
+const jsx = __vite__cjsImport2_react_jsxRuntime["jsx"];import { useRouter } from "/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f";
+import { ScriptOnce } from "/node_modules/@tanstack/react-router/dist/esm/ScriptOnce.js?v=2a84352f";
+import __vite__cjsImport2_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+import { getScrollRestorationScriptForRouter } from "/node_modules/@tanstack/router-core/dist/esm/scroll-restoration-script/client.js?v=2a84352f";
+//#region src/scroll-restoration.tsx
+function ScrollRestoration() {
+	const script = getScrollRestorationScriptForRouter(useRouter());
+	if (!script) return null;
+	return /* @__PURE__ */ jsx(ScriptOnce, { children: script });
+}
+//#endregion
+export { ScrollRestoration };
+
+                                              
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2Nyb2xsLXJlc3RvcmF0aW9uLmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9zY3JvbGwtcmVzdG9yYXRpb24udHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGdldFNjcm9sbFJlc3RvcmF0aW9uU2NyaXB0Rm9yUm91dGVyIH0gZnJvbSAnQHRhbnN0YWNrL3JvdXRlci1jb3JlL3Njcm9sbC1yZXN0b3JhdGlvbi1zY3JpcHQnXG5pbXBvcnQgeyB1c2VSb3V0ZXIgfSBmcm9tICcuL3VzZVJvdXRlcidcbmltcG9ydCB7IFNjcmlwdE9uY2UgfSBmcm9tICcuL1NjcmlwdE9uY2UnXG5cbmV4cG9ydCBmdW5jdGlvbiBTY3JvbGxSZXN0b3JhdGlvbigpIHtcbiAgY29uc3Qgcm91dGVyID0gdXNlUm91dGVyKClcbiAgY29uc3Qgc2NyaXB0ID0gZ2V0U2Nyb2xsUmVzdG9yYXRpb25TY3JpcHRGb3JSb3V0ZXIocm91dGVyKVxuXG4gIGlmICghc2NyaXB0KSB7XG4gICAgcmV0dXJuIG51bGxcbiAgfVxuXG4gIHJldHVybiA8U2NyaXB0T25jZSBjaGlsZHJlbj17c2NyaXB0fSAvPlxufVxuIl0sIm1hcHBpbmdzIjoiOzs7OztBQUlBLFNBQWdCLG9CQUFvQjtDQUVsQyxNQUFNLFNBQVMsb0NBREEsVUFDb0MsQ0FBTTtDQUV6RCxJQUFJLENBQUMsUUFDSCxPQUFPO0NBR1QsT0FBTyxvQkFBQyxZQUFELEVBQVksVUFBVSxPQUFTLENBQUE7QUFDeEMiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

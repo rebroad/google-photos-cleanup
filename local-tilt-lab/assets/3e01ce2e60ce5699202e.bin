@@ -1,0 +1,51 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/preview-host-bridge.tsx");const useEffect = __vite__cjsImport0_react["useEffect"];/**
+* Mount once in `__root.tsx` so the Grok preview chrome can drive navigation
+* (and later receive registered routes). Noops when the app is not embedded.
+*/
+import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import { useRouter } from "/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=2a84352f";
+import { collectRoutePathsFromTree, installPreviewHostBridge } from "/src/lib/preview-host-bridge.ts";
+var _s = $RefreshSig$();
+export function PreviewHostBridge() {
+	_s();
+	const router = useRouter();
+	useEffect(() => {
+		return installPreviewHostBridge({
+			navigate: (path) => {
+				router.history.push(path);
+			},
+			getRoutePaths: () => collectRoutePathsFromTree(router.routeTree)
+		});
+	}, [router]);
+	return null;
+}
+_s(PreviewHostBridge, "g4BU1bO32KZmjSq/EmV92VkGdF0=", false, function() {
+	return [useRouter];
+});
+_c = PreviewHostBridge;
+var _c;
+$RefreshReg$(_c, "PreviewHostBridge");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/components/preview-host-bridge.tsx";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("/workspace/src/components/preview-host-bridge.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("/workspace/src/components/preview-host-bridge.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "/workspace/src/components/preview-host-bridge.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6Ijs7OztBQUtBLFNBQVMsaUJBQWlCO0FBQzFCLFNBQVMsaUJBQWlCO0FBQzFCLFNBQ0UsMkJBQ0EsZ0NBQ0s7O0FBRVAsT0FBTyxTQUFTLG9CQUFvQjs7Q0FDbEMsTUFBTSxTQUFTLFVBQVU7Q0FFekIsZ0JBQWdCO0VBQ2QsT0FBTyx5QkFBeUI7R0FDOUIsV0FBVyxTQUFTO0lBQ2xCLE9BQU8sUUFBUSxLQUFLLElBQUk7R0FDMUI7R0FDQSxxQkFBcUIsMEJBQTBCLE9BQU8sU0FBUztFQUNqRSxDQUFDO0NBQ0gsR0FBRyxDQUFDLE1BQU0sQ0FBQztDQUVYLE9BQU87QUFDVCIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJwcmV2aWV3LWhvc3QtYnJpZGdlLnRzeCJdLCJ2ZXJzaW9uIjozLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIE1vdW50IG9uY2UgaW4gYF9fcm9vdC50c3hgIHNvIHRoZSBHcm9rIHByZXZpZXcgY2hyb21lIGNhbiBkcml2ZSBuYXZpZ2F0aW9uXG4gKiAoYW5kIGxhdGVyIHJlY2VpdmUgcmVnaXN0ZXJlZCByb3V0ZXMpLiBOb29wcyB3aGVuIHRoZSBhcHAgaXMgbm90IGVtYmVkZGVkLlxuICovXG5cbmltcG9ydCB7IHVzZUVmZmVjdCB9IGZyb20gXCJyZWFjdFwiO1xuaW1wb3J0IHsgdXNlUm91dGVyIH0gZnJvbSBcIkB0YW5zdGFjay9yZWFjdC1yb3V0ZXJcIjtcbmltcG9ydCB7XG4gIGNvbGxlY3RSb3V0ZVBhdGhzRnJvbVRyZWUsXG4gIGluc3RhbGxQcmV2aWV3SG9zdEJyaWRnZSxcbn0gZnJvbSBcIkAvbGliL3ByZXZpZXctaG9zdC1icmlkZ2VcIjtcblxuZXhwb3J0IGZ1bmN0aW9uIFByZXZpZXdIb3N0QnJpZGdlKCkge1xuICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIHJldHVybiBpbnN0YWxsUHJldmlld0hvc3RCcmlkZ2Uoe1xuICAgICAgbmF2aWdhdGU6IChwYXRoKSA9PiB7XG4gICAgICAgIHJvdXRlci5oaXN0b3J5LnB1c2gocGF0aCk7XG4gICAgICB9LFxuICAgICAgZ2V0Um91dGVQYXRoczogKCkgPT4gY29sbGVjdFJvdXRlUGF0aHNGcm9tVHJlZShyb3V0ZXIucm91dGVUcmVlKSxcbiAgICB9KTtcbiAgfSwgW3JvdXRlcl0pO1xuXG4gIHJldHVybiBudWxsO1xufVxuIl19

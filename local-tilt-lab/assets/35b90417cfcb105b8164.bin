@@ -1,0 +1,58 @@
+const React$1 = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport2_react, 1);"use client";
+import { useLayoutEffect } from "/node_modules/@tanstack/react-router/dist/esm/utils.js?v=2a84352f";
+import { useRouter } from "/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f";
+import __vite__cjsImport2_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+//#region src/useNavigate.tsx
+/**
+* Imperative navigation hook.
+*
+* Returns a stable `navigate(options)` function to change the current location
+* programmatically. Prefer the `Link` component for user-initiated navigation,
+* and use this hook from effects, callbacks, or handlers where imperative
+* navigation is required.
+*
+* Options:
+* - `from`: Optional route base used to resolve relative `to` paths.
+*
+* @returns A function that accepts `NavigateOptions`.
+* @link https://tanstack.com/router/latest/docs/framework/react/api/router/useNavigateHook
+*/
+function useNavigate(_defaultOpts) {
+	const router = useRouter();
+	return React$1.useCallback((options) => {
+		return router.navigate({
+			...options,
+			from: options.from ?? _defaultOpts?.from
+		});
+	}, [_defaultOpts?.from, router]);
+}
+/**
+* Component that triggers a navigation when rendered. Navigation executes
+* in an effect after mount/update.
+*
+* Props are the same as `NavigateOptions` used by `navigate()`.
+*
+* @returns null
+* @link https://tanstack.com/router/latest/docs/framework/react/api/router/navigateComponent
+*/
+function Navigate(props) {
+	const router = useRouter();
+	const navigate = useNavigate();
+	const previousPropsRef = React$1.useRef(null);
+	useLayoutEffect(() => {
+		if (previousPropsRef.current !== props) {
+			navigate(props);
+			previousPropsRef.current = props;
+		}
+	}, [
+		router,
+		props,
+		navigate
+	]);
+	return null;
+}
+//#endregion
+export { Navigate, useNavigate };
+
+                                       
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlTmF2aWdhdGUuanMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiLi4vLi4vc3JjL3VzZU5hdmlnYXRlLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIGNsaWVudCdcblxuaW1wb3J0ICogYXMgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgeyB1c2VMYXlvdXRFZmZlY3QgfSBmcm9tICcuL3V0aWxzJ1xuaW1wb3J0IHsgdXNlUm91dGVyIH0gZnJvbSAnLi91c2VSb3V0ZXInXG5pbXBvcnQgdHlwZSB7XG4gIEFueVJvdXRlcixcbiAgRnJvbVBhdGhPcHRpb24sXG4gIE5hdmlnYXRlT3B0aW9ucyxcbiAgUmVnaXN0ZXJlZFJvdXRlcixcbiAgVXNlTmF2aWdhdGVSZXN1bHQsXG59IGZyb20gJ0B0YW5zdGFjay9yb3V0ZXItY29yZSdcblxuLyoqXG4gKiBJbXBlcmF0aXZlIG5hdmlnYXRpb24gaG9vay5cbiAqXG4gKiBSZXR1cm5zIGEgc3RhYmxlIGBuYXZpZ2F0ZShvcHRpb25zKWAgZnVuY3Rpb24gdG8gY2hhbmdlIHRoZSBjdXJyZW50IGxvY2F0aW9uXG4gKiBwcm9ncmFtbWF0aWNhbGx5LiBQcmVmZXIgdGhlIGBMaW5rYCBjb21wb25lbnQgZm9yIHVzZXItaW5pdGlhdGVkIG5hdmlnYXRpb24sXG4gKiBhbmQgdXNlIHRoaXMgaG9vayBmcm9tIGVmZmVjdHMsIGNhbGxiYWNrcywgb3IgaGFuZGxlcnMgd2hlcmUgaW1wZXJhdGl2ZVxuICogbmF2aWdhdGlvbiBpcyByZXF1aXJlZC5cbiAqXG4gKiBPcHRpb25zOlxuICogLSBgZnJvbWA6IE9wdGlvbmFsIHJvdXRlIGJhc2UgdXNlZCB0byByZXNvbHZlIHJlbGF0aXZlIGB0b2AgcGF0aHMuXG4gKlxuICogQHJldHVybnMgQSBmdW5jdGlvbiB0aGF0IGFjY2VwdHMgYE5hdmlnYXRlT3B0aW9uc2AuXG4gKiBAbGluayBodHRwczovL3RhbnN0YWNrLmNvbS9yb3V0ZXIvbGF0ZXN0L2RvY3MvZnJhbWV3b3JrL3JlYWN0L2FwaS9yb3V0ZXIvdXNlTmF2aWdhdGVIb29rXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiB1c2VOYXZpZ2F0ZTxcbiAgVFJvdXRlciBleHRlbmRzIEFueVJvdXRlciA9IFJlZ2lzdGVyZWRSb3V0ZXIsXG4gIFREZWZhdWx0RnJvbSBleHRlbmRzIHN0cmluZyA9IHN0cmluZyxcbj4oX2RlZmF1bHRPcHRzPzoge1xuICBmcm9tPzogRnJvbVBhdGhPcHRpb248VFJvdXRlciwgVERlZmF1bHRGcm9tPlxufSk6IFVzZU5hdmlnYXRlUmVzdWx0PFREZWZhdWx0RnJvbT4ge1xuICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKVxuXG4gIHJldHVybiBSZWFjdC51c2VDYWxsYmFjayhcbiAgICAob3B0aW9uczogTmF2aWdhdGVPcHRpb25zKSA9PiB7XG4gICAgICByZXR1cm4gcm91dGVyLm5hdmlnYXRlKHtcbiAgICAgICAgLi4ub3B0aW9ucyxcbiAgICAgICAgZnJvbTogb3B0aW9ucy5mcm9tID8/IF9kZWZhdWx0T3B0cz8uZnJvbSxcbiAgICAgIH0pXG4gICAgfSxcbiAgICBbX2RlZmF1bHRPcHRzPy5mcm9tLCByb3V0ZXJdLFxuICApIGFzIFVzZU5hdmlnYXRlUmVzdWx0PFREZWZhdWx0RnJvbT5cbn1cblxuLyoqXG4gKiBDb21wb25lbnQgdGhhdCB0cmlnZ2VycyBhIG5hdmlnYXRpb24gd2hlbiByZW5kZXJlZC4gTmF2aWdhdGlvbiBleGVjdXRlc1xuICogaW4gYW4gZWZmZWN0IGFmdGVyIG1vdW50L3VwZGF0ZS5cbiAqXG4gKiBQcm9wcyBhcmUgdGhlIHNhbWUgYXMgYE5hdmlnYXRlT3B0aW9uc2AgdXNlZCBieSBgbmF2aWdhdGUoKWAuXG4gKlxuICogQHJldHVybnMgbnVsbFxuICogQGxpbmsgaHR0cHM6Ly90YW5zdGFjay5jb20vcm91dGVyL2xhdGVzdC9kb2NzL2ZyYW1ld29yay9yZWFjdC9hcGkvcm91dGVyL25hdmlnYXRlQ29tcG9uZW50XG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBOYXZpZ2F0ZTxcbiAgVFJvdXRlciBleHRlbmRzIEFueVJvdXRlciA9IFJlZ2lzdGVyZWRSb3V0ZXIsXG4gIGNvbnN0IFRGcm9tIGV4dGVuZHMgc3RyaW5nID0gc3RyaW5nLFxuICBjb25zdCBUVG8gZXh0ZW5kcyBzdHJpbmcgfCB1bmRlZmluZWQgPSB1bmRlZmluZWQsXG4gIGNvbnN0IFRNYXNrRnJvbSBleHRlbmRzIHN0cmluZyA9IFRGcm9tLFxuICBjb25zdCBUTWFza1RvIGV4dGVuZHMgc3RyaW5nID0gJycsXG4+KHByb3BzOiBOYXZpZ2F0ZU9wdGlvbnM8VFJvdXRlciwgVEZyb20sIFRUbywgVE1hc2tGcm9tLCBUTWFza1RvPik6IG51bGwge1xuICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKVxuICBjb25zdCBuYXZpZ2F0ZSA9IHVzZU5hdmlnYXRlKClcblxuICBjb25zdCBwcmV2aW91c1Byb3BzUmVmID0gUmVhY3QudXNlUmVmPE5hdmlnYXRlT3B0aW9uczxcbiAgICBUUm91dGVyLFxuICAgIFRGcm9tLFxuICAgIFRUbyxcbiAgICBUTWFza0Zyb20sXG4gICAgVE1hc2tUb1xuICA+IHwgbnVsbD4obnVsbClcbiAgdXNlTGF5b3V0RWZmZWN0KCgpID0+IHtcbiAgICBpZiAocHJldmlvdXNQcm9wc1JlZi5jdXJyZW50ICE9PSBwcm9wcykge1xuICAgICAgbmF2aWdhdGUocHJvcHMpXG4gICAgICBwcmV2aW91c1Byb3BzUmVmLmN1cnJlbnQgPSBwcm9wc1xuICAgIH1cbiAgfSwgW3JvdXRlciwgcHJvcHMsIG5hdmlnYXRlXSlcbiAgcmV0dXJuIG51bGxcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQTJCQSxTQUFnQixZQUdkLGNBRWtDO0NBQ2xDLE1BQU0sU0FBUyxVQUFVO0NBRXpCLE9BQU8sUUFBTSxhQUNWLFlBQTZCO0VBQzVCLE9BQU8sT0FBTyxTQUFTO0dBQ3JCLEdBQUc7R0FDSCxNQUFNLFFBQVEsUUFBUSxjQUFjO0VBQ3RDLENBQUM7Q0FDSCxHQUNBLENBQUMsY0FBYyxNQUFNLE1BQU0sQ0FDN0I7QUFDRjs7Ozs7Ozs7OztBQVdBLFNBQWdCLFNBTWQsT0FBdUU7Q0FDdkUsTUFBTSxTQUFTLFVBQVU7Q0FDekIsTUFBTSxXQUFXLFlBQVk7Q0FFN0IsTUFBTSxtQkFBbUIsUUFBTSxPQU1yQixJQUFJO0NBQ2Qsc0JBQXNCO0VBQ3BCLElBQUksaUJBQWlCLFlBQVksT0FBTztHQUN0QyxTQUFTLEtBQUs7R0FDZCxpQkFBaUIsVUFBVTtFQUM3QjtDQUNGLEdBQUc7RUFBQztFQUFRO0VBQU87Q0FBUSxDQUFDO0NBQzVCLE9BQU87QUFDVCIsInhfZ29vZ2xlX2lnbm9yZUxpc3QiOlswXX0=

@@ -1,0 +1,10 @@
+const React$1 = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport0_react, 1);"use client";
+import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+//#region src/matchContext.tsx
+var matchContext = React$1.createContext(void 0);
+var dummyMatchContext = React$1.createContext(void 0);
+//#endregion
+export { dummyMatchContext, matchContext };
+
+                                        
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWF0Y2hDb250ZXh0LmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tYXRjaENvbnRleHQudHN4Il0sInNvdXJjZXNDb250ZW50IjpbIid1c2UgY2xpZW50J1xuXG5pbXBvcnQgKiBhcyBSZWFjdCBmcm9tICdyZWFjdCdcblxuZXhwb3J0IGNvbnN0IG1hdGNoQ29udGV4dCA9IFJlYWN0LmNyZWF0ZUNvbnRleHQ8c3RyaW5nIHwgdW5kZWZpbmVkPih1bmRlZmluZWQpXG5cbi8vIE4uQi4gdGhpcyBvbmx5IGV4aXN0cyBzbyB3ZSBjYW4gY29uZGl0aW9uYWxseSBjYWxsIHVzZUNvbnRleHQgb24gaXQgd2hlbiB3ZSBhcmUgbm90IGludGVyZXN0ZWQgaW4gdGhlIG5lYXJlc3QgbWF0Y2hcbmV4cG9ydCBjb25zdCBkdW1teU1hdGNoQ29udGV4dCA9IFJlYWN0LmNyZWF0ZUNvbnRleHQ8c3RyaW5nIHwgdW5kZWZpbmVkPihcbiAgdW5kZWZpbmVkLFxuKVxuIl0sIm1hcHBpbmdzIjoiOzs7QUFJQSxJQUFhLGVBQWUsUUFBTSxjQUFrQyxLQUFBLENBQVM7QUFHN0UsSUFBYSxvQkFBb0IsUUFBTSxjQUNyQyxLQUFBLENBQ0YiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

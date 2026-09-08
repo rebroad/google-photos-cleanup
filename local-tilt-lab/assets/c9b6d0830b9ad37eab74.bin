@@ -1,0 +1,10 @@
+export const interaction = {
+	dragging: false,
+	controls: null,
+	setDragging(next) {
+		this.dragging = next;
+		if (this.controls) this.controls.enabled = !next;
+	}
+};
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsT0FBTyxNQUFNLGNBQWM7Q0FDekIsVUFBVTtDQUNWLFVBQVU7Q0FDVixZQUFZLE1BQWU7RUFDekIsS0FBSyxXQUFXO0VBQ2hCLElBQUksS0FBSyxVQUFVLEtBQUssU0FBUyxVQUFVLENBQUM7Q0FDOUM7QUFDRiIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJpbnRlcmFjdGlvbi50cyJdLCJ2ZXJzaW9uIjozLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY29uc3QgaW50ZXJhY3Rpb24gPSB7XG4gIGRyYWdnaW5nOiBmYWxzZSxcbiAgY29udHJvbHM6IG51bGwgYXMgeyBlbmFibGVkOiBib29sZWFuIH0gfCBudWxsLFxuICBzZXREcmFnZ2luZyhuZXh0OiBib29sZWFuKSB7XG4gICAgdGhpcy5kcmFnZ2luZyA9IG5leHQ7XG4gICAgaWYgKHRoaXMuY29udHJvbHMpIHRoaXMuY29udHJvbHMuZW5hYmxlZCA9ICFuZXh0O1xuICB9LFxufTtcbiJdfQ==

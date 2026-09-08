@@ -1,0 +1,57 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/ui/slider.tsx");const _jsxDEV = __vite__cjsImport2_react_jsxDevRuntime["jsxDEV"];import * as SliderPrimitive from "/node_modules/.vite/deps/@radix-ui_react-slider.js?v=2a84352f";
+import { cn } from "/src/lib/utils.ts";
+var _jsxFileName = "/workspace/src/components/ui/slider.tsx";
+import __vite__cjsImport2_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f";
+export function Slider({ className, ...props }) {
+	return /* @__PURE__ */ _jsxDEV(SliderPrimitive.Root, {
+		className: cn("relative flex w-full touch-none select-none items-center py-2", className),
+		...props,
+		children: [/* @__PURE__ */ _jsxDEV(SliderPrimitive.Track, {
+			className: "relative h-2 w-full grow overflow-hidden rounded-full bg-surface-2",
+			children: /* @__PURE__ */ _jsxDEV(SliderPrimitive.Range, { className: "absolute h-full bg-accent" }, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 15,
+				columnNumber: 9
+			}, this)
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 14,
+			columnNumber: 7
+		}, this), /* @__PURE__ */ _jsxDEV(SliderPrimitive.Thumb, { className: "block size-5 rounded-full bg-accent shadow-[var(--shadow-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70" }, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 17,
+			columnNumber: 7
+		}, this)]
+	}, void 0, true, {
+		fileName: _jsxFileName,
+		lineNumber: 7,
+		columnNumber: 5
+	}, this);
+}
+_c = Slider;
+var _c;
+$RefreshReg$(_c, "Slider");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/components/ui/slider.tsx";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("/workspace/src/components/ui/slider.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("/workspace/src/components/ui/slider.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "/workspace/src/components/ui/slider.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsWUFBWSxxQkFBcUI7QUFFakMsU0FBUyxVQUFVOzs7QUFFbkIsT0FBTyxTQUFTLE9BQU8sRUFBRSxXQUFXLEdBQUcsU0FBc0Q7Q0FDM0YsT0FDRSx3QkFBQyxnQkFBZ0IsTUFBakI7RUFDRSxXQUFXLEdBQ1QsaUVBQ0EsU0FDRjtFQUNBLEdBQUk7WUFMTixDQU9FLHdCQUFDLGdCQUFnQixPQUFqQjtHQUF1QixXQUFVO2FBQy9CLHdCQUFDLGdCQUFnQixPQUFqQixFQUF1QixXQUFVLDRCQUE2Qjs7Ozs7RUFDekM7Ozs7WUFDdkIsd0JBQUMsZ0JBQWdCLE9BQWpCLEVBQXVCLFdBQVUsaUpBQWtKOzs7O1VBQy9KOzs7Ozs7QUFFMUIiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsic2xpZGVyLnRzeCJdLCJ2ZXJzaW9uIjozLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBTbGlkZXJQcmltaXRpdmUgZnJvbSBcIkByYWRpeC11aS9yZWFjdC1zbGlkZXJcIjtcbmltcG9ydCB0eXBlIHsgQ29tcG9uZW50UHJvcHMgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCB7IGNuIH0gZnJvbSBcIkAvbGliL3V0aWxzXCI7XG5cbmV4cG9ydCBmdW5jdGlvbiBTbGlkZXIoeyBjbGFzc05hbWUsIC4uLnByb3BzIH06IENvbXBvbmVudFByb3BzPHR5cGVvZiBTbGlkZXJQcmltaXRpdmUuUm9vdD4pIHtcbiAgcmV0dXJuIChcbiAgICA8U2xpZGVyUHJpbWl0aXZlLlJvb3RcbiAgICAgIGNsYXNzTmFtZT17Y24oXG4gICAgICAgIFwicmVsYXRpdmUgZmxleCB3LWZ1bGwgdG91Y2gtbm9uZSBzZWxlY3Qtbm9uZSBpdGVtcy1jZW50ZXIgcHktMlwiLFxuICAgICAgICBjbGFzc05hbWUsXG4gICAgICApfVxuICAgICAgey4uLnByb3BzfVxuICAgID5cbiAgICAgIDxTbGlkZXJQcmltaXRpdmUuVHJhY2sgY2xhc3NOYW1lPVwicmVsYXRpdmUgaC0yIHctZnVsbCBncm93IG92ZXJmbG93LWhpZGRlbiByb3VuZGVkLWZ1bGwgYmctc3VyZmFjZS0yXCI+XG4gICAgICAgIDxTbGlkZXJQcmltaXRpdmUuUmFuZ2UgY2xhc3NOYW1lPVwiYWJzb2x1dGUgaC1mdWxsIGJnLWFjY2VudFwiIC8+XG4gICAgICA8L1NsaWRlclByaW1pdGl2ZS5UcmFjaz5cbiAgICAgIDxTbGlkZXJQcmltaXRpdmUuVGh1bWIgY2xhc3NOYW1lPVwiYmxvY2sgc2l6ZS01IHJvdW5kZWQtZnVsbCBiZy1hY2NlbnQgc2hhZG93LVt2YXIoLS1zaGFkb3ctYm9yZGVyKV0gZm9jdXMtdmlzaWJsZTpvdXRsaW5lLW5vbmUgZm9jdXMtdmlzaWJsZTpyaW5nLTIgZm9jdXMtdmlzaWJsZTpyaW5nLWFjY2VudC83MFwiIC8+XG4gICAgPC9TbGlkZXJQcmltaXRpdmUuUm9vdD5cbiAgKTtcbn1cbiJdfQ==

@@ -1,0 +1,13 @@
+import { hydrateStart } from "/node_modules/@tanstack/start-client-core/dist/esm/client/index.js?v=2a84352f";
+//#region src/hydrateStart.ts
+/**
+* React-specific wrapper for hydrateStart that signals hydration completion
+*/
+function hydrateStart$1() {
+	return hydrateStart().finally(() => window.$_TSR?.h());
+}
+//#endregion
+export { hydrateStart$1 as hydrateStart };
+
+                                        
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaHlkcmF0ZVN0YXJ0LmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9oeWRyYXRlU3RhcnQudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgaHlkcmF0ZVN0YXJ0IGFzIGNvcmVIeWRyYXRlU3RhcnQgfSBmcm9tICdAdGFuc3RhY2svc3RhcnQtY2xpZW50LWNvcmUvY2xpZW50J1xuaW1wb3J0IHR5cGUgeyBBbnlSb3V0ZXIgfSBmcm9tICdAdGFuc3RhY2svcm91dGVyLWNvcmUnXG5cbi8qKlxuICogUmVhY3Qtc3BlY2lmaWMgd3JhcHBlciBmb3IgaHlkcmF0ZVN0YXJ0IHRoYXQgc2lnbmFscyBoeWRyYXRpb24gY29tcGxldGlvblxuICovXG5leHBvcnQgZnVuY3Rpb24gaHlkcmF0ZVN0YXJ0KCk6IFByb21pc2U8QW55Um91dGVyPiB7XG4gIHJldHVybiBjb3JlSHlkcmF0ZVN0YXJ0KCkuZmluYWxseSgoKSA9PiB3aW5kb3cuJF9UU1I/LmgoKSlcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFNQSxTQUFnQixpQkFBbUM7Q0FDakQsT0FBTyxhQUFpQixFQUFFLGNBQWMsT0FBTyxPQUFPLEVBQUUsQ0FBQztBQUMzRCIsInhfZ29vZ2xlX2lnbm9yZUxpc3QiOlswXX0=

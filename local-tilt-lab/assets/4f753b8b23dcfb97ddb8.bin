@@ -1,0 +1,8 @@
+import { loadServerRoute } from "/node_modules/@tanstack/router-core/dist/esm/load-server.js?v=2a84352f";
+//#region src/isServer/development.ts
+const isServer = void 0;
+//#endregion
+export { isServer, loadServerRoute };
+
+                                       
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGV2ZWxvcG1lbnQuanMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2lzU2VydmVyL2RldmVsb3BtZW50LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIERldmVsb3BtZW50L3Rlc3QgbW9kZSAtIHJldHVybnMgdW5kZWZpbmVkIHNvIGZhbGxiYWNrIHRvIHJvdXRlci5pc1NlcnZlciBpcyB1c2VkXG5leHBvcnQgY29uc3QgaXNTZXJ2ZXI6IGJvb2xlYW4gfCB1bmRlZmluZWQgPSB1bmRlZmluZWRcbmV4cG9ydCB7IGxvYWRTZXJ2ZXJSb3V0ZSB9IGZyb20gJy4uL2xvYWQtc2VydmVyJ1xuIl0sIm1hcHBpbmdzIjoiOztBQUNBLE1BQWEsV0FBZ0MsS0FBQSIsInhfZ29vZ2xlX2lnbm9yZUxpc3QiOlswXX0=

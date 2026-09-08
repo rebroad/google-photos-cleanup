@@ -1,0 +1,11 @@
+import { createRouter } from "/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=2a84352f";
+import { AppErrorComponent } from "/src/lib/error-component.tsx";
+import { routeTree } from "/src/routeTree.gen.ts";
+export function getRouter() {
+	return createRouter({
+		routeTree,
+		defaultErrorComponent: AppErrorComponent
+	});
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsU0FBUyxvQkFBb0I7QUFDN0IsU0FBUyx5QkFBeUI7QUFDbEMsU0FBUyxpQkFBaUI7QUFFMUIsT0FBTyxTQUFTLFlBQVk7Q0FDMUIsT0FBTyxhQUFhO0VBQUU7RUFBVyx1QkFBdUI7Q0FBa0IsQ0FBQztBQUM3RSIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJyb3V0ZXIudHN4Il0sInZlcnNpb24iOjMsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNyZWF0ZVJvdXRlciB9IGZyb20gXCJAdGFuc3RhY2svcmVhY3Qtcm91dGVyXCI7XG5pbXBvcnQgeyBBcHBFcnJvckNvbXBvbmVudCB9IGZyb20gXCJAL2xpYi9lcnJvci1jb21wb25lbnRcIjtcbmltcG9ydCB7IHJvdXRlVHJlZSB9IGZyb20gXCIuL3JvdXRlVHJlZS5nZW5cIjtcblxuZXhwb3J0IGZ1bmN0aW9uIGdldFJvdXRlcigpIHtcbiAgcmV0dXJuIGNyZWF0ZVJvdXRlcih7IHJvdXRlVHJlZSwgZGVmYXVsdEVycm9yQ29tcG9uZW50OiBBcHBFcnJvckNvbXBvbmVudCB9KTtcbn1cbiJdfQ==

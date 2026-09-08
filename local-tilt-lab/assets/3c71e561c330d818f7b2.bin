@@ -1,0 +1,54 @@
+const React = __vite__cjsImport0_react;const jsx = __vite__cjsImport1_react_jsxRuntime["jsx"];"use client";
+import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport1_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/ClientOnly.tsx
+/**
+* Render the children only after the JS has loaded client-side. Use an optional
+* fallback component if the JS is not yet loaded.
+*
+* @example
+* Render a Chart component if JS loads, renders a simple FakeChart
+* component server-side or if there is no JS. The FakeChart can have only the
+* UI without the behavior or be a loading spinner or skeleton.
+*
+* ```tsx
+* return (
+*   <ClientOnly fallback={<FakeChart />}>
+*     <Chart />
+*   </ClientOnly>
+* )
+* ```
+*/
+function ClientOnly({ children, fallback = null }) {
+	return /* @__PURE__ */ jsx(React.Fragment, { children: useHydrated() ? children : fallback });
+}
+/**
+* Return a boolean indicating if the JS has been hydrated already.
+* When doing Server-Side Rendering, the result will always be false.
+* When doing Client-Side Rendering, the result will always be false on the
+* first render and true from then on. Even if a new component renders it will
+* always start with true.
+*
+* @example
+* ```tsx
+* // Disable a button that needs JS to work.
+* let hydrated = useHydrated()
+* return (
+*   <button type="button" disabled={!hydrated} onClick={doSomethingCustom}>
+*     Click me
+*   </button>
+* )
+* ```
+* @returns True if the JS has been hydrated already, false otherwise.
+*/
+function useHydrated() {
+	return React.useSyncExternalStore(subscribe, () => true, () => false);
+}
+function subscribe() {
+	return () => {};
+}
+//#endregion
+export { ClientOnly, useHydrated };
+
+                                      
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2xpZW50T25seS5qcyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIuLi8uLi9zcmMvQ2xpZW50T25seS50c3giXSwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBjbGllbnQnXG5cbmltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCdcblxuZXhwb3J0IGludGVyZmFjZSBDbGllbnRPbmx5UHJvcHMge1xuICAvKipcbiAgICogVGhlIGNoaWxkcmVuIHRvIHJlbmRlciB3aGVuIHRoZSBKUyBpcyBsb2FkZWQuXG4gICAqL1xuICBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlXG4gIC8qKlxuICAgKiBUaGUgZmFsbGJhY2sgY29tcG9uZW50IHRvIHJlbmRlciBpZiB0aGUgSlMgaXMgbm90IHlldCBsb2FkZWQuXG4gICAqL1xuICBmYWxsYmFjaz86IFJlYWN0LlJlYWN0Tm9kZVxufVxuXG4vKipcbiAqIFJlbmRlciB0aGUgY2hpbGRyZW4gb25seSBhZnRlciB0aGUgSlMgaGFzIGxvYWRlZCBjbGllbnQtc2lkZS4gVXNlIGFuIG9wdGlvbmFsXG4gKiBmYWxsYmFjayBjb21wb25lbnQgaWYgdGhlIEpTIGlzIG5vdCB5ZXQgbG9hZGVkLlxuICpcbiAqIEBleGFtcGxlXG4gKiBSZW5kZXIgYSBDaGFydCBjb21wb25lbnQgaWYgSlMgbG9hZHMsIHJlbmRlcnMgYSBzaW1wbGUgRmFrZUNoYXJ0XG4gKiBjb21wb25lbnQgc2VydmVyLXNpZGUgb3IgaWYgdGhlcmUgaXMgbm8gSlMuIFRoZSBGYWtlQ2hhcnQgY2FuIGhhdmUgb25seSB0aGVcbiAqIFVJIHdpdGhvdXQgdGhlIGJlaGF2aW9yIG9yIGJlIGEgbG9hZGluZyBzcGlubmVyIG9yIHNrZWxldG9uLlxuICpcbiAqIGBgYHRzeFxuICogcmV0dXJuIChcbiAqICAgPENsaWVudE9ubHkgZmFsbGJhY2s9ezxGYWtlQ2hhcnQgLz59PlxuICogICAgIDxDaGFydCAvPlxuICogICA8L0NsaWVudE9ubHk+XG4gKiApXG4gKiBgYGBcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIENsaWVudE9ubHkoeyBjaGlsZHJlbiwgZmFsbGJhY2sgPSBudWxsIH06IENsaWVudE9ubHlQcm9wcykge1xuICByZXR1cm4gPFJlYWN0LkZyYWdtZW50Pnt1c2VIeWRyYXRlZCgpID8gY2hpbGRyZW4gOiBmYWxsYmFja308L1JlYWN0LkZyYWdtZW50PlxufVxuXG4vKipcbiAqIFJldHVybiBhIGJvb2xlYW4gaW5kaWNhdGluZyBpZiB0aGUgSlMgaGFzIGJlZW4gaHlkcmF0ZWQgYWxyZWFkeS5cbiAqIFdoZW4gZG9pbmcgU2VydmVyLVNpZGUgUmVuZGVyaW5nLCB0aGUgcmVzdWx0IHdpbGwgYWx3YXlzIGJlIGZhbHNlLlxuICogV2hlbiBkb2luZyBDbGllbnQtU2lkZSBSZW5kZXJpbmcsIHRoZSByZXN1bHQgd2lsbCBhbHdheXMgYmUgZmFsc2Ugb24gdGhlXG4gKiBmaXJzdCByZW5kZXIgYW5kIHRydWUgZnJvbSB0aGVuIG9uLiBFdmVuIGlmIGEgbmV3IGNvbXBvbmVudCByZW5kZXJzIGl0IHdpbGxcbiAqIGFsd2F5cyBzdGFydCB3aXRoIHRydWUuXG4gKlxuICogQGV4YW1wbGVcbiAqIGBgYHRzeFxuICogLy8gRGlzYWJsZSBhIGJ1dHRvbiB0aGF0IG5lZWRzIEpTIHRvIHdvcmsuXG4gKiBsZXQgaHlkcmF0ZWQgPSB1c2VIeWRyYXRlZCgpXG4gKiByZXR1cm4gKFxuICogICA8YnV0dG9uIHR5cGU9XCJidXR0b25cIiBkaXNhYmxlZD17IWh5ZHJhdGVkfSBvbkNsaWNrPXtkb1NvbWV0aGluZ0N1c3RvbX0+XG4gKiAgICAgQ2xpY2sgbWVcbiAqICAgPC9idXR0b24+XG4gKiApXG4gKiBgYGBcbiAqIEByZXR1cm5zIFRydWUgaWYgdGhlIEpTIGhhcyBiZWVuIGh5ZHJhdGVkIGFscmVhZHksIGZhbHNlIG90aGVyd2lzZS5cbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHVzZUh5ZHJhdGVkKCk6IGJvb2xlYW4ge1xuICByZXR1cm4gUmVhY3QudXNlU3luY0V4dGVybmFsU3RvcmUoXG4gICAgc3Vic2NyaWJlLFxuICAgICgpID0+IHRydWUsXG4gICAgKCkgPT4gZmFsc2UsXG4gIClcbn1cblxuZnVuY3Rpb24gc3Vic2NyaWJlKCkge1xuICByZXR1cm4gKCkgPT4ge1xuICAgIC8vIG5vb3BcbiAgfVxufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFnQ0EsU0FBZ0IsV0FBVyxFQUFFLFVBQVUsV0FBVyxRQUF5QjtDQUN6RSxPQUFPLG9CQUFDLE1BQU0sVUFBUCxFQUFBLFVBQWlCLFlBQVksSUFBSSxXQUFXLFNBQXlCLENBQUE7QUFDOUU7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBcUJBLFNBQWdCLGNBQXVCO0NBQ3JDLE9BQU8sTUFBTSxxQkFDWCxpQkFDTSxZQUNBLEtBQ1I7QUFDRjtBQUVBLFNBQVMsWUFBWTtDQUNuQixhQUFhLENBRWI7QUFDRiIsInhfZ29vZ2xlX2lnbm9yZUxpc3QiOlswXX0=

@@ -1,0 +1,37 @@
+const React$1 = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport5_react, 1);const createElement = __vite__cjsImport6_react["createElement"];const Fragment = __vite__cjsImport7_react_jsxRuntime["Fragment"]; const jsx = __vite__cjsImport7_react_jsxRuntime["jsx"];"use client";
+import { useHydrated } from "/node_modules/@tanstack/react-router/dist/esm/ClientOnly.js?v=2a84352f";
+import { useRouter } from "/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f";
+import { Asset } from "/node_modules/@tanstack/react-router/dist/esm/Asset.js?v=2a84352f";
+import { useTags } from "/node_modules/@tanstack/react-router/dist/esm/headContentUtils.js?v=2a84352f";
+import { DEV_STYLES_ATTR } from "/node_modules/@tanstack/router-core/dist/esm/index.js?v=2a84352f";
+import __vite__cjsImport5_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport6_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport7_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/HeadContent.dev.tsx
+/**
+* Render route-managed head tags (title, meta, links, styles, head scripts).
+* Place inside the document head of your app shell.
+*
+* Development version: filters out dev styles link after hydration and
+* includes a fallback cleanup effect for hydration mismatch cases.
+*
+* @link https://tanstack.com/router/latest/docs/framework/react/guide/document-head-management
+*/
+function HeadContent(props) {
+	const tags = useTags(props.assetCrossOrigin);
+	const nonce = useRouter().options.ssr?.nonce;
+	const hydrated = useHydrated();
+	React$1.useEffect(() => {
+		if (hydrated) document.querySelectorAll(`link[${DEV_STYLES_ATTR}]`).forEach((el) => el.remove());
+	}, [hydrated]);
+	return /* @__PURE__ */ jsx(Fragment, { children: (hydrated ? tags.filter((tag) => tag.tag !== "link" || tag.attrs?.[DEV_STYLES_ATTR] !== true) : tags).map((tag) => /* @__PURE__ */ createElement(Asset, {
+		...tag,
+		key: `tsr-meta-${JSON.stringify(tag)}`,
+		nonce
+	})) });
+}
+//#endregion
+export { HeadContent };
+
+                                           
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSGVhZENvbnRlbnQuZGV2LmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9IZWFkQ29udGVudC5kZXYudHN4Il0sInNvdXJjZXNDb250ZW50IjpbIid1c2UgY2xpZW50J1xuXG5pbXBvcnQgKiBhcyBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB7IERFVl9TVFlMRVNfQVRUUiB9IGZyb20gJ0B0YW5zdGFjay9yb3V0ZXItY29yZSdcbmltcG9ydCB7IEFzc2V0IH0gZnJvbSAnLi9Bc3NldCdcbmltcG9ydCB7IHVzZVJvdXRlciB9IGZyb20gJy4vdXNlUm91dGVyJ1xuaW1wb3J0IHsgdXNlSHlkcmF0ZWQgfSBmcm9tICcuL0NsaWVudE9ubHknXG5pbXBvcnQgeyB1c2VUYWdzIH0gZnJvbSAnLi9oZWFkQ29udGVudFV0aWxzJ1xuaW1wb3J0IHR5cGUgeyBIZWFkQ29udGVudFByb3BzIH0gZnJvbSAnLi9IZWFkQ29udGVudCdcblxuLyoqXG4gKiBSZW5kZXIgcm91dGUtbWFuYWdlZCBoZWFkIHRhZ3MgKHRpdGxlLCBtZXRhLCBsaW5rcywgc3R5bGVzLCBoZWFkIHNjcmlwdHMpLlxuICogUGxhY2UgaW5zaWRlIHRoZSBkb2N1bWVudCBoZWFkIG9mIHlvdXIgYXBwIHNoZWxsLlxuICpcbiAqIERldmVsb3BtZW50IHZlcnNpb246IGZpbHRlcnMgb3V0IGRldiBzdHlsZXMgbGluayBhZnRlciBoeWRyYXRpb24gYW5kXG4gKiBpbmNsdWRlcyBhIGZhbGxiYWNrIGNsZWFudXAgZWZmZWN0IGZvciBoeWRyYXRpb24gbWlzbWF0Y2ggY2FzZXMuXG4gKlxuICogQGxpbmsgaHR0cHM6Ly90YW5zdGFjay5jb20vcm91dGVyL2xhdGVzdC9kb2NzL2ZyYW1ld29yay9yZWFjdC9ndWlkZS9kb2N1bWVudC1oZWFkLW1hbmFnZW1lbnRcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIEhlYWRDb250ZW50KHByb3BzOiBIZWFkQ29udGVudFByb3BzKSB7XG4gIGNvbnN0IHRhZ3MgPSB1c2VUYWdzKHByb3BzLmFzc2V0Q3Jvc3NPcmlnaW4pXG4gIGNvbnN0IHJvdXRlciA9IHVzZVJvdXRlcigpXG4gIGNvbnN0IG5vbmNlID0gcm91dGVyLm9wdGlvbnMuc3NyPy5ub25jZVxuICBjb25zdCBoeWRyYXRlZCA9IHVzZUh5ZHJhdGVkKClcblxuICAvLyBGYWxsYmFjayBjbGVhbnVwIGZvciBoeWRyYXRpb24gbWlzbWF0Y2ggY2FzZXNcbiAgLy8gUnVucyB3aGVuIGh5ZHJhdGlvbiBjb21wbGV0ZXMgdG8gcmVtb3ZlIGFueSBvcnBoYW5lZCBkZXYgc3R5bGVzIGxpbmtzIGZyb20gRE9NXG4gIFJlYWN0LnVzZUVmZmVjdCgoKSA9PiB7XG4gICAgaWYgKGh5ZHJhdGVkKSB7XG4gICAgICBkb2N1bWVudFxuICAgICAgICAucXVlcnlTZWxlY3RvckFsbChgbGlua1ske0RFVl9TVFlMRVNfQVRUUn1dYClcbiAgICAgICAgLmZvckVhY2goKGVsKSA9PiBlbC5yZW1vdmUoKSlcbiAgICB9XG4gIH0sIFtoeWRyYXRlZF0pXG5cbiAgLy8gRmlsdGVyIG91dCBkZXYgc3R5bGVzIGFmdGVyIGh5ZHJhdGlvblxuICBjb25zdCBmaWx0ZXJlZFRhZ3MgPSBoeWRyYXRlZFxuICAgID8gdGFncy5maWx0ZXIoXG4gICAgICAgICh0YWcpID0+IHRhZy50YWcgIT09ICdsaW5rJyB8fCB0YWcuYXR0cnM/LltERVZfU1RZTEVTX0FUVFJdICE9PSB0cnVlLFxuICAgICAgKVxuICAgIDogdGFnc1xuXG4gIHJldHVybiAoXG4gICAgPD5cbiAgICAgIHtmaWx0ZXJlZFRhZ3MubWFwKCh0YWcpID0+IChcbiAgICAgICAgPEFzc2V0IHsuLi50YWd9IGtleT17YHRzci1tZXRhLSR7SlNPTi5zdHJpbmdpZnkodGFnKX1gfSBub25jZT17bm9uY2V9IC8+XG4gICAgICApKX1cbiAgICA8Lz5cbiAgKVxufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBbUJBLFNBQWdCLFlBQVksT0FBeUI7Q0FDbkQsTUFBTSxPQUFPLFFBQVEsTUFBTSxnQkFBZ0I7Q0FFM0MsTUFBTSxRQURTLFVBQ0QsRUFBTyxRQUFRLEtBQUs7Q0FDbEMsTUFBTSxXQUFXLFlBQVk7Q0FJN0IsUUFBTSxnQkFBZ0I7RUFDcEIsSUFBSSxVQUNGLFNBQ0csaUJBQWlCLFFBQVEsZ0JBQWdCLEVBQUUsRUFDM0MsU0FBUyxPQUFPLEdBQUcsT0FBTyxDQUFDO0NBRWxDLEdBQUcsQ0FBQyxRQUFRLENBQUM7Q0FTYixPQUNFLG9CQUFBLFVBQUEsRUFBQSxXQVBtQixXQUNqQixLQUFLLFFBQ0YsUUFBUSxJQUFJLFFBQVEsVUFBVSxJQUFJLFFBQVEscUJBQXFCLElBQ2xFLElBQ0EsTUFJYyxLQUFLLFFBQ2pCLDhCQUFDLE9BQUQ7RUFBTyxHQUFJO0VBQUssS0FBSyxZQUFZLEtBQUssVUFBVSxHQUFHO0VBQVk7Q0FBUSxDQUFBLENBQ3hFLEVBQ0QsQ0FBQTtBQUVOIiwieF9nb29nbGVfaWdub3JlTGlzdCI6WzBdfQ==

@@ -1,0 +1,11 @@
+const Fragment = __vite__cjsImport1_react_jsxRuntime["Fragment"]; const jsx = __vite__cjsImport1_react_jsxRuntime["jsx"];import "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport1_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/SafeFragment.tsx
+function SafeFragment(props) {
+	return /* @__PURE__ */ jsx(Fragment, { children: props.children });
+}
+//#endregion
+export { SafeFragment };
+
+                                        
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2FmZUZyYWdtZW50LmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9TYWZlRnJhZ21lbnQudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAqIGFzIFJlYWN0IGZyb20gJ3JlYWN0J1xuXG5leHBvcnQgZnVuY3Rpb24gU2FmZUZyYWdtZW50KHByb3BzOiBhbnkpIHtcbiAgcmV0dXJuIDw+e3Byb3BzLmNoaWxkcmVufTwvPlxufVxuIl0sIm1hcHBpbmdzIjoiOzs7QUFFQSxTQUFnQixhQUFhLE9BQVk7Q0FDdkMsT0FBTyxvQkFBQSxVQUFBLEVBQUEsVUFBRyxNQUFNLFNBQVcsQ0FBQTtBQUM3QiIsInhfZ29vZ2xlX2lnbm9yZUxpc3QiOlswXX0=

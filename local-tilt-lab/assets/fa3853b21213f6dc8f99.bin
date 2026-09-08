@@ -1,0 +1,34 @@
+import { createPlugin } from "/node_modules/seroval/dist/dev/index.js?v=2a84352f";
+//#region src/ssr/serializer/ShallowErrorPlugin.ts
+/**
+* this plugin serializes only the `message` part of an Error
+* this helps with serializing e.g. a ZodError which has functions attached that cannot be serialized
+*/
+const ShallowErrorPlugin = /* @__PURE__ */ createPlugin({
+	tag: "$TSR/Error",
+	test(value) {
+		return value instanceof Error;
+	},
+	parse: {
+		sync(value, ctx) {
+			return { message: ctx.parse(value.message) };
+		},
+		async async(value, ctx) {
+			return { message: await ctx.parse(value.message) };
+		},
+		stream(value, ctx) {
+			return { message: ctx.parse(value.message) };
+		}
+	},
+	serialize(node, ctx) {
+		return "new Error(" + ctx.serialize(node.message) + ")";
+	},
+	deserialize(node, ctx) {
+		return new Error(ctx.deserialize(node.message));
+	}
+});
+//#endregion
+export { ShallowErrorPlugin };
+
+                                              
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2hhbGxvd0Vycm9yUGx1Z2luLmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9zc3Ivc2VyaWFsaXplci9TaGFsbG93RXJyb3JQbHVnaW4udHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgY3JlYXRlUGx1Z2luIH0gZnJvbSAnc2Vyb3ZhbCdcbmltcG9ydCB0eXBlIHsgUGx1Z2luSW5mbywgU2Vyb3ZhbE5vZGUgfSBmcm9tICdzZXJvdmFsJ1xuXG5leHBvcnQgaW50ZXJmYWNlIEVycm9yTm9kZSBleHRlbmRzIFBsdWdpbkluZm8ge1xuICBtZXNzYWdlOiBTZXJvdmFsTm9kZVxufVxuXG4vKipcbiAqIHRoaXMgcGx1Z2luIHNlcmlhbGl6ZXMgb25seSB0aGUgYG1lc3NhZ2VgIHBhcnQgb2YgYW4gRXJyb3JcbiAqIHRoaXMgaGVscHMgd2l0aCBzZXJpYWxpemluZyBlLmcuIGEgWm9kRXJyb3Igd2hpY2ggaGFzIGZ1bmN0aW9ucyBhdHRhY2hlZCB0aGF0IGNhbm5vdCBiZSBzZXJpYWxpemVkXG4gKi9cbmV4cG9ydCBjb25zdCBTaGFsbG93RXJyb3JQbHVnaW4gPSAvKiBAX19QVVJFX18gKi8gY3JlYXRlUGx1Z2luPFxuICBFcnJvcixcbiAgRXJyb3JOb2RlXG4+KHtcbiAgdGFnOiAnJFRTUi9FcnJvcicsXG4gIHRlc3QodmFsdWUpIHtcbiAgICByZXR1cm4gdmFsdWUgaW5zdGFuY2VvZiBFcnJvclxuICB9LFxuICBwYXJzZToge1xuICAgIHN5bmModmFsdWUsIGN0eCkge1xuICAgICAgcmV0dXJuIHtcbiAgICAgICAgbWVzc2FnZTogY3R4LnBhcnNlKHZhbHVlLm1lc3NhZ2UpLFxuICAgICAgfVxuICAgIH0sXG4gICAgYXN5bmMgYXN5bmModmFsdWUsIGN0eCkge1xuICAgICAgcmV0dXJuIHtcbiAgICAgICAgbWVzc2FnZTogYXdhaXQgY3R4LnBhcnNlKHZhbHVlLm1lc3NhZ2UpLFxuICAgICAgfVxuICAgIH0sXG4gICAgc3RyZWFtKHZhbHVlLCBjdHgpIHtcbiAgICAgIHJldHVybiB7XG4gICAgICAgIG1lc3NhZ2U6IGN0eC5wYXJzZSh2YWx1ZS5tZXNzYWdlKSxcbiAgICAgIH1cbiAgICB9LFxuICB9LFxuICBzZXJpYWxpemUobm9kZSwgY3R4KSB7XG4gICAgcmV0dXJuICduZXcgRXJyb3IoJyArIGN0eC5zZXJpYWxpemUobm9kZS5tZXNzYWdlKSArICcpJ1xuICB9LFxuICBkZXNlcmlhbGl6ZShub2RlLCBjdHgpIHtcbiAgICByZXR1cm4gbmV3IEVycm9yKGN0eC5kZXNlcmlhbGl6ZShub2RlLm1lc3NhZ2UpKVxuICB9LFxufSlcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBV0EsTUFBYSxxQkFBcUMsNkJBR2hEO0NBQ0EsS0FBSztDQUNMLEtBQUssT0FBTztFQUNWLE9BQU8saUJBQWlCO0NBQzFCO0NBQ0EsT0FBTztFQUNMLEtBQUssT0FBTyxLQUFLO0dBQ2YsT0FBTyxFQUNMLFNBQVMsSUFBSSxNQUFNLE1BQU0sT0FBTyxFQUNsQztFQUNGO0VBQ0EsTUFBTSxNQUFNLE9BQU8sS0FBSztHQUN0QixPQUFPLEVBQ0wsU0FBUyxNQUFNLElBQUksTUFBTSxNQUFNLE9BQU8sRUFDeEM7RUFDRjtFQUNBLE9BQU8sT0FBTyxLQUFLO0dBQ2pCLE9BQU8sRUFDTCxTQUFTLElBQUksTUFBTSxNQUFNLE9BQU8sRUFDbEM7RUFDRjtDQUNGO0NBQ0EsVUFBVSxNQUFNLEtBQUs7RUFDbkIsT0FBTyxlQUFlLElBQUksVUFBVSxLQUFLLE9BQU8sSUFBSTtDQUN0RDtDQUNBLFlBQVksTUFBTSxLQUFLO0VBQ3JCLE9BQU8sSUFBSSxNQUFNLElBQUksWUFBWSxLQUFLLE9BQU8sQ0FBQztDQUNoRDtBQUNGLENBQUMiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

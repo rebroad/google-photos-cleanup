@@ -1,0 +1,17 @@
+const jsx = __vite__cjsImport2_react_jsxRuntime["jsx"];import { hydrateStart } from "/node_modules/@tanstack/react-start-client/dist/esm/hydrateStart.js?v=2a84352f";
+import { Await, RouterProvider } from "/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=2a84352f";
+import __vite__cjsImport2_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/StartClient.tsx
+var hydrationPromise;
+function StartClient() {
+	if (!hydrationPromise) hydrationPromise = hydrateStart();
+	return /* @__PURE__ */ jsx(Await, {
+		promise: hydrationPromise,
+		children: (router) => /* @__PURE__ */ jsx(RouterProvider, { router })
+	});
+}
+//#endregion
+export { StartClient };
+
+                                       
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU3RhcnRDbGllbnQuanMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiLi4vLi4vc3JjL1N0YXJ0Q2xpZW50LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBBd2FpdCwgUm91dGVyUHJvdmlkZXIgfSBmcm9tICdAdGFuc3RhY2svcmVhY3Qtcm91dGVyJ1xuXG5pbXBvcnQgeyBoeWRyYXRlU3RhcnQgfSBmcm9tICcuL2h5ZHJhdGVTdGFydCdcblxuaW1wb3J0IHR5cGUgeyBBbnlSb3V0ZXIgfSBmcm9tICdAdGFuc3RhY2svcm91dGVyLWNvcmUnXG5cbmxldCBoeWRyYXRpb25Qcm9taXNlOiBQcm9taXNlPEFueVJvdXRlcj4gfCB1bmRlZmluZWRcbmV4cG9ydCBmdW5jdGlvbiBTdGFydENsaWVudCgpIHtcbiAgaWYgKCFoeWRyYXRpb25Qcm9taXNlKSB7XG4gICAgaHlkcmF0aW9uUHJvbWlzZSA9IGh5ZHJhdGVTdGFydCgpXG4gIH1cblxuICByZXR1cm4gKFxuICAgIDxBd2FpdFxuICAgICAgcHJvbWlzZT17aHlkcmF0aW9uUHJvbWlzZX1cbiAgICAgIGNoaWxkcmVuPXsocm91dGVyKSA9PiA8Um91dGVyUHJvdmlkZXIgcm91dGVyPXtyb3V0ZXJ9IC8+fVxuICAgIC8+XG4gIClcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7OztBQU1BLElBQUk7QUFDSixTQUFnQixjQUFjO0NBQzVCLElBQUksQ0FBQyxrQkFDSCxtQkFBbUIsYUFBYTtDQUdsQyxPQUNFLG9CQUFDLE9BQUQ7RUFDRSxTQUFTO0VBQ1QsV0FBVyxXQUFXLG9CQUFDLGdCQUFELEVBQXdCLE9BQVMsQ0FBQTtDQUN4RCxDQUFBO0FBRUwiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

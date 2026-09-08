@@ -1,0 +1,34 @@
+const React$1 = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport2_react, 1);const jsx = __vite__cjsImport3_react_jsxRuntime["jsx"];import { reactUse } from "/node_modules/@tanstack/react-router/dist/esm/utils.js?v=2a84352f";
+import { TSR_DEFERRED_PROMISE, defer } from "/node_modules/@tanstack/router-core/dist/esm/index.js?v=2a84352f";
+import __vite__cjsImport2_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport3_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/awaited.tsx
+/** Suspend until a deferred promise resolves or rejects and return its data. */
+function useAwaited({ promise: _promise }) {
+	if (reactUse) return reactUse(_promise);
+	const promise = defer(_promise);
+	if (promise[TSR_DEFERRED_PROMISE].status === "pending") throw promise;
+	if (promise[TSR_DEFERRED_PROMISE].status === "error") throw promise[TSR_DEFERRED_PROMISE].error;
+	return promise[TSR_DEFERRED_PROMISE].data;
+}
+/**
+* Component that suspends on a deferred promise and renders its child with
+* the resolved value. Optionally provides a Suspense fallback.
+*/
+function Await(props) {
+	const inner = /* @__PURE__ */ jsx(AwaitInner, { ...props });
+	if (props.fallback) return /* @__PURE__ */ jsx(React$1.Suspense, {
+		fallback: props.fallback,
+		children: inner
+	});
+	return inner;
+}
+function AwaitInner(props) {
+	const data = useAwaited(props);
+	return props.children(data);
+}
+//#endregion
+export { Await, useAwaited };
+
+                                   
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXdhaXRlZC5qcyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIuLi8uLi9zcmMvYXdhaXRlZC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICogYXMgUmVhY3QgZnJvbSAncmVhY3QnXG5cbmltcG9ydCB7IFRTUl9ERUZFUlJFRF9QUk9NSVNFLCBkZWZlciB9IGZyb20gJ0B0YW5zdGFjay9yb3V0ZXItY29yZSdcbmltcG9ydCB7IHJlYWN0VXNlIH0gZnJvbSAnLi91dGlscydcblxuZXhwb3J0IHR5cGUgQXdhaXRPcHRpb25zPFQ+ID0ge1xuICBwcm9taXNlOiBQcm9taXNlPFQ+XG59XG5cbi8qKiBTdXNwZW5kIHVudGlsIGEgZGVmZXJyZWQgcHJvbWlzZSByZXNvbHZlcyBvciByZWplY3RzIGFuZCByZXR1cm4gaXRzIGRhdGEuICovXG5leHBvcnQgZnVuY3Rpb24gdXNlQXdhaXRlZDxUPih7IHByb21pc2U6IF9wcm9taXNlIH06IEF3YWl0T3B0aW9uczxUPik6IFQge1xuICBpZiAocmVhY3RVc2UpIHtcbiAgICBjb25zdCBkYXRhID0gcmVhY3RVc2UoX3Byb21pc2UpXG4gICAgcmV0dXJuIGRhdGFcbiAgfVxuICBjb25zdCBwcm9taXNlID0gZGVmZXIoX3Byb21pc2UpXG5cbiAgaWYgKHByb21pc2VbVFNSX0RFRkVSUkVEX1BST01JU0VdLnN0YXR1cyA9PT0gJ3BlbmRpbmcnKSB7XG4gICAgdGhyb3cgcHJvbWlzZVxuICB9XG5cbiAgaWYgKHByb21pc2VbVFNSX0RFRkVSUkVEX1BST01JU0VdLnN0YXR1cyA9PT0gJ2Vycm9yJykge1xuICAgIHRocm93IHByb21pc2VbVFNSX0RFRkVSUkVEX1BST01JU0VdLmVycm9yXG4gIH1cblxuICByZXR1cm4gcHJvbWlzZVtUU1JfREVGRVJSRURfUFJPTUlTRV0uZGF0YVxufVxuXG4vKipcbiAqIENvbXBvbmVudCB0aGF0IHN1c3BlbmRzIG9uIGEgZGVmZXJyZWQgcHJvbWlzZSBhbmQgcmVuZGVycyBpdHMgY2hpbGQgd2l0aFxuICogdGhlIHJlc29sdmVkIHZhbHVlLiBPcHRpb25hbGx5IHByb3ZpZGVzIGEgU3VzcGVuc2UgZmFsbGJhY2suXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBBd2FpdDxUPihcbiAgcHJvcHM6IEF3YWl0T3B0aW9uczxUPiAmIHtcbiAgICBmYWxsYmFjaz86IFJlYWN0LlJlYWN0Tm9kZVxuICAgIGNoaWxkcmVuOiAocmVzdWx0OiBUKSA9PiBSZWFjdC5SZWFjdE5vZGVcbiAgfSxcbikge1xuICBjb25zdCBpbm5lciA9IDxBd2FpdElubmVyIHsuLi5wcm9wc30gLz5cbiAgaWYgKHByb3BzLmZhbGxiYWNrKSB7XG4gICAgcmV0dXJuIDxSZWFjdC5TdXNwZW5zZSBmYWxsYmFjaz17cHJvcHMuZmFsbGJhY2t9Pntpbm5lcn08L1JlYWN0LlN1c3BlbnNlPlxuICB9XG4gIHJldHVybiBpbm5lclxufVxuXG5mdW5jdGlvbiBBd2FpdElubmVyPFQ+KFxuICBwcm9wczogQXdhaXRPcHRpb25zPFQ+ICYge1xuICAgIGZhbGxiYWNrPzogUmVhY3QuUmVhY3ROb2RlXG4gICAgY2hpbGRyZW46IChyZXN1bHQ6IFQpID0+IFJlYWN0LlJlYWN0Tm9kZVxuICB9LFxuKTogUmVhY3QuSlNYLkVsZW1lbnQge1xuICBjb25zdCBkYXRhID0gdXNlQXdhaXRlZChwcm9wcylcblxuICByZXR1cm4gcHJvcHMuY2hpbGRyZW4oZGF0YSkgYXMgUmVhY3QuSlNYLkVsZW1lbnRcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBVUEsU0FBZ0IsV0FBYyxFQUFFLFNBQVMsWUFBZ0M7Q0FDdkUsSUFBSSxVQUVGLE9BRGEsU0FBUyxRQUNmO0NBRVQsTUFBTSxVQUFVLE1BQU0sUUFBUTtDQUU5QixJQUFJLFFBQVEsc0JBQXNCLFdBQVcsV0FDM0MsTUFBTTtDQUdSLElBQUksUUFBUSxzQkFBc0IsV0FBVyxTQUMzQyxNQUFNLFFBQVEsc0JBQXNCO0NBR3RDLE9BQU8sUUFBUSxzQkFBc0I7QUFDdkM7Ozs7O0FBTUEsU0FBZ0IsTUFDZCxPQUlBO0NBQ0EsTUFBTSxRQUFRLG9CQUFDLFlBQUQsRUFBWSxHQUFJLE1BQVEsQ0FBQTtDQUN0QyxJQUFJLE1BQU0sVUFDUixPQUFPLG9CQUFDLFFBQU0sVUFBUDtFQUFnQixVQUFVLE1BQU07WUFBVztDQUFzQixDQUFBO0NBRTFFLE9BQU87QUFDVDtBQUVBLFNBQVMsV0FDUCxPQUltQjtDQUNuQixNQUFNLE9BQU8sV0FBVyxLQUFLO0NBRTdCLE9BQU8sTUFBTSxTQUFTLElBQUk7QUFDNUIiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

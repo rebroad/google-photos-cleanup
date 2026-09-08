@@ -1,0 +1,79 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/lib/error-component.tsx");const _jsxDEV = __vite__cjsImport1_react_jsxDevRuntime["jsxDEV"];import { TriangleAlert } from "/node_modules/.vite/deps/lucide-react.js?v=2a84352f";
+var _jsxFileName = "/workspace/src/lib/error-component.tsx";
+import __vite__cjsImport1_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f";
+const FALLBACK_MESSAGE = "An unexpected error occurred. Try reloading the page.";
+function errorMessage(error) {
+	if (error instanceof Error && error.message) return error.message;
+	if (typeof error === "string" && error) return error;
+	return FALLBACK_MESSAGE;
+}
+export function AppErrorComponent({ error }) {
+	return /* @__PURE__ */ _jsxDEV("main", {
+		className: "flex min-h-screen flex-col items-center justify-center gap-3 px-6 text-center " + "bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50",
+		children: [
+			/* @__PURE__ */ _jsxDEV("span", {
+				className: "text-red-500",
+				"aria-hidden": "true",
+				children: /* @__PURE__ */ _jsxDEV(TriangleAlert, {
+					className: "size-10",
+					strokeWidth: 2
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 21,
+					columnNumber: 9
+				}, this)
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 20,
+				columnNumber: 7
+			}, this),
+			/* @__PURE__ */ _jsxDEV("h1", {
+				className: "text-lg font-semibold",
+				children: "Something went wrong"
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 23,
+				columnNumber: 7
+			}, this),
+			/* @__PURE__ */ _jsxDEV("p", {
+				className: "max-w-md text-sm break-words text-zinc-500 dark:text-zinc-400",
+				children: errorMessage(error)
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 24,
+				columnNumber: 7
+			}, this)
+		]
+	}, void 0, true, {
+		fileName: _jsxFileName,
+		lineNumber: 14,
+		columnNumber: 5
+	}, this);
+}
+_c = AppErrorComponent;
+var _c;
+$RefreshReg$(_c, "AppErrorComponent");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/lib/error-component.tsx";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("/workspace/src/lib/error-component.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("/workspace/src/lib/error-component.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "/workspace/src/lib/error-component.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQ0EsU0FBUyxxQkFBcUI7OztBQUU5QixNQUFNLG1CQUFtQjtBQUV6QixTQUFTLGFBQWEsT0FBd0I7Q0FDNUMsSUFBSSxpQkFBaUIsU0FBUyxNQUFNLFNBQVMsT0FBTyxNQUFNO0NBQzFELElBQUksT0FBTyxVQUFVLFlBQVksT0FBTyxPQUFPO0NBQy9DLE9BQU87QUFDVDtBQUVBLE9BQU8sU0FBUyxrQkFBa0IsRUFBRSxTQUE4QjtDQUNoRSxPQUNFLHdCQUFDLFFBQUQ7RUFDRSxXQUNFLG1GQUNBO1lBSEo7R0FNRSx3QkFBQyxRQUFEO0lBQU0sV0FBVTtJQUFlLGVBQVk7Y0FDekMsd0JBQUMsZUFBRDtLQUFlLFdBQVU7S0FBVSxhQUFhO0lBQUk7Ozs7O0dBQ2hEOzs7OztHQUNOLHdCQUFDLE1BQUQ7SUFBSSxXQUFVO2NBQXdCO0dBQXdCOzs7OztHQUM5RCx3QkFBQyxLQUFEO0lBQUcsV0FBVTtjQUNWLGFBQWEsS0FBSztHQUNsQjs7Ozs7RUFDQzs7Ozs7O0FBRVYiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiZXJyb3ItY29tcG9uZW50LnRzeCJdLCJ2ZXJzaW9uIjozLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgdHlwZSB7IEVycm9yQ29tcG9uZW50UHJvcHMgfSBmcm9tIFwiQHRhbnN0YWNrL3JlYWN0LXJvdXRlclwiO1xuaW1wb3J0IHsgVHJpYW5nbGVBbGVydCB9IGZyb20gXCJsdWNpZGUtcmVhY3RcIjtcblxuY29uc3QgRkFMTEJBQ0tfTUVTU0FHRSA9IFwiQW4gdW5leHBlY3RlZCBlcnJvciBvY2N1cnJlZC4gVHJ5IHJlbG9hZGluZyB0aGUgcGFnZS5cIjtcblxuZnVuY3Rpb24gZXJyb3JNZXNzYWdlKGVycm9yOiB1bmtub3duKTogc3RyaW5nIHtcbiAgaWYgKGVycm9yIGluc3RhbmNlb2YgRXJyb3IgJiYgZXJyb3IubWVzc2FnZSkgcmV0dXJuIGVycm9yLm1lc3NhZ2U7XG4gIGlmICh0eXBlb2YgZXJyb3IgPT09IFwic3RyaW5nXCIgJiYgZXJyb3IpIHJldHVybiBlcnJvcjtcbiAgcmV0dXJuIEZBTExCQUNLX01FU1NBR0U7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBBcHBFcnJvckNvbXBvbmVudCh7IGVycm9yIH06IEVycm9yQ29tcG9uZW50UHJvcHMpIHtcbiAgcmV0dXJuIChcbiAgICA8bWFpblxuICAgICAgY2xhc3NOYW1lPXtcbiAgICAgICAgXCJmbGV4IG1pbi1oLXNjcmVlbiBmbGV4LWNvbCBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgZ2FwLTMgcHgtNiB0ZXh0LWNlbnRlciBcIiArXG4gICAgICAgIFwiYmctemluYy01MCB0ZXh0LXppbmMtOTAwIGRhcms6YmctemluYy05NTAgZGFyazp0ZXh0LXppbmMtNTBcIlxuICAgICAgfVxuICAgID5cbiAgICAgIDxzcGFuIGNsYXNzTmFtZT1cInRleHQtcmVkLTUwMFwiIGFyaWEtaGlkZGVuPVwidHJ1ZVwiPlxuICAgICAgICA8VHJpYW5nbGVBbGVydCBjbGFzc05hbWU9XCJzaXplLTEwXCIgc3Ryb2tlV2lkdGg9ezJ9IC8+XG4gICAgICA8L3NwYW4+XG4gICAgICA8aDEgY2xhc3NOYW1lPVwidGV4dC1sZyBmb250LXNlbWlib2xkXCI+U29tZXRoaW5nIHdlbnQgd3Jvbmc8L2gxPlxuICAgICAgPHAgY2xhc3NOYW1lPVwibWF4LXctbWQgdGV4dC1zbSBicmVhay13b3JkcyB0ZXh0LXppbmMtNTAwIGRhcms6dGV4dC16aW5jLTQwMFwiPlxuICAgICAgICB7ZXJyb3JNZXNzYWdlKGVycm9yKX1cbiAgICAgIDwvcD5cbiAgICA8L21haW4+XG4gICk7XG59XG4iXX0=

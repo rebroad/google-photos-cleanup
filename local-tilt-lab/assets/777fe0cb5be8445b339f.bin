@@ -1,0 +1,14 @@
+import { ShallowErrorPlugin } from "/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/ShallowErrorPlugin.js?v=2a84352f";
+import { RawStreamSSRPlugin } from "/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStream.js?v=2a84352f";
+import { ReadableStreamPlugin } from "/node_modules/seroval-plugins/dist/dev/web.js?v=2a84352f";
+//#region src/ssr/serializer/seroval-plugins.ts
+const defaultSerovalPlugins = [
+	ShallowErrorPlugin,
+	RawStreamSSRPlugin,
+	ReadableStreamPlugin
+];
+//#endregion
+export { defaultSerovalPlugins };
+
+                                           
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2Vyb3ZhbC1wbHVnaW5zLmpzIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9zc3Ivc2VyaWFsaXplci9zZXJvdmFsLXBsdWdpbnMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgUmVhZGFibGVTdHJlYW1QbHVnaW4gfSBmcm9tICdzZXJvdmFsLXBsdWdpbnMvd2ViJ1xuaW1wb3J0IHsgU2hhbGxvd0Vycm9yUGx1Z2luIH0gZnJvbSAnLi9TaGFsbG93RXJyb3JQbHVnaW4nXG5pbXBvcnQgeyBSYXdTdHJlYW1TU1JQbHVnaW4gfSBmcm9tICcuL1Jhd1N0cmVhbSdcbmltcG9ydCB0eXBlIHsgUmF3U3RyZWFtIH0gZnJvbSAnLi9SYXdTdHJlYW0nXG5pbXBvcnQgdHlwZSB7IFBsdWdpbiB9IGZyb20gJ3Nlcm92YWwnXG5cbmV4cG9ydCBjb25zdCBkZWZhdWx0U2Vyb3ZhbFBsdWdpbnMgPSBbXG4gIFNoYWxsb3dFcnJvclBsdWdpbiBhcyBQbHVnaW48RXJyb3IsIGFueT4sXG4gIC8vIFJhd1N0cmVhbVNTUlBsdWdpbiBtdXN0IGNvbWUgYmVmb3JlIFJlYWRhYmxlU3RyZWFtUGx1Z2luIHRvIG1hdGNoIGZpcnN0XG4gIFJhd1N0cmVhbVNTUlBsdWdpbiBhcyBQbHVnaW48UmF3U3RyZWFtLCBhbnk+LFxuICAvLyBSZWFkYWJsZVN0cmVhbU5vZGUgaXMgbm90IGV4cG9ydGVkIGJ5IHNlcm92YWxcbiAgUmVhZGFibGVTdHJlYW1QbHVnaW4gYXMgUGx1Z2luPFJlYWRhYmxlU3RyZWFtLCBhbnk+LFxuXVxuIl0sIm1hcHBpbmdzIjoiOzs7O0FBTUEsTUFBYSx3QkFBd0I7Q0FDbkM7Q0FFQTtDQUVBO0FBQ0YiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

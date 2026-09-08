@@ -1,0 +1,25 @@
+const React$1 = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport1_react, 1);"use client";
+import { routerContext } from "/node_modules/@tanstack/react-router/dist/esm/routerContext.js?v=2a84352f";
+import __vite__cjsImport1_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+//#region src/useRouter.tsx
+/**
+* Access the current TanStack Router instance from React context.
+* Must be used within a `RouterProvider`.
+*
+* Options:
+* - `warn`: Log a warning if no router context is found (default: true).
+*
+* @returns The registered router instance.
+* @link https://tanstack.com/router/latest/docs/framework/react/api/router/useRouterHook
+*/
+function useRouter(opts) {
+	const value = React$1.useContext(routerContext);
+	if ("development" !== "production") {
+		if ((opts?.warn ?? true) && !value) console.warn("Warning: useRouter must be used inside a <RouterProvider> component!");
+	}
+	return value;
+}
+//#endregion
+export { useRouter };
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFnQkEsU0FBZ0IsVUFBd0QsTUFFNUQ7Q0FDVixNQUFNLFFBQVEsUUFBTSxXQUFXLGFBQWE7Q0FDNUMsc0JBQTZCO09BQ3RCLE1BQU0sUUFBUSxTQUFTLENBQUMsT0FDM0IsUUFBUSxLQUNOLHNFQUNGO0NBQUE7Q0FHSixPQUFPO0FBQ1QiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91c2VSb3V0ZXIudHN4Il0sInNvdXJjZXNDb250ZW50IjpbIid1c2UgY2xpZW50J1xuXG5pbXBvcnQgKiBhcyBSZWFjdCBmcm9tICdyZWFjdCdcbmltcG9ydCB7IHJvdXRlckNvbnRleHQgfSBmcm9tICcuL3JvdXRlckNvbnRleHQnXG5pbXBvcnQgdHlwZSB7IEFueVJvdXRlciwgUmVnaXN0ZXJlZFJvdXRlciB9IGZyb20gJ0B0YW5zdGFjay9yb3V0ZXItY29yZSdcblxuLyoqXG4gKiBBY2Nlc3MgdGhlIGN1cnJlbnQgVGFuU3RhY2sgUm91dGVyIGluc3RhbmNlIGZyb20gUmVhY3QgY29udGV4dC5cbiAqIE11c3QgYmUgdXNlZCB3aXRoaW4gYSBgUm91dGVyUHJvdmlkZXJgLlxuICpcbiAqIE9wdGlvbnM6XG4gKiAtIGB3YXJuYDogTG9nIGEgd2FybmluZyBpZiBubyByb3V0ZXIgY29udGV4dCBpcyBmb3VuZCAoZGVmYXVsdDogdHJ1ZSkuXG4gKlxuICogQHJldHVybnMgVGhlIHJlZ2lzdGVyZWQgcm91dGVyIGluc3RhbmNlLlxuICogQGxpbmsgaHR0cHM6Ly90YW5zdGFjay5jb20vcm91dGVyL2xhdGVzdC9kb2NzL2ZyYW1ld29yay9yZWFjdC9hcGkvcm91dGVyL3VzZVJvdXRlckhvb2tcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHVzZVJvdXRlcjxUUm91dGVyIGV4dGVuZHMgQW55Um91dGVyID0gUmVnaXN0ZXJlZFJvdXRlcj4ob3B0cz86IHtcbiAgd2Fybj86IGJvb2xlYW5cbn0pOiBUUm91dGVyIHtcbiAgY29uc3QgdmFsdWUgPSBSZWFjdC51c2VDb250ZXh0KHJvdXRlckNvbnRleHQpXG4gIGlmIChwcm9jZXNzLmVudi5OT0RFX0VOViAhPT0gJ3Byb2R1Y3Rpb24nKSB7XG4gICAgaWYgKChvcHRzPy53YXJuID8/IHRydWUpICYmICF2YWx1ZSkge1xuICAgICAgY29uc29sZS53YXJuKFxuICAgICAgICAnV2FybmluZzogdXNlUm91dGVyIG11c3QgYmUgdXNlZCBpbnNpZGUgYSA8Um91dGVyUHJvdmlkZXI+IGNvbXBvbmVudCEnLFxuICAgICAgKVxuICAgIH1cbiAgfVxuICByZXR1cm4gdmFsdWUgYXMgYW55XG59XG4iXSwiZmlsZSI6Ii93b3Jrc3BhY2Uvbm9kZV9tb2R1bGVzL0B0YW5zdGFjay9yZWFjdC1yb3V0ZXIvZGlzdC9lc20vdXNlUm91dGVyLmpzIiwieF9nb29nbGVfaWdub3JlTGlzdCI6WzBdfQ==

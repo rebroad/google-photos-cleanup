@@ -1,0 +1,26 @@
+const createElement = __vite__cjsImport3_react["createElement"];const Fragment = __vite__cjsImport4_react_jsxRuntime["Fragment"]; const jsx = __vite__cjsImport4_react_jsxRuntime["jsx"];"use client";
+import { useRouter } from "/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f";
+import { Asset } from "/node_modules/@tanstack/react-router/dist/esm/Asset.js?v=2a84352f";
+import { useTags } from "/node_modules/@tanstack/react-router/dist/esm/headContentUtils.js?v=2a84352f";
+import __vite__cjsImport3_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+import __vite__cjsImport4_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/HeadContent.tsx
+/**
+* Render route-managed head tags (title, meta, links, styles, head scripts).
+* Place inside the document head of your app shell.
+* @link https://tanstack.com/router/latest/docs/framework/react/guide/document-head-management
+*/
+function HeadContent(props) {
+	const tags = useTags(props.assetCrossOrigin);
+	const nonce = useRouter().options.ssr?.nonce;
+	return /* @__PURE__ */ jsx(Fragment, { children: tags.map((tag) => /* @__PURE__ */ createElement(Asset, {
+		...tag,
+		key: `tsr-meta-${JSON.stringify(tag)}`,
+		nonce
+	})) });
+}
+//#endregion
+export { HeadContent };
+
+                                       
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSGVhZENvbnRlbnQuanMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiLi4vLi4vc3JjL0hlYWRDb250ZW50LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIGNsaWVudCdcblxuaW1wb3J0ICogYXMgUmVhY3QgZnJvbSAncmVhY3QnXG5pbXBvcnQgeyBBc3NldCB9IGZyb20gJy4vQXNzZXQnXG5pbXBvcnQgeyB1c2VSb3V0ZXIgfSBmcm9tICcuL3VzZVJvdXRlcidcbmltcG9ydCB7IHVzZVRhZ3MgfSBmcm9tICcuL2hlYWRDb250ZW50VXRpbHMnXG5pbXBvcnQgdHlwZSB7IEFzc2V0Q3Jvc3NPcmlnaW5Db25maWcgfSBmcm9tICdAdGFuc3RhY2svcm91dGVyLWNvcmUnXG5cbmV4cG9ydCBpbnRlcmZhY2UgSGVhZENvbnRlbnRQcm9wcyB7XG4gIGFzc2V0Q3Jvc3NPcmlnaW4/OiBBc3NldENyb3NzT3JpZ2luQ29uZmlnXG59XG5cbi8qKlxuICogUmVuZGVyIHJvdXRlLW1hbmFnZWQgaGVhZCB0YWdzICh0aXRsZSwgbWV0YSwgbGlua3MsIHN0eWxlcywgaGVhZCBzY3JpcHRzKS5cbiAqIFBsYWNlIGluc2lkZSB0aGUgZG9jdW1lbnQgaGVhZCBvZiB5b3VyIGFwcCBzaGVsbC5cbiAqIEBsaW5rIGh0dHBzOi8vdGFuc3RhY2suY29tL3JvdXRlci9sYXRlc3QvZG9jcy9mcmFtZXdvcmsvcmVhY3QvZ3VpZGUvZG9jdW1lbnQtaGVhZC1tYW5hZ2VtZW50XG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBIZWFkQ29udGVudChwcm9wczogSGVhZENvbnRlbnRQcm9wcykge1xuICBjb25zdCB0YWdzID0gdXNlVGFncyhwcm9wcy5hc3NldENyb3NzT3JpZ2luKVxuICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKVxuICBjb25zdCBub25jZSA9IHJvdXRlci5vcHRpb25zLnNzcj8ubm9uY2VcbiAgcmV0dXJuIChcbiAgICA8PlxuICAgICAge3RhZ3MubWFwKCh0YWcpID0+IChcbiAgICAgICAgPEFzc2V0IHsuLi50YWd9IGtleT17YHRzci1tZXRhLSR7SlNPTi5zdHJpbmdpZnkodGFnKX1gfSBub25jZT17bm9uY2V9IC8+XG4gICAgICApKX1cbiAgICA8Lz5cbiAgKVxufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFpQkEsU0FBZ0IsWUFBWSxPQUF5QjtDQUNuRCxNQUFNLE9BQU8sUUFBUSxNQUFNLGdCQUFnQjtDQUUzQyxNQUFNLFFBRFMsVUFDRCxFQUFPLFFBQVEsS0FBSztDQUNsQyxPQUNFLG9CQUFBLFVBQUEsRUFBQSxVQUNHLEtBQUssS0FBSyxRQUNULDhCQUFDLE9BQUQ7RUFBTyxHQUFJO0VBQUssS0FBSyxZQUFZLEtBQUssVUFBVSxHQUFHO0VBQVk7Q0FBUSxDQUFBLENBQ3hFLEVBQ0QsQ0FBQTtBQUVOIiwieF9nb29nbGVfaWdub3JlTGlzdCI6WzBdfQ==

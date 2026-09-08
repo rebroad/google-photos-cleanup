@@ -1,0 +1,20 @@
+const jsx = __vite__cjsImport2_react_jsxRuntime["jsx"];import { useRouter } from "/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f";
+import { isServer } from "/node_modules/@tanstack/router-core/dist/esm/isServer/development.js?v=2a84352f";
+import __vite__cjsImport2_react_jsxRuntime from "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f";
+//#region src/ScriptOnce.tsx
+/**
+* Server-only helper to emit a script tag exactly once during SSR.
+*/
+function ScriptOnce({ children }) {
+	const router = useRouter();
+	if (!(isServer ?? router.isServer)) return null;
+	return /* @__PURE__ */ jsx("script", {
+		nonce: router.options.ssr?.nonce,
+		dangerouslySetInnerHTML: { __html: children + ";document.currentScript.remove()" }
+	});
+}
+//#endregion
+export { ScriptOnce };
+
+                                      
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2NyaXB0T25jZS5qcyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIuLi8uLi9zcmMvU2NyaXB0T25jZS50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgaXNTZXJ2ZXIgfSBmcm9tICdAdGFuc3RhY2svcm91dGVyLWNvcmUvaXNTZXJ2ZXInXG5pbXBvcnQgeyB1c2VSb3V0ZXIgfSBmcm9tICcuL3VzZVJvdXRlcidcblxuLyoqXG4gKiBTZXJ2ZXItb25seSBoZWxwZXIgdG8gZW1pdCBhIHNjcmlwdCB0YWcgZXhhY3RseSBvbmNlIGR1cmluZyBTU1IuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBTY3JpcHRPbmNlKHsgY2hpbGRyZW4gfTogeyBjaGlsZHJlbjogc3RyaW5nIH0pIHtcbiAgY29uc3Qgcm91dGVyID0gdXNlUm91dGVyKClcbiAgaWYgKCEoaXNTZXJ2ZXIgPz8gcm91dGVyLmlzU2VydmVyKSkge1xuICAgIHJldHVybiBudWxsXG4gIH1cblxuICByZXR1cm4gKFxuICAgIDxzY3JpcHRcbiAgICAgIG5vbmNlPXtyb3V0ZXIub3B0aW9ucy5zc3I/Lm5vbmNlfVxuICAgICAgZGFuZ2Vyb3VzbHlTZXRJbm5lckhUTUw9e3tcbiAgICAgICAgX19odG1sOiBjaGlsZHJlbiArICc7ZG9jdW1lbnQuY3VycmVudFNjcmlwdC5yZW1vdmUoKScsXG4gICAgICB9fVxuICAgIC8+XG4gIClcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQU1BLFNBQWdCLFdBQVcsRUFBRSxZQUFrQztDQUM3RCxNQUFNLFNBQVMsVUFBVTtDQUN6QixJQUFJLEVBQUUsWUFBWSxPQUFPLFdBQ3ZCLE9BQU87Q0FHVCxPQUNFLG9CQUFDLFVBQUQ7RUFDRSxPQUFPLE9BQU8sUUFBUSxLQUFLO0VBQzNCLHlCQUF5QixFQUN2QixRQUFRLFdBQVcsbUNBQ3JCO0NBQ0QsQ0FBQTtBQUVMIiwieF9nb29nbGVfaWdub3JlTGlzdCI6WzBdfQ==

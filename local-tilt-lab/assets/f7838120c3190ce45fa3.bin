@@ -1,0 +1,46 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/lib/auth/provider.tsx");const _Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const _jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];var _jsxFileName = "/workspace/src/lib/auth/provider.tsx";
+import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f";
+/**
+* App-wide client provider mounted once near the root (in `src/routes/__root.tsx`):
+*
+*   <AuthProvider><Outlet /></AuthProvider>
+*
+* Better Auth's React client (`@/lib/auth/client`) needs NO context provider —
+* its `useSession()` works standalone — so this is a passthrough today. It's
+* kept as the single, stable mount point for any future client-side providers
+* (e.g. a toast or theme provider) without churning the root shell.
+*/
+export function AuthProvider({ children }) {
+	return /* @__PURE__ */ _jsxDEV(_Fragment, { children }, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 14,
+		columnNumber: 10
+	}, this);
+}
+_c = AuthProvider;
+var _c;
+$RefreshReg$(_c, "AuthProvider");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/lib/auth/provider.tsx";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("/workspace/src/lib/auth/provider.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("/workspace/src/lib/auth/provider.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "/workspace/src/lib/auth/provider.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBWUEsT0FBTyxTQUFTLGFBQWEsRUFBRSxZQUFxQztDQUNsRSxPQUFPLHFDQUFHLFNBQVc7Ozs7O0FBQ3ZCIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbInByb3ZpZGVyLnRzeCJdLCJ2ZXJzaW9uIjozLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgdHlwZSB7IFJlYWN0Tm9kZSB9IGZyb20gXCJyZWFjdFwiO1xuXG4vKipcbiAqIEFwcC13aWRlIGNsaWVudCBwcm92aWRlciBtb3VudGVkIG9uY2UgbmVhciB0aGUgcm9vdCAoaW4gYHNyYy9yb3V0ZXMvX19yb290LnRzeGApOlxuICpcbiAqICAgPEF1dGhQcm92aWRlcj48T3V0bGV0IC8+PC9BdXRoUHJvdmlkZXI+XG4gKlxuICogQmV0dGVyIEF1dGgncyBSZWFjdCBjbGllbnQgKGBAL2xpYi9hdXRoL2NsaWVudGApIG5lZWRzIE5PIGNvbnRleHQgcHJvdmlkZXIg4oCUXG4gKiBpdHMgYHVzZVNlc3Npb24oKWAgd29ya3Mgc3RhbmRhbG9uZSDigJQgc28gdGhpcyBpcyBhIHBhc3N0aHJvdWdoIHRvZGF5LiBJdCdzXG4gKiBrZXB0IGFzIHRoZSBzaW5nbGUsIHN0YWJsZSBtb3VudCBwb2ludCBmb3IgYW55IGZ1dHVyZSBjbGllbnQtc2lkZSBwcm92aWRlcnNcbiAqIChlLmcuIGEgdG9hc3Qgb3IgdGhlbWUgcHJvdmlkZXIpIHdpdGhvdXQgY2h1cm5pbmcgdGhlIHJvb3Qgc2hlbGwuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBBdXRoUHJvdmlkZXIoeyBjaGlsZHJlbiB9OiB7IGNoaWxkcmVuOiBSZWFjdE5vZGUgfSkge1xuICByZXR1cm4gPD57Y2hpbGRyZW59PC8+O1xufVxuIl19

@@ -1,0 +1,9 @@
+const React$1 = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport0_react, 1);"use client";
+import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=2a84352f";
+//#region src/routerContext.tsx
+var routerContext = React$1.createContext(null);
+//#endregion
+export { routerContext };
+
+                                         
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGVyQ29udGV4dC5qcyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIuLi8uLi9zcmMvcm91dGVyQ29udGV4dC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBjbGllbnQnXG5cbmltcG9ydCAqIGFzIFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IHR5cGUgeyBBbnlSb3V0ZXIgfSBmcm9tICdAdGFuc3RhY2svcm91dGVyLWNvcmUnXG5cbmV4cG9ydCBjb25zdCByb3V0ZXJDb250ZXh0ID0gUmVhY3QuY3JlYXRlQ29udGV4dDxBbnlSb3V0ZXI+KG51bGwhKVxuIl0sIm1hcHBpbmdzIjoiOzs7QUFLQSxJQUFhLGdCQUFnQixRQUFNLGNBQXlCLElBQUsiLCJ4X2dvb2dsZV9pZ25vcmVMaXN0IjpbMF19

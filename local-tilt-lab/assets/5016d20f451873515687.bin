@@ -1,0 +1,60 @@
+//#region src/sieve-cache.ts
+/**
+* A fixed-capacity cache using the SIEVE eviction algorithm
+* (https://cachemon.github.io/SIEVE-website/).
+*
+* Entries live in the Map's FIFO insertion order; a hit only flips a `visited`
+* bit instead of relinking the entry, which makes `get` (by far the hottest
+* operation here) one `Map.get` plus a boolean store. Eviction sweeps a `hand`
+* from the oldest entry towards the newest, clearing `visited` bits until it
+* finds an unvisited entry to drop, so entries touched since the last sweep
+* survive one more round. This keeps LRU-like hit ratios while being
+* scan-resistant.
+*/
+function createSieveCache(max) {
+	const cache = /* @__PURE__ */ new Map();
+	let hand;
+	let newest;
+	return {
+		get(key) {
+			const entry = cache.get(key);
+			if (!entry) return;
+			entry.visited = true;
+			return entry.value;
+		},
+		set(key, value) {
+			const existing = cache.get(key);
+			if (existing) {
+				existing.value = value;
+				return;
+			}
+			if (cache.size >= max) {
+				let node = hand?.next().value;
+				while (!node || node.visited) {
+					if (node) node.visited = false;
+					else hand = cache.values();
+					node = hand.next().value;
+				}
+				if (node === newest) hand = void 0;
+				cache.delete(node.key);
+			}
+			const entry = {
+				key,
+				value,
+				visited: false
+			};
+			newest = entry;
+			cache.set(key, entry);
+		},
+		clear() {
+			cache.clear();
+			hand = void 0;
+			newest = void 0;
+		}
+	};
+}
+//#endregion
+export { createSieveCache };
+
+                                       
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2lldmUtY2FjaGUuanMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiLi4vLi4vc3JjL3NpZXZlLWNhY2hlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB0eXBlIFNpZXZlQ2FjaGU8VEtleSwgVFZhbHVlPiA9IHtcbiAgZ2V0OiAoa2V5OiBUS2V5KSA9PiBUVmFsdWUgfCB1bmRlZmluZWRcbiAgc2V0OiAoa2V5OiBUS2V5LCB2YWx1ZTogVFZhbHVlKSA9PiB2b2lkXG4gIGNsZWFyOiAoKSA9PiB2b2lkXG59XG5cbi8qKlxuICogQSBmaXhlZC1jYXBhY2l0eSBjYWNoZSB1c2luZyB0aGUgU0lFVkUgZXZpY3Rpb24gYWxnb3JpdGhtXG4gKiAoaHR0cHM6Ly9jYWNoZW1vbi5naXRodWIuaW8vU0lFVkUtd2Vic2l0ZS8pLlxuICpcbiAqIEVudHJpZXMgbGl2ZSBpbiB0aGUgTWFwJ3MgRklGTyBpbnNlcnRpb24gb3JkZXI7IGEgaGl0IG9ubHkgZmxpcHMgYSBgdmlzaXRlZGBcbiAqIGJpdCBpbnN0ZWFkIG9mIHJlbGlua2luZyB0aGUgZW50cnksIHdoaWNoIG1ha2VzIGBnZXRgIChieSBmYXIgdGhlIGhvdHRlc3RcbiAqIG9wZXJhdGlvbiBoZXJlKSBvbmUgYE1hcC5nZXRgIHBsdXMgYSBib29sZWFuIHN0b3JlLiBFdmljdGlvbiBzd2VlcHMgYSBgaGFuZGBcbiAqIGZyb20gdGhlIG9sZGVzdCBlbnRyeSB0b3dhcmRzIHRoZSBuZXdlc3QsIGNsZWFyaW5nIGB2aXNpdGVkYCBiaXRzIHVudGlsIGl0XG4gKiBmaW5kcyBhbiB1bnZpc2l0ZWQgZW50cnkgdG8gZHJvcCwgc28gZW50cmllcyB0b3VjaGVkIHNpbmNlIHRoZSBsYXN0IHN3ZWVwXG4gKiBzdXJ2aXZlIG9uZSBtb3JlIHJvdW5kLiBUaGlzIGtlZXBzIExSVS1saWtlIGhpdCByYXRpb3Mgd2hpbGUgYmVpbmdcbiAqIHNjYW4tcmVzaXN0YW50LlxuICovXG5leHBvcnQgZnVuY3Rpb24gY3JlYXRlU2lldmVDYWNoZTxUS2V5LCBUVmFsdWU+KFxuICBtYXg6IG51bWJlcixcbik6IFNpZXZlQ2FjaGU8VEtleSwgVFZhbHVlPiB7XG4gIHR5cGUgTm9kZSA9IHtcbiAgICBrZXk6IFRLZXlcbiAgICB2YWx1ZTogVFZhbHVlXG4gICAgdmlzaXRlZDogYm9vbGVhblxuICB9XG4gIGNvbnN0IGNhY2hlID0gbmV3IE1hcDxUS2V5LCBOb2RlPigpXG4gIGxldCBoYW5kOiBJdGVyYWJsZUl0ZXJhdG9yPE5vZGU+IHwgdW5kZWZpbmVkXG4gIGxldCBuZXdlc3Q6IE5vZGUgfCB1bmRlZmluZWRcblxuICByZXR1cm4ge1xuICAgIGdldChrZXkpIHtcbiAgICAgIGNvbnN0IGVudHJ5ID0gY2FjaGUuZ2V0KGtleSlcbiAgICAgIGlmICghZW50cnkpIHtcbiAgICAgICAgcmV0dXJuIHVuZGVmaW5lZFxuICAgICAgfVxuICAgICAgZW50cnkudmlzaXRlZCA9IHRydWVcbiAgICAgIHJldHVybiBlbnRyeS52YWx1ZVxuICAgIH0sXG4gICAgc2V0KGtleSwgdmFsdWUpIHtcbiAgICAgIGNvbnN0IGV4aXN0aW5nID0gY2FjaGUuZ2V0KGtleSlcbiAgICAgIGlmIChleGlzdGluZykge1xuICAgICAgICBleGlzdGluZy52YWx1ZSA9IHZhbHVlXG4gICAgICAgIHJldHVyblxuICAgICAgfVxuICAgICAgaWYgKGNhY2hlLnNpemUgPj0gbWF4KSB7XG4gICAgICAgIC8vIHN3ZWVwIGZyb20gYGhhbmRgIHRvd2FyZHMgYG5ld2VzdGAgKHdyYXBwaW5nIGFyb3VuZCB0byBgb2xkZXN0YCksXG4gICAgICAgIC8vIGNsZWFyaW5nIGB2aXNpdGVkYCBiaXRzLCBhbmQgZXZpY3QgdGhlIGZpcnN0IHVudmlzaXRlZCBlbnRyeVxuICAgICAgICBsZXQgbm9kZSA9IGhhbmQ/Lm5leHQoKS52YWx1ZVxuICAgICAgICB3aGlsZSAoIW5vZGUgfHwgbm9kZS52aXNpdGVkKSB7XG4gICAgICAgICAgaWYgKG5vZGUpIHtcbiAgICAgICAgICAgIG5vZGUudmlzaXRlZCA9IGZhbHNlXG4gICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgIGhhbmQgPSBjYWNoZS52YWx1ZXMoKVxuICAgICAgICAgIH1cbiAgICAgICAgICBub2RlID0gaGFuZCEubmV4dCgpLnZhbHVlXG4gICAgICAgIH1cbiAgICAgICAgLy8gTGl2ZSBNYXAgaXRlcmF0b3JzIHNlZSBsYXRlciBpbnNlcnRpb25zLiBSZXNldCBhdCB0aGUgYm91bmRhcnkgc28gdGhlXG4gICAgICAgIC8vIG5leHQgc3dlZXAgd3JhcHMgdG8gdGhlIG9sZGVzdCBlbnRyeSBpbnN0ZWFkIG9mIHZpc2l0aW5nIGEgcmVwbGFjZW1lbnQuXG4gICAgICAgIGlmIChub2RlID09PSBuZXdlc3QpIHtcbiAgICAgICAgICBoYW5kID0gdW5kZWZpbmVkXG4gICAgICAgIH1cbiAgICAgICAgY2FjaGUuZGVsZXRlKG5vZGUua2V5KVxuICAgICAgfVxuICAgICAgY29uc3QgZW50cnk6IE5vZGUgPSB7IGtleSwgdmFsdWUsIHZpc2l0ZWQ6IGZhbHNlIH1cbiAgICAgIG5ld2VzdCA9IGVudHJ5XG4gICAgICBjYWNoZS5zZXQoa2V5LCBlbnRyeSlcbiAgICB9LFxuICAgIGNsZWFyKCkge1xuICAgICAgY2FjaGUuY2xlYXIoKVxuICAgICAgaGFuZCA9IHVuZGVmaW5lZFxuICAgICAgbmV3ZXN0ID0gdW5kZWZpbmVkXG4gICAgfSxcbiAgfVxufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBa0JBLFNBQWdCLGlCQUNkLEtBQzBCO0NBTTFCLE1BQU0sd0JBQVEsSUFBSSxJQUFnQjtDQUNsQyxJQUFJO0NBQ0osSUFBSTtDQUVKLE9BQU87RUFDTCxJQUFJLEtBQUs7R0FDUCxNQUFNLFFBQVEsTUFBTSxJQUFJLEdBQUc7R0FDM0IsSUFBSSxDQUFDLE9BQ0g7R0FFRixNQUFNLFVBQVU7R0FDaEIsT0FBTyxNQUFNO0VBQ2Y7RUFDQSxJQUFJLEtBQUssT0FBTztHQUNkLE1BQU0sV0FBVyxNQUFNLElBQUksR0FBRztHQUM5QixJQUFJLFVBQVU7SUFDWixTQUFTLFFBQVE7SUFDakI7R0FDRjtHQUNBLElBQUksTUFBTSxRQUFRLEtBQUs7SUFHckIsSUFBSSxPQUFPLE1BQU0sS0FBSyxFQUFFO0lBQ3hCLE9BQU8sQ0FBQyxRQUFRLEtBQUssU0FBUztLQUM1QixJQUFJLE1BQ0YsS0FBSyxVQUFVO1VBRWYsT0FBTyxNQUFNLE9BQU87S0FFdEIsT0FBTyxLQUFNLEtBQUssRUFBRTtJQUN0QjtJQUdBLElBQUksU0FBUyxRQUNYLE9BQU8sS0FBQTtJQUVULE1BQU0sT0FBTyxLQUFLLEdBQUc7R0FDdkI7R0FDQSxNQUFNLFFBQWM7SUFBRTtJQUFLO0lBQU8sU0FBUztHQUFNO0dBQ2pELFNBQVM7R0FDVCxNQUFNLElBQUksS0FBSyxLQUFLO0VBQ3RCO0VBQ0EsUUFBUTtHQUNOLE1BQU0sTUFBTTtHQUNaLE9BQU8sS0FBQTtHQUNQLFNBQVMsS0FBQTtFQUNYO0NBQ0Y7QUFDRiIsInhfZ29vZ2xlX2lnbm9yZUxpc3QiOlswXX0=

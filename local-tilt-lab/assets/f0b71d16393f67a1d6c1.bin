@@ -1,0 +1,7 @@
+import { clsx } from "/node_modules/.vite/deps/clsx.js?v=2a84352f";
+import { twMerge } from "/node_modules/.vite/deps/tailwind-merge.js?v=2a84352f";
+export function cn(...inputs) {
+	return twMerge(clsx(inputs));
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsU0FBUyxZQUE2QjtBQUN0QyxTQUFTLGVBQWU7QUFFeEIsT0FBTyxTQUFTLEdBQUcsR0FBRyxRQUFzQjtDQUMxQyxPQUFPLFFBQVEsS0FBSyxNQUFNLENBQUM7QUFDN0IiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsidXRpbHMudHMiXSwidmVyc2lvbiI6Mywic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgY2xzeCwgdHlwZSBDbGFzc1ZhbHVlIH0gZnJvbSBcImNsc3hcIjtcbmltcG9ydCB7IHR3TWVyZ2UgfSBmcm9tIFwidGFpbHdpbmQtbWVyZ2VcIjtcblxuZXhwb3J0IGZ1bmN0aW9uIGNuKC4uLmlucHV0czogQ2xhc3NWYWx1ZVtdKSB7XG4gIHJldHVybiB0d01lcmdlKGNsc3goaW5wdXRzKSk7XG59XG4iXX0=

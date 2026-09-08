@@ -1,0 +1,12 @@
+//#region src/ssr/json.ts
+/**
+* @deprecated Use [`Response.json`](https://developer.mozilla.org/en-US/docs/Web/API/Response/json_static) from the standard Web API directly.
+*/
+function json(payload, init) {
+	return Response.json(payload, init);
+}
+//#endregion
+export { json };
+
+                                
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoianNvbi5qcyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvc3NyL2pzb24udHMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAZGVwcmVjYXRlZCBVc2UgW2BSZXNwb25zZS5qc29uYF0oaHR0cHM6Ly9kZXZlbG9wZXIubW96aWxsYS5vcmcvZW4tVVMvZG9jcy9XZWIvQVBJL1Jlc3BvbnNlL2pzb25fc3RhdGljKSBmcm9tIHRoZSBzdGFuZGFyZCBXZWIgQVBJIGRpcmVjdGx5LlxuICovXG5leHBvcnQgaW50ZXJmYWNlIEpzb25SZXNwb25zZTxURGF0YT4gZXh0ZW5kcyBSZXNwb25zZSB7XG4gIGpzb246ICgpID0+IFByb21pc2U8VERhdGE+XG59XG5cbi8qKlxuICogQGRlcHJlY2F0ZWQgVXNlIFtgUmVzcG9uc2UuanNvbmBdKGh0dHBzOi8vZGV2ZWxvcGVyLm1vemlsbGEub3JnL2VuLVVTL2RvY3MvV2ViL0FQSS9SZXNwb25zZS9qc29uX3N0YXRpYykgZnJvbSB0aGUgc3RhbmRhcmQgV2ViIEFQSSBkaXJlY3RseS5cbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGpzb248VERhdGE+KFxuICBwYXlsb2FkOiBURGF0YSxcbiAgaW5pdD86IFJlc3BvbnNlSW5pdCxcbik6IEpzb25SZXNwb25zZTxURGF0YT4ge1xuICByZXR1cm4gUmVzcG9uc2UuanNvbihwYXlsb2FkLCBpbml0KVxufVxuIl0sIm1hcHBpbmdzIjoiOzs7O0FBVUEsU0FBZ0IsS0FDZCxTQUNBLE1BQ3FCO0NBQ3JCLE9BQU8sU0FBUyxLQUFLLFNBQVMsSUFBSTtBQUNwQyIsInhfZ29vZ2xlX2lnbm9yZUxpc3QiOlswXX0=

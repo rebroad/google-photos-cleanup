@@ -1,0 +1,1597 @@
+{
+  "/@id/virtual:tanstack-start-dev-client-entry": {
+    "content_type": "text/javascript",
+    "file": "assets/f2c4b15adc755d5faef5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@id/virtual:tanstack-start-dev-client-entry"
+  },
+  "/@react-refresh": {
+    "content_type": "text/javascript",
+    "file": "assets/1b71547e66c93f823015.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@react-refresh"
+  },
+  "/@tanstack-start/styles.css?routes=__root__%2C%2F": {
+    "content_type": "text/css",
+    "file": "assets/8ee61d56372ac9c691f5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@tanstack-start/styles.css?routes=__root__%2C%2F"
+  },
+  "/@vite/client": {
+    "content_type": "text/javascript",
+    "file": "vite-client-stub.js",
+    "source": "local-generated"
+  },
+  "/__grok/icon-180.png": {
+    "content_type": "image/png",
+    "file": "assets/14f24af9c8a6a7e8ff61.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/__grok/icon-180.png"
+  },
+  "/__grok/manifest.webmanifest": {
+    "content_type": "application/manifest+json",
+    "file": "assets/80fe0fc9bdda4e4125c5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/__grok/manifest.webmanifest"
+  },
+  "/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@500;600;700&display=swap": {
+    "content_type": "text/css",
+    "file": "assets/34dd98b258c38129cb29.bin",
+    "source": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@500;600;700&display=swap"
+  },
+  "/favicon.svg": {
+    "content_type": "image/svg+xml",
+    "file": "assets/291768a31402de0b9b03.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/favicon.svg"
+  },
+  "/local-entry.js": {
+    "content_type": "text/javascript",
+    "file": "local-entry.js",
+    "source": "local-generated"
+  },
+  "/node_modules/.vite/deps/@radix-ui_react-slider.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/774383623e41284999bc.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@radix-ui_react-slider.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/@radix-ui_react-slot.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4bcf490580fcb6e7e112.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@radix-ui_react-slot.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/@react-three_drei.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7e270f5c526cf13fbf2b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_drei.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/@react-three_fiber.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5601b29f351b9759774b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_fiber.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/@react-three_rapier.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/430ff3be2155432f18e4.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_rapier.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/084eaaa6a0c547c58e46.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/BufferGeometryUtils-DcPTnqas.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/44fd3dce7c5d3eef3538.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/BufferGeometryUtils-DcPTnqas.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/class-variance-authority.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b0d4cac0cf161eff78e7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/class-variance-authority.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/clsx.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fa4cd735adfaef559d00.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/clsx.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/dist-EKb03w6L.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c0b3722473d8c9b4cbf5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/dist-EKb03w6L.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/lucide-react.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0781c7acbe22ace96d16.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/lucide-react.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/react-dom.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5794a9f7a4ffc846899f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-dom.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/react-dom_client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/faa009abc534c9cabbfa.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-dom_client.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/react-three-fiber.esm-DC0Ci5Uj.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/387d01069f1eb1d84af3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-three-fiber.esm-DC0Ci5Uj.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/react.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/cc750d46659ec8a7a650.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fbd7fb287a0fffa0a40c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c1965f5d40158e9d7438.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/rolldown-runtime-DC62tzP2.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/118a5ed515ffef55169f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/rolldown-runtime-DC62tzP2.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/scheduler-kNtYHXIZ.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/a2f1c3413d9d30ae9333.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/scheduler-kNtYHXIZ.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/tailwind-merge.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/96f3e0d1dd2d615879fd.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/tailwind-merge.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/three.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c7cec87d94b5a622735e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/three.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/three.module-Di9lVnz6.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/277cf1a443892cfe0011.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/three.module-Di9lVnz6.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/vanilla-DCS0UZ51.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/42a27fc8012b877ab17e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/vanilla-DCS0UZ51.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/with-selector-DCNl_Dij.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/16a407999e8465ecc84b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/with-selector-DCNl_Dij.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/zod.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/80fc26471500d2b692dc.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/zod.js?v=2a84352f"
+  },
+  "/node_modules/.vite/deps/zustand.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/aacee702a16e043a6f36.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/zustand.js?v=2a84352f"
+  },
+  "/node_modules/@dimforge/rapier3d-compat/rapier.mjs?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f317107471854a8dc303.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@dimforge/rapier3d-compat/rapier.mjs?v=2a84352f"
+  },
+  "/node_modules/@tanstack/history/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/eb9413584030a2a3006c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/history/dist/esm/index.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/Asset.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/07f0d602fd0891e504b5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Asset.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e82aa510f4538c17014c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/ClientOnly.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3c71e561c330d818f7b2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ClientOnly.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/HeadContent.dev.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/087956b744d866740160.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/HeadContent.dev.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/HeadContent.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ac4a6fcf9d1b742446e4.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/HeadContent.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/Match.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b270ac7229c23e2d1206.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Match.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/d1037599cfde701f5d91.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fde040e6228541274df9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3b07ccf4e95915e293fb.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/ScriptOnce.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/45e56d4a0bd378a9ed03.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ScriptOnce.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/Scripts.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3b0b54a7490935f44c9b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Scripts.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/ScrollRestoration.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/dd3025348f6eb83854e2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ScrollRestoration.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/Transitioner.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/de5fe40f7533ca4ee15c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Transitioner.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4ba26edf7ba4bdf2edd9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/fileRoute.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b5d78f158608f25bd43a.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/fileRoute.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/headContentUtils.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/120690366b9a5180089a.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/headContentUtils.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/da9b8fc9aaccb5b6ccec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3e601386186832c8dae3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/index.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/lazyRouteComponent.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3bc0d224ea117428e6cc.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/lazyRouteComponent.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/link.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7204b5a97113423cd430.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/link.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/matchContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/2216cd9be2dec2c3c4e8.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/matchContext.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/nonRouteComponentContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/6001160e117ec2e71cae.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/nonRouteComponentContext.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/not-found.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ff402974b110a5166ece.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/not-found.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/renderRouteNotFound.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/79081d478bd772e72800.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/renderRouteNotFound.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/route.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/6a902edf975346818559.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/route.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/router.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/43158f225d90b7779e4f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/router.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/routerContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/95f7fe0efe0b847fb771.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/routerContext.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/routerStores.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/9372c6c3dbc6afedd631.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/routerStores.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/scroll-restoration.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c4590439b97e3b3fb726.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/scroll-restoration.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useBlocker.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/50684f69200c7077de02.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useBlocker.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useCanGoBack.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/89ad6d7f3413a8c54f0d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useCanGoBack.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useLoaderData.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ab266cf784fd1575d1a9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLoaderData.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useLoaderDeps.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0166a5514e7e23e7c9f9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLoaderDeps.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useLocation.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/23f4cca154dd0bc6acb3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLocation.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useMatch.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/dcf2d9e382f10974df08.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useMatch.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useNavigate.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/35b90417cfcb105b8164.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useNavigate.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useParams.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0418eac07e6bdd3f77ec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useParams.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useRouteContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/adb9032cbc5f57a6ed3d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouteContext.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7fb2917c1169ad970af2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useRouterState.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5a55e56b6c7037a73173.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouterState.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/useSearch.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/79f010029f24ebb30cf2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useSearch.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-router/dist/esm/utils.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e8f14f989907521a77b0.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/utils.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-start-client/dist/esm/StartClient.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e06bd475d5cf95efcefa.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/StartClient.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-start-client/dist/esm/hydrateStart.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/32c1f09e43ba801a695c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/hydrateStart.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-start-client/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/817982e2686940f924ec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/index.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-start/dist/esm/client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/aecd368aea2372050e47.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/esm/client.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/react-start/dist/plugin/default-entry/client.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/61355f59fdbf88774225.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/plugin/default-entry/client.tsx"
+  },
+  "/node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/d1d3b77c62a101ac55f0.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/Matches.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1a86a3758d3b12efa629.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/Matches.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/await-signal.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b2017c660f7a9ede3ffb.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/await-signal.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/config.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7bcd0ef8552d4377c694.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/config.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/defer.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/049a0c085ab0b4fa39d3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/defer.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3ac5a5474700d16cf2d1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/index.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/invariant.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0fe719f363b621ad7e95.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/invariant.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/isServer/development.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4f753b8b23dcfb97ddb8.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/isServer/development.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/link.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1e619e2c9dccac9def22.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/link.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/load-client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/bfb921cd43d550df88f0.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/load-client.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/load-server.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4a810b564a4ba5d2bc4d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/load-server.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/manifest.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3435ae96c095bd7ae6ba.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/manifest.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/new-process-route-tree.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/08c23d288e43979d71b6.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/new-process-route-tree.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/not-found.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/2ec2459300695137cb60.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/not-found.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/path.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/00b34d743450900c864c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/path.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/qss.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f664a7b894a6c54c314c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/qss.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/redirect.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/43ee809bbbaea246baad.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/redirect.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/rewrite.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/06b314a53d5f974a1a8b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/rewrite.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/root.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/30119af9c49874b1f1c1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/root.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/route.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/2e7c1a41dff25214803b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/route.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/router.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/43e5c9d6a794ac8cbf00.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/router.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/scroll-restoration-script/client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1179f39eafc62b68909c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/scroll-restoration-script/client.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/scroll-restoration.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3b786e81f9514124fa84.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/scroll-restoration.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/searchMiddleware.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1ed8cf0d23e2e4ddfda7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/searchMiddleware.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/searchParams.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/906c2b1b4c297ffab3ec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/searchParams.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/sieve-cache.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5016d20f451873515687.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/sieve-cache.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/959ba111b3400f717ab6.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/client.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/constants.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/a3ad3eeb870494cfbcee.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/constants.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/headers.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/8012e0b2dba357dde472.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/headers.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/json.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7996d61281755e5dc5db.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/json.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStream.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f2582875133715d5e6de.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStream.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/ShallowErrorPlugin.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fa3853b21213f6dc8f99.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/ShallowErrorPlugin.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/777fe0cb5be8445b339f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/transformer.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/85f1faf9a0dd7dacd742.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/transformer.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/ssr/ssr-match-id.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f3f8f377a3673ec90205.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/ssr-match-id.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/stores.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/a4a0b81cbeff5688c280.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/stores.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/router-core/dist/esm/utils.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/29c2b86872507a738833.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/utils.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/createClientRpc.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0ce3716311e5f7fb5bb9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/createClientRpc.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/frame-decoder.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e5cd6d5e4e0132eb9594.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/frame-decoder.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/serverFnFetcher.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/294b80426fa34dea93a3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/serverFnFetcher.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/client/ServerFunctionSerializationAdapter.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/825098e8ff79a44fd232.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/ServerFunctionSerializationAdapter.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/client/hydrateStart.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/9d4de8e6f74a4b2026c6.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/hydrateStart.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/client/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c9267c03526216d64da9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/index.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/constants.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/afc00695053608bb6d18.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/constants.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/empty-plugin-adapters.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/6345d8e7068b140b82c9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/empty-plugin-adapters.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/getDefaultSerovalPlugins.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/8126fd3d0297e3e19945.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/getDefaultSerovalPlugins.js?v=2a84352f"
+  },
+  "/node_modules/@tanstack/start-client-core/dist/esm/getStartOptions.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/afca6b2827a389c21a01.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/getStartOptions.js?v=2a84352f"
+  },
+  "/node_modules/cookie-es/dist/index.mjs?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/cfd6206be973cde5d2e7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/cookie-es/dist/index.mjs?v=2a84352f"
+  },
+  "/node_modules/seroval-plugins/dist/dev/rolldown-runtime-D7D4PA-g.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f0c6b30b407c4f7954bf.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/rolldown-runtime-D7D4PA-g.js?v=2a84352f"
+  },
+  "/node_modules/seroval-plugins/dist/dev/web-C5aekFCA.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ab14badcc38a412d64d1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/web-C5aekFCA.js?v=2a84352f"
+  },
+  "/node_modules/seroval-plugins/dist/dev/web.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7942581fab9b3313aeb3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/web.js?v=2a84352f"
+  },
+  "/node_modules/seroval/dist/dev/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b54677b954feeaf4662c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval/dist/dev/index.js?v=2a84352f"
+  },
+  "/node_modules/vite/dist/client/env.mjs": {
+    "content_type": "text/javascript",
+    "file": "assets/27f6a9e43d9fe81871af.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/vite/dist/client/env.mjs"
+  },
+  "/src/components/playground/Hud.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/e6ff04b448737c1c848e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Hud.tsx"
+  },
+  "/src/components/playground/Playground.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/6601705cf4bb34c74a82.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Playground.tsx"
+  },
+  "/src/components/playground/Scene.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/3ef390537e23c972269c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Scene.tsx"
+  },
+  "/src/components/playground/constants.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/2978005f02a4d8460437.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/constants.ts"
+  },
+  "/src/components/playground/gravity.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/2896e433bfbbdfb1989c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/gravity.ts"
+  },
+  "/src/components/playground/interaction.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/c9b6d0830b9ad37eab74.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/interaction.ts"
+  },
+  "/src/components/playground/store.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/9b02aade175e15ea61e8.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/store.ts"
+  },
+  "/src/components/preview-host-bridge.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/3e01ce2e60ce5699202e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/preview-host-bridge.tsx"
+  },
+  "/src/components/ui/button.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/dcfa8cf9a77b026a4fad.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/ui/button.tsx"
+  },
+  "/src/components/ui/slider.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/61c80c78c628aa165b84.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/ui/slider.tsx"
+  },
+  "/src/lib/app-data/types.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/9882551dbcec8941bb47.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/app-data/types.ts"
+  },
+  "/src/lib/auth/provider.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/f7838120c3190ce45fa3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/auth/provider.tsx"
+  },
+  "/src/lib/error-component.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/5699100e0e9478afa296.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/error-component.tsx"
+  },
+  "/src/lib/preview-embedder-origin.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/027a7562d9fc76d2855e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/preview-embedder-origin.ts"
+  },
+  "/src/lib/preview-host-bridge.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/6a39a7258a02e84533dd.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/preview-host-bridge.ts"
+  },
+  "/src/lib/utils.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/f0b71d16393f67a1d6c1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/utils.ts"
+  },
+  "/src/routeTree.gen.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/80754e766fbe90716229.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routeTree.gen.ts"
+  },
+  "/src/router.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/f10c8deaba2ecc9ea6ad.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/router.tsx"
+  },
+  "/src/routes/__root.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/5eb6faeb9e24e7fa0351.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/__root.tsx"
+  },
+  "/src/routes/index.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/3edafb270de524bcb39d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/index.tsx"
+  },
+  "/src/routes/index.tsx?tsr-split=component": {
+    "content_type": "text/javascript",
+    "file": "assets/a58ca84f1bb6491d7d3b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/index.tsx?tsr-split=component"
+  },
+  "/src/styles.css": {
+    "content_type": "text/css",
+    "file": "assets/a269baec533530197b72.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/styles.css"
+  },
+  "/src/styles.css?url": {
+    "content_type": "text/javascript",
+    "file": "assets/20a8a8e0729dea0704d7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/styles.css?url"
+  },
+  "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@500;600;700&display=swap": {
+    "content_type": "text/css",
+    "file": "assets/34dd98b258c38129cb29.bin",
+    "source": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@500;600;700&display=swap"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@id/virtual:tanstack-start-dev-client-entry": {
+    "content_type": "text/javascript",
+    "file": "assets/f2c4b15adc755d5faef5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@id/virtual:tanstack-start-dev-client-entry"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@react-refresh": {
+    "content_type": "text/javascript",
+    "file": "assets/1b71547e66c93f823015.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@react-refresh"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@tanstack-start/styles.css?routes=__root__%2C%2F": {
+    "content_type": "text/css",
+    "file": "assets/8ee61d56372ac9c691f5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@tanstack-start/styles.css?routes=__root__%2C%2F"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@vite/client": {
+    "content_type": "text/javascript",
+    "file": "assets/3789d30cb6e0f91596e2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/@vite/client"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/__grok/icon-180.png": {
+    "content_type": "image/png",
+    "file": "assets/14f24af9c8a6a7e8ff61.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/__grok/icon-180.png"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/__grok/manifest.webmanifest": {
+    "content_type": "application/manifest+json",
+    "file": "assets/80fe0fc9bdda4e4125c5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/__grok/manifest.webmanifest"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/favicon.svg": {
+    "content_type": "image/svg+xml",
+    "file": "assets/291768a31402de0b9b03.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/favicon.svg"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@radix-ui_react-slider.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/774383623e41284999bc.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@radix-ui_react-slider.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@radix-ui_react-slot.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4bcf490580fcb6e7e112.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@radix-ui_react-slot.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_drei.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7e270f5c526cf13fbf2b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_drei.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_fiber.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5601b29f351b9759774b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_fiber.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_rapier.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/430ff3be2155432f18e4.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@react-three_rapier.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/084eaaa6a0c547c58e46.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/@tanstack_react-router_n_@tanstack_react-store.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/BufferGeometryUtils-DcPTnqas.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/44fd3dce7c5d3eef3538.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/BufferGeometryUtils-DcPTnqas.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/class-variance-authority.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b0d4cac0cf161eff78e7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/class-variance-authority.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/clsx.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fa4cd735adfaef559d00.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/clsx.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/dist-EKb03w6L.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c0b3722473d8c9b4cbf5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/dist-EKb03w6L.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/lucide-react.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0781c7acbe22ace96d16.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/lucide-react.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-dom.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5794a9f7a4ffc846899f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-dom.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-dom_client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/faa009abc534c9cabbfa.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-dom_client.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-three-fiber.esm-DC0Ci5Uj.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/387d01069f1eb1d84af3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react-three-fiber.esm-DC0Ci5Uj.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/cc750d46659ec8a7a650.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fbd7fb287a0fffa0a40c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c1965f5d40158e9d7438.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/react_jsx-runtime.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/rolldown-runtime-DC62tzP2.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/118a5ed515ffef55169f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/rolldown-runtime-DC62tzP2.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/scheduler-kNtYHXIZ.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/a2f1c3413d9d30ae9333.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/scheduler-kNtYHXIZ.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/tailwind-merge.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/96f3e0d1dd2d615879fd.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/tailwind-merge.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/three.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c7cec87d94b5a622735e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/three.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/three.module-Di9lVnz6.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/277cf1a443892cfe0011.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/three.module-Di9lVnz6.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/vanilla-DCS0UZ51.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/42a27fc8012b877ab17e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/vanilla-DCS0UZ51.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/with-selector-DCNl_Dij.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/16a407999e8465ecc84b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/with-selector-DCNl_Dij.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/zod.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/80fc26471500d2b692dc.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/zod.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/zustand.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/aacee702a16e043a6f36.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/.vite/deps/zustand.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@dimforge/rapier3d-compat/rapier.mjs?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f317107471854a8dc303.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@dimforge/rapier3d-compat/rapier.mjs?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/history/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/eb9413584030a2a3006c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/history/dist/esm/index.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Asset.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/07f0d602fd0891e504b5.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Asset.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e82aa510f4538c17014c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ClientOnly.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3c71e561c330d818f7b2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ClientOnly.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/HeadContent.dev.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/087956b744d866740160.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/HeadContent.dev.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/HeadContent.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ac4a6fcf9d1b742446e4.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/HeadContent.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Match.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b270ac7229c23e2d1206.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Match.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/d1037599cfde701f5d91.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Matches.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fde040e6228541274df9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3b07ccf4e95915e293fb.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/SafeFragment.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ScriptOnce.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/45e56d4a0bd378a9ed03.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ScriptOnce.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Scripts.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3b0b54a7490935f44c9b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Scripts.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ScrollRestoration.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/dd3025348f6eb83854e2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/ScrollRestoration.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Transitioner.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/de5fe40f7533ca4ee15c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/Transitioner.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4ba26edf7ba4bdf2edd9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/awaited.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/fileRoute.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b5d78f158608f25bd43a.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/fileRoute.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/headContentUtils.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/120690366b9a5180089a.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/headContentUtils.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/da9b8fc9aaccb5b6ccec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3e601386186832c8dae3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/index.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/lazyRouteComponent.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3bc0d224ea117428e6cc.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/lazyRouteComponent.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/link.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7204b5a97113423cd430.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/link.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/matchContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/2216cd9be2dec2c3c4e8.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/matchContext.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/nonRouteComponentContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/6001160e117ec2e71cae.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/nonRouteComponentContext.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/not-found.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ff402974b110a5166ece.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/not-found.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/renderRouteNotFound.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/79081d478bd772e72800.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/renderRouteNotFound.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/route.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/6a902edf975346818559.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/route.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/router.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/43158f225d90b7779e4f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/router.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/routerContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/95f7fe0efe0b847fb771.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/routerContext.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/routerStores.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/9372c6c3dbc6afedd631.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/routerStores.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/scroll-restoration.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c4590439b97e3b3fb726.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/scroll-restoration.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useBlocker.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/50684f69200c7077de02.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useBlocker.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useCanGoBack.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/89ad6d7f3413a8c54f0d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useCanGoBack.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLoaderData.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ab266cf784fd1575d1a9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLoaderData.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLoaderDeps.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0166a5514e7e23e7c9f9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLoaderDeps.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLocation.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/23f4cca154dd0bc6acb3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useLocation.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useMatch.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/dcf2d9e382f10974df08.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useMatch.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useNavigate.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/35b90417cfcb105b8164.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useNavigate.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useParams.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0418eac07e6bdd3f77ec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useParams.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouteContext.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/adb9032cbc5f57a6ed3d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouteContext.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7fb2917c1169ad970af2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouter.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouterState.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5a55e56b6c7037a73173.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useRouterState.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useSearch.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/79f010029f24ebb30cf2.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/useSearch.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/utils.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e8f14f989907521a77b0.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-router/dist/esm/utils.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/StartClient.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e06bd475d5cf95efcefa.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/StartClient.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/hydrateStart.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/32c1f09e43ba801a695c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/hydrateStart.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/817982e2686940f924ec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start-client/dist/esm/index.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/esm/client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/aecd368aea2372050e47.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/esm/client.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/plugin/default-entry/client.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/61355f59fdbf88774225.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/plugin/default-entry/client.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/d1d3b77c62a101ac55f0.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/Matches.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1a86a3758d3b12efa629.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/Matches.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/await-signal.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b2017c660f7a9ede3ffb.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/await-signal.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/config.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7bcd0ef8552d4377c694.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/config.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/defer.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/049a0c085ab0b4fa39d3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/defer.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3ac5a5474700d16cf2d1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/index.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/invariant.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0fe719f363b621ad7e95.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/invariant.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/isServer/development.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4f753b8b23dcfb97ddb8.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/isServer/development.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/link.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1e619e2c9dccac9def22.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/link.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/load-client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/bfb921cd43d550df88f0.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/load-client.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/load-server.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/4a810b564a4ba5d2bc4d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/load-server.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/manifest.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3435ae96c095bd7ae6ba.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/manifest.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/new-process-route-tree.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/08c23d288e43979d71b6.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/new-process-route-tree.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/not-found.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/2ec2459300695137cb60.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/not-found.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/path.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/00b34d743450900c864c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/path.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/qss.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f664a7b894a6c54c314c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/qss.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/redirect.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/43ee809bbbaea246baad.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/redirect.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/rewrite.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/06b314a53d5f974a1a8b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/rewrite.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/root.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/30119af9c49874b1f1c1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/root.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/route.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/2e7c1a41dff25214803b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/route.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/router.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/43e5c9d6a794ac8cbf00.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/router.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/scroll-restoration-script/client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1179f39eafc62b68909c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/scroll-restoration-script/client.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/scroll-restoration.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/3b786e81f9514124fa84.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/scroll-restoration.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/searchMiddleware.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/1ed8cf0d23e2e4ddfda7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/searchMiddleware.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/searchParams.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/906c2b1b4c297ffab3ec.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/searchParams.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/sieve-cache.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/5016d20f451873515687.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/sieve-cache.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/client.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/959ba111b3400f717ab6.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/client.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/constants.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/a3ad3eeb870494cfbcee.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/constants.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/headers.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/8012e0b2dba357dde472.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/headers.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/json.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7996d61281755e5dc5db.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/json.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStream.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f2582875133715d5e6de.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStream.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/ShallowErrorPlugin.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/fa3853b21213f6dc8f99.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/ShallowErrorPlugin.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/777fe0cb5be8445b339f.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/transformer.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/85f1faf9a0dd7dacd742.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/serializer/transformer.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/ssr-match-id.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f3f8f377a3673ec90205.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/ssr/ssr-match-id.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/stores.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/a4a0b81cbeff5688c280.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/stores.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/utils.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/29c2b86872507a738833.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/router-core/dist/esm/utils.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/createClientRpc.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/0ce3716311e5f7fb5bb9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/createClientRpc.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/frame-decoder.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/e5cd6d5e4e0132eb9594.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/frame-decoder.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/serverFnFetcher.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/294b80426fa34dea93a3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client-rpc/serverFnFetcher.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/ServerFunctionSerializationAdapter.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/825098e8ff79a44fd232.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/ServerFunctionSerializationAdapter.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/hydrateStart.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/9d4de8e6f74a4b2026c6.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/hydrateStart.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/c9267c03526216d64da9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/client/index.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/constants.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/afc00695053608bb6d18.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/constants.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/empty-plugin-adapters.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/6345d8e7068b140b82c9.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/empty-plugin-adapters.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/getDefaultSerovalPlugins.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/8126fd3d0297e3e19945.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/getDefaultSerovalPlugins.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/getStartOptions.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/afca6b2827a389c21a01.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/@tanstack/start-client-core/dist/esm/getStartOptions.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/cookie-es/dist/index.mjs?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/cfd6206be973cde5d2e7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/cookie-es/dist/index.mjs?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/rolldown-runtime-D7D4PA-g.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/f0c6b30b407c4f7954bf.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/rolldown-runtime-D7D4PA-g.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/web-C5aekFCA.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/ab14badcc38a412d64d1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/web-C5aekFCA.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/web.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/7942581fab9b3313aeb3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval-plugins/dist/dev/web.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval/dist/dev/index.js?v=2a84352f": {
+    "content_type": "text/javascript",
+    "file": "assets/b54677b954feeaf4662c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/seroval/dist/dev/index.js?v=2a84352f"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/vite/dist/client/env.mjs": {
+    "content_type": "text/javascript",
+    "file": "assets/27f6a9e43d9fe81871af.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/node_modules/vite/dist/client/env.mjs"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Hud.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/e6ff04b448737c1c848e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Hud.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Playground.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/6601705cf4bb34c74a82.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Playground.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Scene.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/3ef390537e23c972269c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/Scene.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/constants.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/2978005f02a4d8460437.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/constants.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/gravity.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/2896e433bfbbdfb1989c.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/gravity.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/interaction.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/c9b6d0830b9ad37eab74.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/interaction.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/store.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/9b02aade175e15ea61e8.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/playground/store.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/preview-host-bridge.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/3e01ce2e60ce5699202e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/preview-host-bridge.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/ui/button.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/dcfa8cf9a77b026a4fad.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/ui/button.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/ui/slider.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/61c80c78c628aa165b84.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/components/ui/slider.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/app-data/types.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/9882551dbcec8941bb47.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/app-data/types.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/auth/provider.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/f7838120c3190ce45fa3.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/auth/provider.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/error-component.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/5699100e0e9478afa296.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/error-component.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/preview-embedder-origin.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/027a7562d9fc76d2855e.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/preview-embedder-origin.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/preview-host-bridge.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/6a39a7258a02e84533dd.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/preview-host-bridge.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/utils.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/f0b71d16393f67a1d6c1.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/lib/utils.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routeTree.gen.ts": {
+    "content_type": "text/javascript",
+    "file": "assets/80754e766fbe90716229.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routeTree.gen.ts"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/router.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/f10c8deaba2ecc9ea6ad.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/router.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/__root.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/5eb6faeb9e24e7fa0351.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/__root.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/index.tsx": {
+    "content_type": "text/javascript",
+    "file": "assets/3edafb270de524bcb39d.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/index.tsx"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/index.tsx?tsr-split=component": {
+    "content_type": "text/javascript",
+    "file": "assets/a58ca84f1bb6491d7d3b.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/routes/index.tsx?tsr-split=component"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/styles.css": {
+    "content_type": "text/css",
+    "file": "assets/a269baec533530197b72.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/styles.css"
+  },
+  "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/styles.css?url": {
+    "content_type": "text/javascript",
+    "file": "assets/20a8a8e0729dea0704d7.bin",
+    "source": "https://hds-sjzakq7tbq64-6014-20414.grok-code-wild.hades-www.grok-sandbox.com/src/styles.css?url"
+  }
+}
