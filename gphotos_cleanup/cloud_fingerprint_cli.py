@@ -118,8 +118,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", required=True)
     parser.add_argument("--port", type=int, default=9222)
     parser.add_argument("--batch-size", type=int, default=32)
+    parser.add_argument("--allow-large-network", action="store_true", help="allow fingerprint downloads for more than 200 media items")
     args = parser.parse_args(argv)
     try:
+        payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
+        records = payload.get("media_items", []) if isinstance(payload, dict) else payload
+        jobs = [item for item in records if isinstance(item, dict) and item.get("source_url")]
+        if len(jobs) > 200 and not args.allow_large_network:
+            parser.error("fingerprinting more than 200 cloud items downloads substantial data; pass --allow-large-network after checking the connection")
         collect(args.chrome, args.profile_dir, args.session_file, args.input, args.output, args.port, args.batch_size)
     except (CdpError, OSError, RuntimeError, ValueError, KeyError, json.JSONDecodeError) as error:
         print(f"error: {error}", file=sys.stderr)

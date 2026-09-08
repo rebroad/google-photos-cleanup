@@ -92,7 +92,8 @@ Do not treat a run as complete unless the raw JSON contains
 app-created media for new development, and the Picker API lists only media the
 user explicitly selects, so neither is a complete personal-library source.
 The headless rendered timeline is therefore used with an explicit end-of-list
-check.
+check. Cloud perceptual enrichment downloads each selected thumbnail and is
+also explicitly gated with `--allow-large-network`; it is never implicit.
 
 The collector also supports `--serial` for a directly connected signed-in
 Chrome, but the preferred setup is a CDP endpoint forwarded from the virtual
