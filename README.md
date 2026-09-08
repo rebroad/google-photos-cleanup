@@ -15,6 +15,8 @@ credentials are entered interactively; explicitly exported cookies are saved onl
 ```sh
 python -m gphotos_cleanup auth-probe --serial SERIAL
 python -m gphotos_cleanup inventory --serial SERIAL --output inventory.json
+# ADB-free scan of Termux-accessible shared storage:
+python -m gphotos_cleanup inventory --local --hash --fingerprint --output inventory.json
 python -m gphotos_cleanup list-cloud --input photos-raw.json --output google-photos-list.csv
 python -m gphotos_cleanup match --inventory inventory.json --photos photos.json --output matches.json
 python -m gphotos_cleanup report --matches matches.json --csv report.csv \
@@ -25,8 +27,10 @@ python -m gphotos_cleanup report --matches matches.json --csv report.csv \
 Google Photos adapter. A sample schema is shown in `gphotos_cleanup/photos.py`.
 
 The inventory command uses `adb shell find` and `stat`; it does not copy the
-phone's media to Termux. Hashing is opt-in and only hashes files remotely when
-the device provides `sha256sum`.
+phone's media to Termux. On a device where Termux has Android shared-storage
+permission, `inventory --local` scans `$HOME/storage/shared` directly and needs
+no ADB. Hashing and perceptual fingerprints are opt-in; fingerprints cover
+resized/recompressed images and video contact sheets.
 
 The JSON manifest is review-only: every candidate has `action: "review_only"`,
 and `deletion_performed` is always `false`. It also records duplicate groups

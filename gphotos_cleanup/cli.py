@@ -3,12 +3,14 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 from datetime import datetime, timezone
 import sys
 from pathlib import Path
 
 from .adb import Adb
 from .fingerprint import VIDEO_EXTENSIONS, fingerprint_adb, video_fingerprint_adb
+from .local import inventory as local_inventory
 from .photos import duplicate_groups, match, normalize
 
 
@@ -23,6 +25,8 @@ def main(argv: list[str] | None = None) -> int:
     probe.add_argument("--serial")
     inventory = sub.add_parser("inventory", help="inventory media on the phone")
     inventory.add_argument("--serial")
+    inventory.add_argument("--local", action="store_true", help="scan Termux-accessible shared storage without ADB")
+    inventory.add_argument("--local-root", action="append", help="local media root; repeatable (defaults to Termux shared storage)")
     inventory.add_argument("--root", action="append", default=["/sdcard/DCIM", "/sdcard/Pictures", "/sdcard/Movies"])
     inventory.add_argument("--hash", action="store_true")
     inventory.add_argument("--fingerprint", action="store_true", help="compute perceptual image fingerprints over ADB")
@@ -47,6 +51,17 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "auth-probe":
             print(json.dumps(Adb(args.serial).probe(), indent=2, sort_keys=True))
         elif args.command == "inventory":
+            if args.local and args.serial:
+                raise ValueError("--local and --serial are mutually exclusive")
+            if args.local:
+                prefix = os.environ.get("PREFIX", "/data/data/com.termux/files/usr")
+                shared = Path.home() / "storage" / "shared"
+                roots = args.local_root or [
+                    str(shared / "DCIM"), str(shared / "Pictures"), str(shared / "Movies"),
+                ]
+                files = local_inventory(roots, args.hash, args.fingerprint)
+                _write(args.output, {"serial": None, "local": True, "roots": roots, "files": files})
+                return 0
             serial = args.serial
             if args.fingerprint and not serial:
                 devices = [line.split()[0] for line in Adb().run("devices").splitlines() if line.endswith("\tdevice")]
