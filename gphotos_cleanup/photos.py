@@ -43,12 +43,7 @@ def _timestamp(value: object) -> float | None:
 
 
 def duplicate_groups(items: list[dict[str, object]], threshold: int = 24) -> list[dict[str, object]]:
-    """Return same-kind duplicate groups using exact or perceptual evidence.
-
-    Exact SHA-256 matches cover byte-identical media. Perceptual hashes cover
-    resized/recompressed images and video contact sheets; missing fingerprints
-    are deliberately never treated as duplicates.
-    """
+    """Return same-kind duplicate groups using exact or perceptual evidence."""
     eligible = [item for item in items if _media_kind(item) and (item.get("sha256") or item.get("phash"))]
     parent = list(range(len(eligible)))
 
@@ -63,28 +58,62 @@ def duplicate_groups(items: list[dict[str, object]], threshold: int = 24) -> lis
         if left_root != right_root:
             parent[right_root] = left_root
 
-    for left, first in enumerate(eligible):
-        for right in range(left + 1, len(eligible)):
-            second = eligible[right]
-            if _media_kind(first) != _media_kind(second):
+    by_kind: dict[str, list[int]] = {}
+    for index, item in enumerate(eligible):
+        kind = _media_kind(item)
+        if kind:
+            by_kind.setdefault(kind, []).append(index)
+
+    for indices in by_kind.values():
+        by_sha: dict[str, list[int]] = {}
+        for index in indices:
+            sha = str(eligible[index].get("sha256", "")).lower()
+            if sha:
+                by_sha.setdefault(sha, []).append(index)
+        for group in by_sha.values():
+            for index in group[1:]:
+                join(group[0], index)
+
+        phash_items = [index for index in indices if eligible[index].get("phash")]
+        if not phash_items:
+            continue
+        block_count = max(1, threshold + 1)
+        hash_values: dict[int, int] = {}
+        hash_lengths: dict[int, int] = {}
+        for index in phash_items:
+            value = str(eligible[index]["phash"])
+            try:
+                hash_values[index] = int(value, 2)
+                hash_lengths[index] = len(value)
+            except ValueError:
                 continue
-            first_sha = str(first.get("sha256", "")).lower()
-            second_sha = str(second.get("sha256", "")).lower()
-            if first_sha and second_sha and first_sha == second_sha:
-                join(left, right)
+        buckets: dict[tuple[int, str], list[int]] = {}
+        for index in phash_items:
+            if index not in hash_values:
                 continue
-            first_phash, second_phash = first.get("phash"), second.get("phash")
-            if first_phash and second_phash and hamming(str(first_phash), str(second_phash)) <= threshold:
-                join(left, right)
+            value = str(eligible[index]["phash"])
+            value_int = hash_values[index]
+            block_width = max(1, (len(value) + block_count - 1) // block_count)
+            seen: set[int] = set()
+            for block in range(block_count):
+                start = block * block_width
+                if start >= len(value):
+                    break
+                key = (block, value[start:start + block_width])
+                for candidate in buckets.get(key, []):
+                    if candidate not in seen and (value_int ^ hash_values[candidate]).bit_count() + abs(len(value) - hash_lengths[candidate]) <= threshold:
+                        join(index, candidate)
+                    seen.add(candidate)
+                buckets.setdefault(key, []).append(index)
 
     grouped: dict[int, list[dict[str, object]]] = {}
     for index, item in enumerate(eligible):
         grouped.setdefault(root(index), []).append(item)
-    result = []
-    for group_index, group in enumerate(grouped.values(), 1):
-        if len(group) > 1:
-            result.append({"group_id": f"duplicates:{group_index}", "items": group})
-    return result
+    return [
+        {"group_id": f"duplicates:{group_index}", "items": group}
+        for group_index, group in enumerate(grouped.values(), 1)
+        if len(group) > 1
+    ]
 
 
 def match(local: list[dict[str, object]], remote: list[dict[str, object]], tolerance_seconds: int = 172800) -> list[dict[str, object]]:
