@@ -263,7 +263,7 @@ EXTRACT_AND_SCROLL = r"""
   const media = new Map();
   await delay(2000);
   const collect = () => {
-    const nodes = [...document.querySelectorAll("img,video,div.qs41qe,div[class*=\"qs41qe\"]")];
+    const nodes = [...document.querySelectorAll("img,video,div.qs41qe,div[class*=\"qs41qe\"],div[class*=\"RY3tic\"]")];
     for (const node of nodes) {
       const tag = node.tagName.toLowerCase();
       const rect = node.getBoundingClientRect();
@@ -309,9 +309,10 @@ EXTRACT_AND_SCROLL = r"""
     const step = Math.max(1800, scroller.clientHeight * 2.5);
     const next = Math.min(scroller.scrollTop + step, maximum);
     scroller.scrollTop = next;
+    scroller.dispatchEvent(new Event("scroll", {bubbles: true}));
     // Google Photos virtualizes the timeline and needs time to fetch/render
     // the next batch before its tile backgrounds become observable.
-    await delay(500);
+    await delay(1500);
     collect();
     scrollCount = index + 1;
     stagnant = media.size === before ? stagnant + 1 : 0;
