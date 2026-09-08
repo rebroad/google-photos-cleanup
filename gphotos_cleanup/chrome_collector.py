@@ -312,7 +312,7 @@ EXTRACT_AND_SCROLL = r"""
     scroller.dispatchEvent(new Event("scroll", {bubbles: true}));
     // Google Photos virtualizes the timeline and needs time to fetch/render
     // the next batch before its tile backgrounds become observable.
-    await delay(300);
+    await delay(1000);
     collect();
     scrollCount = index + 1;
     stagnant = media.size === before ? stagnant + 1 : 0;
