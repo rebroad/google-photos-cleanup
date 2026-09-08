@@ -14,8 +14,9 @@ from .obscura_cdp_collector import CdpError, _WebSocket, _wait_for_execution_con
 
 def _defaults() -> tuple[str, str]:
     prefix = os.environ.get("PREFIX", "/data/data/com.termux/files/usr")
-    candidates = [os.path.join(prefix, "tmp", "obscura-hpenvy-aarch64"), shutil.which("obscura")]
-    binary = next((path for path in candidates if path and os.access(path, os.X_OK)), candidates[0])
+    candidates = [shutil.which("obscura"), os.path.join(prefix, "bin", "obscura")]
+    candidates = [path for path in candidates if path]
+    binary = next((path for path in candidates if os.access(path, os.X_OK)), "obscura")
     return binary, os.path.join(prefix, "tmp", "obscura-photos-profile")
 
 def _evaluate(ws: _WebSocket, expression: str, session: str) -> object:

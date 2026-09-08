@@ -8,7 +8,7 @@ metadata obtained from Google Photos. The tool never deletes files.
 The ADB inventory, supported Chrome/CDP collection, matching, JSON/CSV
 reporting, and private-session feasibility probe are implemented. Cloud
 collection reads the rendered Google Photos session through Chrome DevTools;
-credentials and cookies are never collected automatically.
+credentials are entered interactively; explicitly exported cookies are saved only to a 0600 file outside this repository.
 
 ## Usage
 
@@ -32,11 +32,7 @@ The JSON manifest is review-only: every candidate has `action: "review_only"`,
 and `deletion_performed` is always `false`. It also records duplicate groups
 found on the device and in Google Photos. The tool has no delete operation.
 
-Authenticate in a Chrome session that is visible only through the approved
-virtual-display workflow, then collect through Chrome DevTools. The physical
-phone screen is not used for collection, scrolling, or media inspection. The
-existing `flip7-virtual-display` helper can provide the Android virtual display
-when Chrome authentication is needed.
+Authenticate in a Chrome session hosted on an Android virtual display, then collect through Chrome DevTools. The physical phone screen is not used for collection, scrolling, or media inspection. The display-only scrcpy server fork is maintained separately; this repository does not vendor scrcpy, its client, SDL, FFmpeg, Gradle, or an Android SDK. Its server artifact must be built on the local ARM64 Termux host and pushed with `adb`; video capture, compression, windowing, and transport are disabled.
 
 First export only the filtered Google authentication cookies through Chrome
 DevTools. The session file is written with mode 0600 outside this repository:
