@@ -33,12 +33,15 @@ def inventory(roots: list[str], hash_files: bool = False, fingerprints: bool = F
                         digest.update(chunk)
                 item["sha256"] = digest.hexdigest()
             if fingerprints:
-                if extension in IMAGE_EXTENSIONS:
-                    item["phash"] = fingerprint_file(path)
-                    item["fingerprint_kind"] = "image"
-                else:
-                    with path.open("rb") as stream:
-                        item["phash"] = video_fingerprint_stream(stream)
-                    item["fingerprint_kind"] = "video-contact-sheet"
+                try:
+                    if extension in IMAGE_EXTENSIONS:
+                        item["phash"] = fingerprint_file(path)
+                        item["fingerprint_kind"] = "image"
+                    else:
+                        with path.open("rb") as stream:
+                            item["phash"] = video_fingerprint_stream(stream)
+                        item["fingerprint_kind"] = "video-contact-sheet"
+                except (OSError, RuntimeError, ValueError):
+                    item["phash_error"] = True
             records.append(item)
     return records
