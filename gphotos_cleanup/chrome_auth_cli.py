@@ -98,6 +98,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--cdp-endpoint", help="Chrome DevTools HTTP endpoint, e.g. http://127.0.0.1:19223")
     parser.add_argument("--output", default=_default_output())
     args = parser.parse_args(argv)
+    if args.serial:
+        parser.error("physical-device Chrome is disabled; use the virtual display --cdp-endpoint")
+    if not args.cdp_endpoint:
+        parser.error("session export requires the virtual display --cdp-endpoint")
     try:
         if args.cdp_endpoint:
             count = export_session_endpoint(args.cdp_endpoint, args.output)

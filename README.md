@@ -95,9 +95,10 @@ The headless rendered timeline is therefore used with an explicit end-of-list
 check. Cloud perceptual enrichment downloads each selected thumbnail and is
 also explicitly gated with `--allow-large-network`; it is never implicit.
 
-The collector also supports `--serial` for a directly connected signed-in
-Chrome, but the preferred setup is a CDP endpoint forwarded from the virtual
-display. Keep the endpoint local and keep all session/profile data outside Git.
+Cloud collection and session export are virtual-display-only: provide the local
+`--cdp-endpoint` (for example `http://127.0.0.1:19223`). Physical-device
+Chrome is rejected so scrolling cannot touch the phone user’s display. Keep
+the endpoint local and keep all session/profile data outside Git.
 
 Then compare and produce the review-only manifest:
 

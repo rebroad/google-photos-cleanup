@@ -19,6 +19,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--allow-large-network", action="store_true", help="explicitly allow scans over 500 scrolls; check the active connection first")
     parser.add_argument("--allow-metered-network", action="store_true", help="explicitly override the cellular/unknown-network safety gate")
     args = parser.parse_args(argv)
+    if args.serial:
+        parser.error("physical-device Chrome is disabled; use the virtual display --cdp-endpoint")
+    if not args.cdp_endpoint:
+        parser.error("cloud collection requires the virtual display --cdp-endpoint")
     if args.max_scrolls > 500 and args.allow_large_network:
         try:
             connection = require_large_network_allowed(args.serial, args.allow_large_network, args.allow_metered_network)
