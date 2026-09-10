@@ -1,0 +1,45 @@
+{
+  "source": "https://lozknowles.com/cheeky-phone.html",
+  "resources": [
+    {
+      "url": "https://lozknowles.com/assets/cheeky-phone.js?v=water1",
+      "path": "assets/cheeky-phone.js",
+      "bytes": 13857
+    },
+    {
+      "url": "https://lozknowles.com/assets/cheeky-lines.js?v=water1",
+      "path": "assets/cheeky-lines.js",
+      "bytes": 1094
+    },
+    {
+      "url": "https://lozknowles.com/assets/cheeky-water.js?v=water1",
+      "path": "assets/cheeky-water.js",
+      "bytes": 13240
+    },
+    {
+      "url": "https://lozknowles.com/assets/cheeky-scene.js?v=water1",
+      "path": "assets/cheeky-scene.js",
+      "bytes": 4666
+    },
+    {
+      "url": "https://lozknowles.com/assets/cheeky-audio.js?v=water1",
+      "path": "assets/cheeky-audio.js",
+      "bytes": 8492
+    },
+    {
+      "url": "https://lozknowles.com/assets/cheeky-clips.js?v=water1",
+      "path": "assets/cheeky-clips.js",
+      "bytes": 478
+    },
+    {
+      "url": "https://lozknowles.com/assets/cheeky-phone.css?v=water1",
+      "path": "assets/cheeky-phone.css",
+      "bytes": 6003
+    }
+  ],
+  "recorded_audio": {
+    "path": "assets/cheeky-george.mp3",
+    "bytes": 533376,
+    "content_type": "audio/mpeg"
+  }
+}
